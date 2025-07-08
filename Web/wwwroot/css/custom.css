@@ -1,0 +1,11 @@
+#MAINMENU1, #MAINMENU1 * {
+    font-size: 12px;
+	background-color: #012636;
+	
+}
+.d2bridgesidemenulogotitle, .d2bridgemainmenutitle{
+   font-size: 22px !important;
+}
+.d2bridgesidemenu-link:hover, .d2bridgemainmenudropdownmenuitem:hover {
+    background-color: #2c2c2c; !important; 
+}
