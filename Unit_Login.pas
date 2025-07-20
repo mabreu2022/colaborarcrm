@@ -3,9 +3,20 @@ unit Unit_Login;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
-  Vcl.Menus, D2Bridge.Forms, Vcl.Imaging.pngimage, Vcl.ExtCtrls; //Declare D2Bridge.Forms always in the last unit
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.StdCtrls,
+  Vcl.Menus,
+  Vcl.Imaging.pngimage,
+  Vcl.ExtCtrls,
+  D2Bridge.Forms; //Declare D2Bridge.Forms always in the last unit
 
 type
   TForm_Login = class(TD2BridgeForm)
@@ -91,7 +102,7 @@ begin
  inherited;
 
  Title:= 'Colaborar sistema de controle de contratos';
- SubTitle:= 'Controle de Contratos';
+ SubTitle:= '';
 
  //Background color
  D2Bridge.HTML.Render.BodyStyle:= 'background-color:  #012636'; //#f0f0f0';

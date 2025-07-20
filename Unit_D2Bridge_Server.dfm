@@ -26,7 +26,7 @@ object Form_D2Bridge_Server: TForm_D2Bridge_Server
   object Label2: TLabel
     Left = 8
     Top = 598
-    Width = 123
+    Width = 124
     Height = 15
     Caption = 'By: Talis Jonatas Gomes'
   end

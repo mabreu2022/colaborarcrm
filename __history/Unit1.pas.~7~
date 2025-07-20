@@ -9,22 +9,25 @@ uses
 
 type
   TForm1 = class(TD2BridgeForm)
-    Label1: TLabel;
-    Label2: TLabel;
-    Label3: TLabel;
     MainMenu1: TMainMenu;
     Module11: TMenuItem;
     AppModule21: TMenuItem;
-    Modules1: TMenuItem;
-    Module12: TMenuItem;
-    Module21: TMenuItem;
-    SubModules1: TMenuItem;
-    SubModule11: TMenuItem;
-    SubModule21: TMenuItem;
-    SubModule31: TMenuItem;
-    CoreModules1: TMenuItem;
-    CoreModule11: TMenuItem;
-    CoreModule21: TMenuItem;
+    Cliente1: TMenuItem;
+    Clientes1: TMenuItem;
+    Ativos1: TMenuItem;
+    elefones1: TMenuItem;
+    Endereos1: TMenuItem;
+    Contratos1: TMenuItem;
+    Clientes2: TMenuItem;
+    odosContratosdoCliente1: TMenuItem;
+    ContratoporID1: TMenuItem;
+    FormasdePagamento1: TMenuItem;
+    Contratos2: TMenuItem;
+    AtivosdoContrato1: TMenuItem;
+    N1: TMenuItem;
+    Contratos3: TMenuItem;
+    Listagemcontratosativos1: TMenuItem;
+    Listagemcontratosinativos1: TMenuItem;
     procedure Module11Click(Sender: TObject);
   private
 
@@ -56,8 +59,11 @@ procedure TForm1.ExportD2Bridge;
 begin
  inherited;
 
- Title:= 'My D2Bridge Web Application';
- SubTitle:= 'My WebApp';
+ Title:= 'Controle de Contratos';
+ SubTitle:= 'Controle de Contratos';
+
+ D2Bridge.HTML.StyleSheets.Add('<link rel="stylesheet" type="text/css" href="css/custom.css">');
+
 
  //TemplateClassForm:= TD2BridgeFormTemplate;
  D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= '';
@@ -67,9 +73,9 @@ begin
  with D2Bridge.Items.add do
  begin
   SideMenu(MainMenu1);
-  VCLObj(Label1);
-  VCLObj(Label2);
-  VCLObj(Label3);
+//  VCLObj(Label1);
+//  VCLObj(Label2);
+//  VCLObj(Label3);
  end;
 end;
 

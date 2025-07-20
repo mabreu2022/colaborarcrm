@@ -1,0 +1,134 @@
+object DM: TDM
+  Height = 480
+  Width = 640
+  object Conn: TFDConnection
+    Params.Strings = (
+      'Database=C:\FONTES\Colaborar\DataBase\BANCOCOLABORAR.FDB'
+      'User_Name=SYSDBA'
+      'Password=masterkey'
+      'Protocol=TCPIP'
+      'Server=127.0.0.1'
+      'Port=3050'
+      'DriverID=FB')
+    Connected = True
+    LoginPrompt = False
+    Left = 40
+    Top = 24
+  end
+  object FDPhysFBDriverLink1: TFDPhysFBDriverLink
+    VendorLib = 'C:\Program Files (x86)\Firebird\Firebird_5_0\fbclient.dll'
+    Left = 128
+    Top = 24
+  end
+  object qryCliente: TFDQuery
+    Active = True
+    Connection = Conn
+    SQL.Strings = (
+      'select * from clientes')
+    Left = 40
+    Top = 96
+    object qryClienteID_CLIENTE: TIntegerField
+      FieldName = 'ID_CLIENTE'
+      Origin = 'ID_CLIENTE'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryClienteTIPO_PESSOA: TWideStringField
+      FieldName = 'TIPO_PESSOA'
+      Origin = 'TIPO_PESSOA'
+      FixedChar = True
+      Size = 1
+    end
+    object qryClienteNOME_RAZAO: TWideStringField
+      FieldName = 'NOME_RAZAO'
+      Origin = 'NOME_RAZAO'
+      Required = True
+      Size = 100
+    end
+    object qryClienteNOME_FANTASIA: TWideStringField
+      FieldName = 'NOME_FANTASIA'
+      Origin = 'NOME_FANTASIA'
+      Size = 100
+    end
+    object qryClienteCPF_CNPJ: TWideStringField
+      FieldName = 'CPF_CNPJ'
+      Origin = 'CPF_CNPJ'
+      Required = True
+    end
+    object qryClienteIE: TWideStringField
+      FieldName = 'IE'
+      Origin = 'IE'
+    end
+    object qryClienteRG: TWideStringField
+      FieldName = 'RG'
+      Origin = 'RG'
+    end
+    object qryClienteDATA_NASCIMENTO: TDateField
+      FieldName = 'DATA_NASCIMENTO'
+      Origin = 'DATA_NASCIMENTO'
+    end
+    object qryClienteTELEFONE: TWideStringField
+      FieldName = 'TELEFONE'
+      Origin = 'TELEFONE'
+    end
+    object qryClienteEMAIL: TWideStringField
+      FieldName = 'EMAIL'
+      Origin = 'EMAIL'
+      Size = 100
+    end
+    object qryClienteENDERECO: TWideStringField
+      FieldName = 'ENDERECO'
+      Origin = 'ENDERECO'
+      Size = 100
+    end
+    object qryClienteNUMERO: TWideStringField
+      FieldName = 'NUMERO'
+      Origin = 'NUMERO'
+      Size = 10
+    end
+    object qryClienteCOMPLEMENTO: TWideStringField
+      FieldName = 'COMPLEMENTO'
+      Origin = 'COMPLEMENTO'
+      Size = 50
+    end
+    object qryClienteBAIRRO: TWideStringField
+      FieldName = 'BAIRRO'
+      Origin = 'BAIRRO'
+      Size = 60
+    end
+    object qryClienteCEP: TWideStringField
+      FieldName = 'CEP'
+      Origin = 'CEP'
+      Size = 10
+    end
+    object qryClienteMUNICIPIO: TWideStringField
+      FieldName = 'MUNICIPIO'
+      Origin = 'MUNICIPIO'
+      Size = 60
+    end
+    object qryClienteUF: TWideStringField
+      FieldName = 'UF'
+      Origin = 'UF'
+      FixedChar = True
+      Size = 2
+    end
+    object qryClienteCODIGO_MUNICIPIO: TIntegerField
+      FieldName = 'CODIGO_MUNICIPIO'
+      Origin = 'CODIGO_MUNICIPIO'
+    end
+    object qryClientePAIS: TWideStringField
+      FieldName = 'PAIS'
+      Origin = 'PAIS'
+      Size = 60
+    end
+    object qryClienteCODIGO_PAIS: TIntegerField
+      FieldName = 'CODIGO_PAIS'
+      Origin = 'CODIGO_PAIS'
+    end
+  end
+  object DSCliente: TDataSource
+    DataSet = qryCliente
+    Left = 128
+    Top = 96
+  end
+end

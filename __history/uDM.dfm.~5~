@@ -1,0 +1,35 @@
+object DM: TDM
+  Height = 480
+  Width = 640
+  object Conn: TFDConnection
+    Params.Strings = (
+      'Database=C:\FONTES\Colaborar\DataBase\BANCOCOLABORAR.FDB'
+      'User_Name=SYSDBA'
+      'Password=masterkey'
+      'Protocol=TCPIP'
+      'Server=127.0.0.1'
+      'Port=3050'
+      'DriverID=FB')
+    Connected = True
+    LoginPrompt = False
+    Left = 40
+    Top = 24
+  end
+  object FDPhysFBDriverLink1: TFDPhysFBDriverLink
+    VendorLib = 'C:\Program Files (x86)\Firebird\Firebird_5_0\fbclient.dll'
+    Left = 128
+    Top = 24
+  end
+  object qryCliente: TFDQuery
+    Connection = Conn
+    SQL.Strings = (
+      'select * from clientes')
+    Left = 40
+    Top = 96
+  end
+  object DSCliente: TDataSource
+    DataSet = qryCliente
+    Left = 128
+    Top = 96
+  end
+end

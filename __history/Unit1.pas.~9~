@@ -22,7 +22,13 @@ type
     odosContratosdoCliente1: TMenuItem;
     ContratoporID1: TMenuItem;
     FormasdePagamento1: TMenuItem;
-    FormasdePagamento2: TMenuItem;
+    Contratos2: TMenuItem;
+    AtivosdoContrato1: TMenuItem;
+    N1: TMenuItem;
+    Contratos3: TMenuItem;
+    Listagemcontratosativos1: TMenuItem;
+    Listagemcontratosinativos1: TMenuItem;
+    Contatos1: TMenuItem;
     procedure Module11Click(Sender: TObject);
   private
 
@@ -54,12 +60,16 @@ procedure TForm1.ExportD2Bridge;
 begin
  inherited;
 
- Title:= 'My D2Bridge Web Application';
- SubTitle:= 'My WebApp';
+ Title:= 'Controle de Contratos';
+ SubTitle:= 'Controle de Contratos';
+
+ D2Bridge.HTML.StyleSheets.Add('<link rel="stylesheet" type="text/css" href="css/custom.css">');
+
 
  //TemplateClassForm:= TD2BridgeFormTemplate;
  D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= '';
  D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
+
 
  //Export yours Controls
  with D2Bridge.Items.add do

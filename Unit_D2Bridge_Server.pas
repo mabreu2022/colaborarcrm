@@ -1,4 +1,4 @@
-{
+﻿{
  +--------------------------------------------------------------------------+
   D2Bridge Framework Content
 
@@ -30,11 +30,25 @@ unit Unit_D2Bridge_Server;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
+  Vcl.Graphics,
   MidasLib,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Imaging.jpeg, Vcl.ExtCtrls,
-  Vcl.StdCtrls, Vcl.Imaging.pngimage, Data.DB, Vcl.Grids, Vcl.DBGrids,
-  ContratosWebApp, Vcl.Menus;
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.Imaging.jpeg,
+  Vcl.ExtCtrls,
+  Vcl.StdCtrls,
+  Vcl.Imaging.pngimage,
+  Data.DB,
+  Vcl.Grids,
+  Vcl.DBGrids,
+  ContratosWebApp,
+  Vcl.Menus;
 
 type
   TForm_D2Bridge_Server = class(TForm)

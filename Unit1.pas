@@ -28,7 +28,9 @@ type
     Contratos3: TMenuItem;
     Listagemcontratosativos1: TMenuItem;
     Listagemcontratosinativos1: TMenuItem;
+    Contatos1: TMenuItem;
     procedure Module11Click(Sender: TObject);
+    procedure Clientes1Click(Sender: TObject);
   private
 
   public
@@ -44,7 +46,7 @@ Function Form1: TForm1;
 implementation
 
 Uses
-   ContratosWebApp;
+   ContratosWebApp, uView.Clientes;
 
 Function Form1: TForm1;
 begin
@@ -55,12 +57,20 @@ end;
 
 { TForm1 }
 
+procedure TForm1.Clientes1Click(Sender: TObject);
+begin
+  if FrmClientes = nil then
+     TFrmClientes.CreateInstance;
+
+  FrmClientes.ShowModal;
+end;
+
 procedure TForm1.ExportD2Bridge;
 begin
  inherited;
 
- Title:= 'Controle de Contratos';
- SubTitle:= 'Controle de Contratos';
+// Title:= 'Controle de Contratos';
+// SubTitle:= 'Controle de Contratos';
 
  D2Bridge.HTML.StyleSheets.Add('<link rel="stylesheet" type="text/css" href="css/custom.css">');
 
@@ -69,13 +79,11 @@ begin
  D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= '';
  D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
 
+
  //Export yours Controls
  with D2Bridge.Items.add do
  begin
   SideMenu(MainMenu1);
-//  VCLObj(Label1);
-//  VCLObj(Label2);
-//  VCLObj(Label3);
  end;
 end;
 

@@ -1,0 +1,54 @@
+unit uDM;
+
+{ Copyright 2025 / 2026 D2Bridge Framework by Talis Jonatas Gomes }
+
+interface
+
+uses
+  System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.FB,
+  FireDAC.Phys.FBDef, FireDAC.VCLUI.Wait, FireDAC.Phys.IBBase, Data.DB,
+  FireDAC.Comp.Client, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
+  FireDAC.DApt, FireDAC.Comp.DataSet;
+
+type
+  TDM = class(TDataModule)
+    Conn: TFDConnection;
+    FDPhysFBDriverLink1: TFDPhysFBDriverLink;
+    qryCliente: TFDQuery;
+    DSCliente: TDataSource;
+  private
+    { Private declarations }
+  public
+    class procedure CreateInstance;
+    procedure DestroyInstance;
+  end;
+
+function DM:TDM;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+Uses
+  D2Bridge.Instance, ContratosWebApp;
+
+{$R *.dfm}
+
+class procedure TDM.CreateInstance;
+begin
+ D2BridgeInstance.CreateInstance(self);
+end;
+
+function DM:TDM;
+begin
+ result:= TDM(D2BridgeInstance.GetInstance(TDM));
+end;
+
+procedure TDM.DestroyInstance;
+begin
+ D2BridgeInstance.DestroyInstance(self);
+end;
+
+end.

@@ -20,7 +20,7 @@ implementation
 
 Uses
   D2Bridge.Instance,
-  ContratosWebApp;
+  ContratosWebApp, uDM;
 
 {$IFNDEF FPC}
 {$R *.dfm}
@@ -32,7 +32,8 @@ constructor TContratosSession.Create(APrismSession: TPrismSession); //OnNewSessi
 begin
  inherited;
 
- //Your code
+ if DM = nil then
+   TDM.CreateInstance;
 
 end;
 

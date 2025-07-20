@@ -43,7 +43,8 @@ body.d2bridgebody {
 
 @media screen and (min-width:992px) {
     .col.col-xs-auto:not(.d2bridgecolinline) {
-        min-width: 212.19px;
+        flex: 1 1 212.19px; 
+        min-width: 0; 
     }
 }
 @media screen and (min-width:680px) and (max-width:991px) {
@@ -58,7 +59,8 @@ body.d2bridgebody {
 }
 @media screen and (max-width:420px) {
     .col.col-xs-auto:not(.d2bridgecolinline) {
-        min-width: 80px;
+        flex: 1 1 80px; 
+        min-width: 0;         
     }
 }
 
@@ -1262,9 +1264,14 @@ div.col-full >* {
 .disabled,
 .readonly {
     pointer-events: none;
-    background-color: #e9ecef;
     opacity: 1;
     cursor: default;
+}
+
+[disabled]:not(span),
+.disabled:not(span),
+.readonly:not(span) {
+    background-color: #e9ecef;
 }
 
 

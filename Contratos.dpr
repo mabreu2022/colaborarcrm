@@ -14,10 +14,11 @@ uses
   Contratos_Session in 'Contratos_Session.pas' {ContratosSession},
   D2BridgeFormTemplate in 'D2BridgeFormTemplate.pas',
   Unit_Login in 'Unit_Login.pas' {Form_Login},
-Unit_D2Bridge_Server in 'Unit_D2Bridge_Server.pas' {Form_D2Bridge_Server},
-
-  
-  Unit1 in 'Unit1.pas' {Form1};
+  Unit_D2Bridge_Server in 'Unit_D2Bridge_Server.pas' {Form_D2Bridge_Server},
+  Unit1 in 'Unit1.pas' {Form1},
+  uView.Clientes in 'uView.Clientes.pas' {FrmClientes},
+  uDM in 'uDM.pas' {DM: TDataModule},
+  uView.ClienteCad in 'uView.ClienteCad.pas' {Form2};
 
 {$R *.res}
 
