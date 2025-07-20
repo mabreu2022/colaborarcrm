@@ -16,7 +16,12 @@ uses
   Vcl.Dialogs,
   Vcl.StdCtrls,
   Unit1,
-  D2Bridge.Forms, Vcl.ComCtrls, Data.DB, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids;
+  D2Bridge.Forms,
+  Vcl.ComCtrls,
+  Data.DB,
+  Vcl.ExtCtrls,
+  Vcl.Grids,
+  Vcl.DBGrids;
 
 type
   TFrmClientes = class(TForm1)
@@ -103,19 +108,19 @@ end;
 procedure TFrmClientes.btnEditarClick(Sender: TObject);
 begin
   inherited;
-//
+  //
 end;
 
 procedure TFrmClientes.btnExcluirClick(Sender: TObject);
 begin
   inherited;
-//
+  //
 end;
 
 procedure TFrmClientes.btnInserirClick(Sender: TObject);
 begin
   inherited;
-//
+  //
 end;
 
 procedure TFrmClientes.btnPesquisarClick(Sender: TObject);
@@ -207,9 +212,12 @@ begin
           begin
             with Col.Items.add do
             begin
-              FormGroup('  ').AddVCLObj(btnInserir);
-              FormGroup('  ').AddVCLObj(btnEditar);
-              FormGroup('  ').AddVCLObj(btnExcluir);
+              FormGroup('  ').AddVCLObj(btnInserir,
+                'btn btn-success bi bi-send');
+              FormGroup('  ').AddVCLObj(btnEditar,
+                'btn btn-primary bi bi-send');
+              FormGroup('  ').AddVCLObj(btnExcluir,
+                'btn btn-danger bi bi-sender');
             end;
           end;
 
