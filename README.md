@@ -1,6 +1,6 @@
-# 📇 Sistema de Gestão de Clientes e Contatos
+# 📇 Sistema de Gestão de Contratos de Locação de Equipamentos
 
-Este projeto é uma aplicação desenvolvida em **Delphi**, utilizando a biblioteca **D2Bridge Framework**, voltada para o gerenciamento de clientes e seus respectivos contatos. O sistema permite cadastrar, editar, inativar e consultar dados com foco em organização, performance e interface profissional.
+Este projeto é uma aplicação desenvolvida em **Delphi**, utilizando a biblioteca **D2Bridge Framework**, voltada para o gerenciamento de **contratos de locação de equipamentos**. O sistema permite controlar os clientes, seus contratos, os ativos locados e o status de cada operação, com foco em organização, performance e interface profissional.
 
 ---
 
@@ -25,6 +25,19 @@ Este projeto é uma aplicação desenvolvida em **Delphi**, utilizando a bibliot
 - Busca inteligente e case-insensitive por nome/razão social
 - Consulta por grid com ordenação por `NOME_RAZAO`
 - Sincronização da interface com o banco via `DataModule`
+
+### 📃 Contratos
+
+- Registro de contratos vinculados aos clientes
+- Definição dos ativos locados e datas de vigência
+- Consulta por status do contrato (ativo, encerrado, em andamento)
+- Possibilidade de filtrar por cliente ou situação
+
+### 🔩 Ativos
+
+- Cadastro de equipamentos e itens disponíveis para locação
+- Controle do vínculo entre ativos e contratos
+- Consulta detalhada sobre status e utilização dos ativos
 
 ### 📞 Contatos
 
