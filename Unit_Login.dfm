@@ -36,7 +36,7 @@ object Form_Login: TForm_Login
     object Image_Logo: TImage
       Left = 18
       Top = 13
-      Width = 191
+      Width = 196
       Height = 73
       Picture.Data = {
         0954506E67496D61676589504E470D0A1A0A0000000D49484452000000AF0000

@@ -3,7 +3,7 @@ object FrmClientes: TFrmClientes
   Top = 0
   Caption = 'FrmClientes'
   ClientHeight = 563
-  ClientWidth = 878
+  ClientWidth = 958
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,12 +15,12 @@ object FrmClientes: TFrmClientes
   object PageControl1: TPageControl
     Left = 0
     Top = 0
-    Width = 878
+    Width = 958
     Height = 563
-    ActivePage = Cadastro
+    ActivePage = TabSheet1
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 915
+    ExplicitWidth = 878
     object Cadastro: TTabSheet
       Caption = 'Cadastro'
       object lblRazao: TLabel
@@ -99,62 +99,6 @@ object FrmClientes: TFrmClientes
         Width = 14
         Height = 15
         Caption = 'UF'
-      end
-      object Label10: TLabel
-        Left = 3
-        Top = 288
-        Width = 40
-        Height = 15
-        Caption = 'Label10'
-      end
-      object Label11: TLabel
-        Left = 3
-        Top = 309
-        Width = 40
-        Height = 15
-        Caption = 'Label11'
-      end
-      object Label12: TLabel
-        Left = 3
-        Top = 330
-        Width = 40
-        Height = 15
-        Caption = 'Label12'
-      end
-      object Label13: TLabel
-        Left = 3
-        Top = 351
-        Width = 40
-        Height = 15
-        Caption = 'Label13'
-      end
-      object Label14: TLabel
-        Left = 3
-        Top = 372
-        Width = 40
-        Height = 15
-        Caption = 'Label14'
-      end
-      object Label15: TLabel
-        Left = 3
-        Top = 393
-        Width = 40
-        Height = 15
-        Caption = 'Label15'
-      end
-      object Label16: TLabel
-        Left = 3
-        Top = 414
-        Width = 40
-        Height = 15
-        Caption = 'Label16'
-      end
-      object Label17: TLabel
-        Left = 3
-        Top = 435
-        Width = 40
-        Height = 15
-        Caption = 'Label17'
       end
       object lblEmail: TLabel
         Left = 219
@@ -276,7 +220,7 @@ object FrmClientes: TFrmClientes
       object cmbUF: TComboBox
         Left = 84
         Top = 208
-        Width = 97
+        Width = 353
         Height = 23
         ItemIndex = 23
         TabOrder = 13
@@ -313,13 +257,11 @@ object FrmClientes: TFrmClientes
       object Panel3: TPanel
         Left = 0
         Top = 492
-        Width = 870
+        Width = 950
         Height = 41
         Align = alBottom
         TabOrder = 14
-        ExplicitLeft = 200
-        ExplicitTop = 496
-        ExplicitWidth = 185
+        ExplicitWidth = 870
         object btnInserir: TButton
           Left = 3
           Top = 8
@@ -355,7 +297,7 @@ object FrmClientes: TFrmClientes
       object DBGrid1: TDBGrid
         Left = 0
         Top = 41
-        Width = 870
+        Width = 950
         Height = 451
         Align = alClient
         DataSource = DM.DSCliente
@@ -366,6 +308,7 @@ object FrmClientes: TFrmClientes
         TitleFont.Height = -12
         TitleFont.Name = 'Segoe UI'
         TitleFont.Style = []
+        OnCellClick = DBGrid1CellClick
         Columns = <
           item
             Expanded = False
@@ -381,7 +324,7 @@ object FrmClientes: TFrmClientes
           item
             Expanded = False
             FieldName = 'NOME_RAZAO'
-            Width = 180
+            Width = 373
             Visible = True
           end
           item
@@ -395,104 +338,16 @@ object FrmClientes: TFrmClientes
             FieldName = 'CPF_CNPJ'
             Width = 147
             Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'IE'
-            Width = 64
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'RG'
-            Width = 64
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'DATA_NASCIMENTO'
-            Width = 117
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'TELEFONE'
-            Width = 64
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'EMAIL'
-            Width = 64
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'ENDERECO'
-            Width = 64
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'NUMERO'
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'COMPLEMENTO'
-            Width = 64
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'BAIRRO'
-            Width = 64
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'CEP'
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'MUNICIPIO'
-            Width = 64
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'UF'
-            Width = 64
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'CODIGO_MUNICIPIO'
-            Width = 64
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'PAIS'
-            Width = 64
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'CODIGO_PAIS'
-            Width = 64
-            Visible = True
           end>
       end
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 870
+        Width = 950
         Height = 41
         Align = alTop
         TabOrder = 1
-        ExplicitWidth = 907
+        ExplicitWidth = 870
         object lblLocalizar: TLabel
           Left = 8
           Top = 11
@@ -520,11 +375,144 @@ object FrmClientes: TFrmClientes
       object Panel2: TPanel
         Left = 0
         Top = 492
-        Width = 870
+        Width = 950
         Height = 41
         Align = alBottom
         TabOrder = 2
-        ExplicitWidth = 907
+        ExplicitWidth = 870
+      end
+    end
+    object TabSheet1: TTabSheet
+      Caption = 'Contatos'
+      ImageIndex = 2
+      object Panel4: TPanel
+        Left = 0
+        Top = 0
+        Width = 950
+        Height = 41
+        Align = alTop
+        TabOrder = 0
+        ExplicitWidth = 870
+        object lblLocalizar2: TLabel
+          Left = 13
+          Top = 13
+          Width = 96
+          Height = 15
+          Caption = 'Nome do Contato'
+        end
+        object lblNomeCliente: TLabel
+          Left = 373
+          Top = 13
+          Width = 90
+          Height = 15
+          Caption = 'Nome do Cliente'
+        end
+        object EdtPesquisar2: TEdit
+          Left = 116
+          Top = 10
+          Width = 239
+          Height = 23
+          TabOrder = 0
+        end
+        object btnPesquisar2: TButton
+          Left = 755
+          Top = 9
+          Width = 75
+          Height = 25
+          Caption = 'Pesquisar'
+          TabOrder = 1
+          OnClick = btnPesquisar2Click
+        end
+        object CBNomecliente: TDBLookupComboBox
+          Left = 469
+          Top = 10
+          Width = 276
+          Height = 23
+          KeyField = 'ID_CLIENTE'
+          ListField = 'NOME_RAZAO'
+          ListSource = DM.DSCliente
+          TabOrder = 2
+        end
+        object btnListaTodos: TBitBtn
+          Left = 848
+          Top = 8
+          Width = 89
+          Height = 25
+          Caption = 'Listar Todos'
+          TabOrder = 3
+          OnClick = btnListaTodosClick
+        end
+      end
+      object DBGrid2: TDBGrid
+        Left = 0
+        Top = 41
+        Width = 950
+        Height = 451
+        Align = alClient
+        DataSource = DM.DScontatos
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        TabOrder = 1
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -12
+        TitleFont.Name = 'Segoe UI'
+        TitleFont.Style = []
+        OnDblClick = DBGrid2DblClick
+        OnExit = DBGrid2Exit
+      end
+      object Panel5: TPanel
+        Left = 0
+        Top = 492
+        Width = 950
+        Height = 41
+        Align = alBottom
+        TabOrder = 2
+        ExplicitWidth = 870
+        object btnNovoContato: TBitBtn
+          Left = 31
+          Top = 6
+          Width = 75
+          Height = 25
+          Caption = 'Novo'
+          TabOrder = 0
+          OnClick = btnNovoContatoClick
+        end
+        object btnEditarContato: TBitBtn
+          Left = 112
+          Top = 6
+          Width = 75
+          Height = 25
+          Caption = 'Editar'
+          TabOrder = 1
+          OnClick = btnEditarContatoClick
+        end
+        object btnExcluirContato: TBitBtn
+          Left = 194
+          Top = 6
+          Width = 75
+          Height = 25
+          Caption = 'Excluir'
+          TabOrder = 2
+          OnClick = btnExcluirContatoClick
+        end
+        object btnSalvar: TBitBtn
+          Left = 275
+          Top = 6
+          Width = 75
+          Height = 25
+          Caption = 'Salvar'
+          TabOrder = 3
+          OnClick = btnSalvarClick
+        end
+        object btnCancelar: TBitBtn
+          Left = 355
+          Top = 6
+          Width = 75
+          Height = 25
+          Caption = 'Cancelar'
+          TabOrder = 4
+          OnClick = btnCancelarClick
+        end
       end
     end
   end

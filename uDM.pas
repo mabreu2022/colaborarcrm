@@ -26,7 +26,9 @@ uses
   FireDAC.DatS,
   FireDAC.DApt.Intf,
   FireDAC.DApt,
-  FireDAC.Comp.DataSet;
+  FireDAC.Comp.DataSet,
+  System.Variants,
+  VCL.Dialogs;
 
 type
   TDM = class(TDataModule)
@@ -54,12 +56,18 @@ type
     qryClienteCODIGO_MUNICIPIO: TIntegerField;
     qryClientePAIS: TWideStringField;
     qryClienteCODIGO_PAIS: TIntegerField;
+    qryContatos: TFDQuery;
+    DScontatos: TDataSource;
+
   private
+
     { Private declarations }
   public
     class procedure CreateInstance;
     procedure DestroyInstance;
     procedure ListarClientes(Busca:String);
+    procedure ListarContatos(Busca: String; IdClienteSelecionado: Variant);
+
   end;
 
 function DM:TDM;
@@ -69,7 +77,7 @@ implementation
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
 Uses
-  D2Bridge.Instance, ContratosWebApp;
+  D2Bridge.Instance, ContratosWebApp, uView.Clientes;
 
 {$R *.dfm}
 
@@ -90,19 +98,53 @@ end;
 
 procedure TDM.ListarClientes(Busca: String);
 begin
-  qryCliente.Active:= False;
+  qryCliente.Active := False;
   qryCliente.SQL.Clear;
   qryCliente.SQL.Add('select * from clientes');
 
-  if busca <>  '' then
+  if Busca <> '' then
   begin
     qryCliente.SQL.Add('where NOME_RAZAO like :nome');
-    qryCliente.ParamByName('nome').Value := '%' + busca + '%';
-  end;
+    qryCliente.SQL.Add('  and ATIVO = ''S''');
+    qryCliente.ParamByName('nome').Value := '%' + Busca + '%';
+  end
+  else
+    qryCliente.SQL.Add('where ATIVO = ''S''');
 
   qryCliente.SQL.Add('order by NOME_RAZAO');
-
+  qryCliente.SQL.SaveToFile('c:\qryClientesSQL.txt');
   qryCliente.Active := True;
+  ShowMessage('Qtde. Registros Clientes: ' + IntToStr(qryCliente.RecordCount));
+
+end;
+
+procedure TDM.ListarContatos(Busca: String; IdClienteSelecionado: Variant);
+begin
+  qryContatos.Active := False;
+  qryContatos.SQL.Clear;
+  qryContatos.SQL.Add('SELECT * FROM CONTATOS');
+
+  if (Busca <> '') or (not VarIsNull(IdClienteSelecionado)) then
+  begin
+    qryContatos.SQL.Add('WHERE 1=1');
+
+    if Busca <> '' then
+    begin
+      qryContatos.SQL.Add('AND NOME_CONTATO LIKE :nome');
+      qryContatos.ParamByName('nome').Value := '%' + Busca + '%';
+    end;
+
+    if not VarIsNull(IdClienteSelecionado) then
+    begin
+      qryContatos.SQL.Add('AND ID_CLIENTE = :idCliente');
+      qryContatos.ParamByName('idCliente').AsInteger := IdClienteSelecionado;
+    end;
+  end;
+
+  qryContatos.SQL.Add('ORDER BY NOME_CONTATO');
+  qryContatos.Sql.SaveToFile('C:\QryContatos.txt');
+  qryContatos.Active := True;
+  ShowMessage('Qtde de Registros QryContatos:' + InttoStr(qryContatos.RecordCount));
 
 end;
 

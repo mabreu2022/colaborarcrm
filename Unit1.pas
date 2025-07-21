@@ -27,8 +27,6 @@ type
     Cliente1: TMenuItem;
     Clientes1: TMenuItem;
     Ativos1: TMenuItem;
-    elefones1: TMenuItem;
-    Endereos1: TMenuItem;
     Contratos1: TMenuItem;
     Clientes2: TMenuItem;
     odosContratosdoCliente1: TMenuItem;
@@ -41,6 +39,7 @@ type
     Listagemcontratosativos1: TMenuItem;
     Listagemcontratosinativos1: TMenuItem;
     Contatos1: TMenuItem;
+    ListagememAberto1: TMenuItem;
     procedure Module11Click(Sender: TObject);
     procedure Clientes1Click(Sender: TObject);
   private
@@ -114,6 +113,7 @@ begin
     end;
 
     SideMenu(MainMenu1);
+
   end;
 end;
 
@@ -127,7 +127,7 @@ begin
     PrismControl.AsMainMenu.Title:= 'AppTeste'; //or in SideMenu use asSideMenu
 
     if PrismControl.VCLComponent = MainMenu1 then
-    PrismControl.AsMainMenu.Image.URL:= 'https://d2bridge.com.br/images/LogoD2BridgeTransp.png'; //or in SideMenu use asSideMenu
+    PrismControl.AsMainMenu.Image.URL:='https://d2bridge.com.br/images/LogoD2BridgeTransp.png'; //or in SideMenu use asSideMenu
 
     //GroupIndex example
     if PrismControl.VCLComponent = MainMenu1 then

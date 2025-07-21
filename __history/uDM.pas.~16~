@@ -1,0 +1,153 @@
+unit uDM;
+
+{ Copyright 2025 / 2026 D2Bridge Framework by Talis Jonatas Gomes }
+
+interface
+
+uses
+  System.SysUtils,
+  System.Classes,
+  FireDAC.Stan.Intf,
+  FireDAC.Stan.Option,
+  FireDAC.Stan.Error,
+  FireDAC.UI.Intf,
+  FireDAC.Phys.Intf,
+  FireDAC.Stan.Def,
+  FireDAC.Stan.Pool,
+  FireDAC.Stan.Async,
+  FireDAC.Phys,
+  FireDAC.Phys.FB,
+  FireDAC.Phys.FBDef,
+  FireDAC.VCLUI.Wait,
+  FireDAC.Phys.IBBase,
+  Data.DB,
+  FireDAC.Comp.Client,
+  FireDAC.Stan.Param,
+  FireDAC.DatS,
+  FireDAC.DApt.Intf,
+  FireDAC.DApt,
+  FireDAC.Comp.DataSet,
+  System.Variants;
+
+type
+  TDM = class(TDataModule)
+    Conn: TFDConnection;
+    FDPhysFBDriverLink1: TFDPhysFBDriverLink;
+    qryCliente: TFDQuery;
+    DSCliente: TDataSource;
+    qryClienteID_CLIENTE: TIntegerField;
+    qryClienteTIPO_PESSOA: TWideStringField;
+    qryClienteNOME_RAZAO: TWideStringField;
+    qryClienteNOME_FANTASIA: TWideStringField;
+    qryClienteCPF_CNPJ: TWideStringField;
+    qryClienteIE: TWideStringField;
+    qryClienteRG: TWideStringField;
+    qryClienteDATA_NASCIMENTO: TDateField;
+    qryClienteTELEFONE: TWideStringField;
+    qryClienteEMAIL: TWideStringField;
+    qryClienteENDERECO: TWideStringField;
+    qryClienteNUMERO: TWideStringField;
+    qryClienteCOMPLEMENTO: TWideStringField;
+    qryClienteBAIRRO: TWideStringField;
+    qryClienteCEP: TWideStringField;
+    qryClienteMUNICIPIO: TWideStringField;
+    qryClienteUF: TWideStringField;
+    qryClienteCODIGO_MUNICIPIO: TIntegerField;
+    qryClientePAIS: TWideStringField;
+    qryClienteCODIGO_PAIS: TIntegerField;
+    qryContatos: TFDQuery;
+    DScontatos: TDataSource;
+    procedure DScontatosDataChange(Sender: TObject; Field: TField);
+  private
+
+    { Private declarations }
+  public
+    class procedure CreateInstance;
+    procedure DestroyInstance;
+    procedure ListarClientes(Busca:String);
+    procedure ListarContatos(Busca: String; IdClienteSelecionado: Variant);
+
+  end;
+
+function DM:TDM;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+Uses
+  D2Bridge.Instance, ContratosWebApp, uView.Clientes;
+
+{$R *.dfm}
+
+class procedure TDM.CreateInstance;
+begin
+ D2BridgeInstance.CreateInstance(self);
+end;
+
+function DM:TDM;
+begin
+ result:= TDM(D2BridgeInstance.GetInstance(TDM));
+end;
+
+procedure TDM.DestroyInstance;
+begin
+ D2BridgeInstance.DestroyInstance(self);
+end;
+
+procedure TDM.DScontatosDataChange(Sender: TObject; Field: TField);
+begin
+  if FrmClientes <> nil then
+  FrmClientes.DesativarEdicaoGridContatos;
+end;
+
+procedure TDM.ListarClientes(Busca: String);
+begin
+  qryCliente.Active := False;
+  qryCliente.SQL.Clear;
+  qryCliente.SQL.Add('select * from clientes');
+
+  if Busca <> '' then
+  begin
+    qryCliente.SQL.Add('where NOME_RAZAO like :nome');
+    qryCliente.SQL.Add('  and ATIVO = ''S''');
+    qryCliente.ParamByName('nome').Value := '%' + Busca + '%';
+  end
+  else
+    qryCliente.SQL.Add('where ATIVO = ''S''');
+
+  qryCliente.SQL.Add('order by NOME_RAZAO');
+
+  qryCliente.Active := True;
+
+end;
+
+procedure TDM.ListarContatos(Busca: String; IdClienteSelecionado: Variant);
+begin
+  qryContatos.Active := False;
+  qryContatos.SQL.Clear;
+  qryContatos.SQL.Add('SELECT * FROM CONTATOS');
+
+  if (Busca <> '') or (not VarIsNull(IdClienteSelecionado)) then
+  begin
+    qryContatos.SQL.Add('WHERE 1=1');
+
+    if Busca <> '' then
+    begin
+      qryContatos.SQL.Add('AND NOME_CONTATO LIKE :nome');
+      qryContatos.ParamByName('nome').Value := '%' + Busca + '%';
+    end;
+
+    if not VarIsNull(IdClienteSelecionado) then
+    begin
+      qryContatos.SQL.Add('AND ID_CLIENTE = :idCliente');
+      qryContatos.ParamByName('idCliente').AsInteger := IdClienteSelecionado;
+    end;
+  end;
+
+  qryContatos.SQL.Add('ORDER BY NOME_CONTATO');
+  qryContatos.Active := True;
+
+end;
+
+end.

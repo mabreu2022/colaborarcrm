@@ -1126,50 +1126,50 @@ img.image-background-fullsize[src=""] {
 
 /* Space Mode */
 /* Space Mode */
-.d2bridgespacemode .btn,
-.d2bridgespacemode .form-control,        
-.d2bridgespacemode .form-select,
-.d2bridgespacemode .form-floating>.form-control {
+.d2bridgespacemode .btn:not(.nod2bridgespacemode):not(:is(.nod2bridgespacemode *)),
+.d2bridgespacemode .form-control:not(.nod2bridgespacemode):not(:is(.nod2bridgespacemode *)),        
+.d2bridgespacemode .form-select:not(.nod2bridgespacemode):not(:is(.nod2bridgespacemode *)),
+.d2bridgespacemode .form-floating>.form-control:not(.nod2bridgespacemode):not(:is(.nod2bridgespacemode *)) {
     height: 52px;
     padding: .375rem .75rem;
     box-sizing: border-box;
 }
 
-.d2bridgespacemode .form-switch .form-check-input  {
+.d2bridgespacemode .form-switch .form-check-input:not(.nod2bridgespacemode):not(:is(.nod2bridgespacemode *))  {
     height: 30px;
     width: 50px;
     padding: .375rem .75rem;
     box-sizing: border-box;
 }
 
-.d2bridgespacemode .form-check:not(.form-switch) .form-check-input  {
+.d2bridgespacemode .form-check:not(.form-switch) .form-check-input:not(.nod2bridgespacemode):not(:is(.nod2bridgespacemode *))  {
     height: 25px;
     width: 25px;
     padding: .375rem .75rem;
     box-sizing: border-box;
 }
 
-.d2bridgespacemode .d2bridgeswtich {
+.d2bridgespacemode .d2bridgeswtich:not(.nod2bridgespacemode):not(:is(.nod2bridgespacemode *)) {
     align-items: center !important;
 }
 
-.d2bridgespacemode .form-control-plaintext,
-.d2bridgespacemode .form-check-label {
+.d2bridgespacemode .form-control-plaintext:not(.nod2bridgespacemode):not(:is(.nod2bridgespacemode *)),
+.d2bridgespacemode .form-check-label:not(.nod2bridgespacemode):not(:is(.nod2bridgespacemode *)) {
     height: 52px;
     box-sizing: border-box;
     align-content: center;
 }
 
-.d2bridgespacemode .form-control-plaintext {
+.d2bridgespacemode .form-control-plaintext:not(.nod2bridgespacemode):not(:is(.nod2bridgespacemode *)) {
     height: 52px;
     box-sizing: border-box;
 }
 
-.d2bridgespacemode .d2bridgeformgrouplabel {
+.d2bridgespacemode .d2bridgeformgrouplabel:not(.nod2bridgespacemode):not(:is(.nod2bridgespacemode *)) {
     padding-bottom: 8px;
 }
 
-.d2bridgespacemode .row:not(:last-of-type) {
+.d2bridgespacemode .row:not(:last-of-type):not(.nod2bridgespacemode):not(:is(.nod2bridgespacemode *)) {
     padding-bottom: 10px;
 }
 

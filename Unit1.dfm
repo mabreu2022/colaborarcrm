@@ -24,12 +24,6 @@ object Form1: TForm1
           Caption = 'Clientes'
           OnClick = Clientes1Click
         end
-        object elefones1: TMenuItem
-          Caption = 'Telefones'
-        end
-        object Endereos1: TMenuItem
-          Caption = 'Endere'#231'os'
-        end
         object Contatos1: TMenuItem
           Caption = 'Contatos'
         end
@@ -71,6 +65,9 @@ object Form1: TForm1
         end
         object Listagemcontratosinativos1: TMenuItem
           Caption = 'Listagem inativos'
+        end
+        object ListagememAberto1: TMenuItem
+          Caption = 'Listagem em Aberto'
         end
       end
     end
