@@ -9,8 +9,8 @@ object DM: TDM
       'Protocol=TCPIP'
       'Server=127.0.0.1'
       'Port=3050'
-      'DriverID=FB')
-    Connected = True
+      'DriverID=FB'
+      'CharacterSet=UTF8')
     LoginPrompt = False
     Left = 40
     Top = 24
@@ -145,6 +145,11 @@ object DM: TDM
       FieldName = 'CODIGO_PAIS'
       Origin = 'CODIGO_PAIS'
     end
+    object qryClienteATIVO: TWideStringField
+      FieldName = 'ATIVO'
+      Origin = 'ATIVO'
+      Size = 1
+    end
   end
   object DSCliente: TDataSource
     DataSet = qryCliente
@@ -153,8 +158,69 @@ object DM: TDM
   end
   object qryContatos: TFDQuery
     Connection = Conn
+    SQL.Strings = (
+      'SELECT c.*, cli.NOME_RAZAO'
+      'FROM CONTATOS c'
+      'INNER JOIN CLIENTES cli ON cli.ID_CLIENTE = c.ID_CLIENTE')
     Left = 40
     Top = 168
+    object qryContatosID_CONTATO: TIntegerField
+      FieldName = 'ID_CONTATO'
+      Origin = 'ID_CONTATO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryContatosID_CLIENTE: TIntegerField
+      FieldName = 'ID_CLIENTE'
+      Origin = 'ID_CLIENTE'
+      Required = True
+    end
+    object qryContatosNOME_CONTATO: TWideStringField
+      FieldName = 'NOME_CONTATO'
+      Origin = 'NOME_CONTATO'
+      Required = True
+      Size = 100
+    end
+    object qryContatosTELEFONE_CONTATO: TWideStringField
+      FieldName = 'TELEFONE_CONTATO'
+      Origin = 'TELEFONE_CONTATO'
+    end
+    object qryContatosEMAIL_CONTATO: TWideStringField
+      FieldName = 'EMAIL_CONTATO'
+      Origin = 'EMAIL_CONTATO'
+      Size = 100
+    end
+    object qryContatosCARGO: TWideStringField
+      FieldName = 'CARGO'
+      Origin = 'CARGO'
+      Size = 50
+    end
+    object qryContatosOBSERVACAO: TWideStringField
+      FieldName = 'OBSERVACAO'
+      Origin = 'OBSERVACAO'
+      Size = 255
+    end
+    object qryContatosTIPO_CONTATO: TWideStringField
+      FieldName = 'TIPO_CONTATO'
+      Origin = 'TIPO_CONTATO'
+    end
+    object qryContatosDATA_CADASTRO: TDateField
+      FieldName = 'DATA_CADASTRO'
+      Origin = 'DATA_CADASTRO'
+    end
+    object qryContatosATIVO: TWideStringField
+      FieldName = 'ATIVO'
+      Origin = 'ATIVO'
+      Size = 1
+    end
+    object qryContatosNOME_RAZAO: TWideStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NOME_RAZAO'
+      Origin = 'NOME_RAZAO'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 100
+    end
   end
   object DScontatos: TDataSource
     DataSet = qryContatos

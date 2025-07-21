@@ -143,7 +143,7 @@ begin
 
  //D2BridgeServerController.Prism.Options.CoInitialize:= true;
 
- //D2BridgeServerController.Prism.Options.VCLStyles:= false;
+ //D2BridgeServerController.Prism.Options.VCLStyles:= False;
 
  //D2BridgeServerController.Prism.Options.ShowError500Page:= false;
 

@@ -20,7 +20,6 @@ object FrmClientes: TFrmClientes
     ActivePage = TabSheet1
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 878
     object Cadastro: TTabSheet
       Caption = 'Cadastro'
       object lblRazao: TLabel
@@ -261,7 +260,6 @@ object FrmClientes: TFrmClientes
         Height = 41
         Align = alBottom
         TabOrder = 14
-        ExplicitWidth = 870
         object btnInserir: TButton
           Left = 3
           Top = 8
@@ -309,6 +307,7 @@ object FrmClientes: TFrmClientes
         TitleFont.Name = 'Segoe UI'
         TitleFont.Style = []
         OnCellClick = DBGrid1CellClick
+        OnDrawColumnCell = DBGrid1DrawColumnCell
         Columns = <
           item
             Expanded = False
@@ -324,13 +323,13 @@ object FrmClientes: TFrmClientes
           item
             Expanded = False
             FieldName = 'NOME_RAZAO'
-            Width = 373
+            Width = 200
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NOME_FANTASIA'
-            Width = 64
+            Width = 200
             Visible = True
           end
           item
@@ -347,7 +346,6 @@ object FrmClientes: TFrmClientes
         Height = 41
         Align = alTop
         TabOrder = 1
-        ExplicitWidth = 870
         object lblLocalizar: TLabel
           Left = 8
           Top = 11
@@ -379,7 +377,6 @@ object FrmClientes: TFrmClientes
         Height = 41
         Align = alBottom
         TabOrder = 2
-        ExplicitWidth = 870
       end
     end
     object TabSheet1: TTabSheet
@@ -392,7 +389,6 @@ object FrmClientes: TFrmClientes
         Height = 41
         Align = alTop
         TabOrder = 0
-        ExplicitWidth = 870
         object lblLocalizar2: TLabel
           Left = 13
           Top = 13
@@ -459,6 +455,64 @@ object FrmClientes: TFrmClientes
         TitleFont.Style = []
         OnDblClick = DBGrid2DblClick
         OnExit = DBGrid2Exit
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'ID_CONTATO'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NOME_CONTATO'
+            Width = 200
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'ID_CLIENTE'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NOME_RAZAO'
+            Width = 200
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'TELEFONE_CONTATO'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'EMAIL_CONTATO'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'CARGO'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'OBSERVACAO'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'TIPO_CONTATO'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'DATA_CADASTRO'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'ATIVO'
+            Visible = True
+          end>
       end
       object Panel5: TPanel
         Left = 0
@@ -467,7 +521,6 @@ object FrmClientes: TFrmClientes
         Height = 41
         Align = alBottom
         TabOrder = 2
-        ExplicitWidth = 870
         object btnNovoContato: TBitBtn
           Left = 31
           Top = 6

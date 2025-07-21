@@ -96,6 +96,8 @@ type
     procedure btnSalvarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure btnListaTodosClick(Sender: TObject);
+    procedure DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
   private
     procedure Listarclientes;
     procedure ListarContatos;
@@ -103,6 +105,7 @@ type
     procedure dsContatosDataChange(Sender: TObject; Field: TField);
     procedure AtivarEdicaoGridContatos;
     procedure FinalizarEdicaoContatos;
+    procedure LimparCamposCliente;
 
     { Private declarations }
   public
@@ -115,7 +118,6 @@ type
     procedure RenderD2Bridge(const PrismControl: TPrismControl;
       var HTMLControl: string); override;
   end;
-
 
 function FrmClientes: TFrmClientes;
 
@@ -143,14 +145,14 @@ end;
 procedure TFrmClientes.btnListaTodosClick(Sender: TObject);
 begin
   inherited;
-  CBNomeCliente.KeyValue := Null;
+  CBNomecliente.KeyValue := Null;
   ListarContatos;
 end;
 
 procedure TFrmClientes.btnCancelarClick(Sender: TObject);
 begin
   inherited;
-   if DM.qryContatos.State in [dsEdit, dsInsert] then
+  if DM.qryContatos.State in [dsEdit, dsInsert] then
     DM.qryContatos.Cancel;
 
   DesativarEdicaoGridContatos;
@@ -163,9 +165,11 @@ begin
   DM.qryCliente.Edit;
 
   // Preciso mudar para a aba 1
-  PageControl1.TabIndex:=0;
+  PageControl1.TabIndex := 0;
 
-  ListarClientes;
+  // Acho que teria que trazer os dados do cliente para oes edits se nãotiver já preenchidos
+
+  Listarclientes;
 end;
 
 procedure TFrmClientes.btnEditarContatoClick(Sender: TObject);
@@ -181,7 +185,16 @@ end;
 procedure TFrmClientes.btnExcluirClick(Sender: TObject);
 begin
   inherited;
-  //
+  if not DM.qryCliente.IsEmpty then
+  begin
+    if MessageDlg('Deseja inativar este cliente?', mtConfirmation,
+      [mbYes, mbNo], 0) = mrYes then
+    begin
+      DM.InativarCliente;
+      LimparCamposCliente;
+      DM.Listarclientes('');
+    end;
+  end;
 end;
 
 procedure TFrmClientes.btnExcluirContatoClick(Sender: TObject);
@@ -189,7 +202,8 @@ begin
   inherited;
   if not DM.qryContatos.IsEmpty then
   begin
-    if MessageDlg('Deseja inativar este contato?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+    if MessageDlg('Deseja inativar este contato?', mtConfirmation,
+      [mbYes, mbNo], 0) = mrYes then
     begin
       DM.qryContatos.Edit;
       DM.qryContatos.FieldByName('ATIVO').AsString := 'N';
@@ -203,10 +217,11 @@ begin
   inherited;
   DM.qryCliente.Append;
   // Preciso mudar para a aba 1
-  PageControl1.TabIndex:=0;
-  //Preciso limpar todos os edits do form
+  PageControl1.TabIndex := 0;
+  // Preciso limpar todos os edits do form
+  LimparCamposCliente;
 
-  ListarClientes;
+  Listarclientes;
 
 end;
 
@@ -241,6 +256,25 @@ begin
   PreencherCamposCliente;
 end;
 
+procedure TFrmClientes.DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
+  DataCol: Integer; Column: TColumn; State: TGridDrawState);
+var
+  lLinha: Integer;
+begin
+  inherited;
+  // obtém o número do registro (linha)
+  lLinha := DBGrid1.DataSource.DataSet.RecNo;
+
+  // verifica se o número da linha é par ou ímpar, aplicando as cores
+  if Odd(lLinha) then
+    DBGrid1.Canvas.Brush.Color := clMenu
+  else
+    DBGrid1.Canvas.Brush.Color := clMoneyGreen;
+
+  // pinta a linha
+  DBGrid1.DefaultDrawColumnCell(Rect, DataCol, Column, State);
+end;
+
 procedure TFrmClientes.DBGrid2DblClick(Sender: TObject);
 var
   gridOptions: TDBGridOptions;
@@ -255,7 +289,7 @@ end;
 procedure TFrmClientes.DBGrid2Exit(Sender: TObject);
 begin
   inherited;
-  //FinalizarEdicaoContatos;
+  FinalizarEdicaoContatos;
 end;
 
 procedure TFrmClientes.DesativarEdicaoGridContatos;
@@ -287,6 +321,8 @@ begin
     with Row.Items.add do
       with Tabs do
       begin
+
+        // aba Cadastros
         with AddTab(PageControl1.Pages[0].Caption).Items.add do
         begin
           with Row.Items.add do
@@ -354,16 +390,17 @@ begin
             with Col.Items.add do
             begin
               FormGroup('  ').AddVCLObj(btnInserir, CSSClass.Button.add);
-                //'btn btn-success bi bi-send');
-              FormGroup('  ').AddVCLObj(btnEditar, CSSClass.Button.edit);
-                //'btn btn-primary bi bi-send');
+              // 'btn btn-success bi bi-send');
+              FormGroup('  ').AddVCLObj(btnEditar, CSSClass.Button.Edit);
+              // 'btn btn-primary bi bi-send');
               FormGroup('  ').AddVCLObj(btnExcluir, CSSClass.Button.delete);
-                //'btn btn-danger bi bi-sender');
+              // 'btn btn-danger bi bi-sender');
             end;
           end;
 
         end;
 
+        // Aba Listagem dos clientes
         with AddTab(PageControl1.Pages[1].Caption).Items.add do
         begin
           with Row.Items.add do
@@ -376,6 +413,7 @@ begin
             VCLObj(DBGrid1);
         end;
 
+        // Aba Contatos
         with AddTab(PageControl1.Pages[2].Caption).Items.add do
         begin
           with Row.Items.add do
@@ -391,19 +429,37 @@ begin
             VCLObj(DBGrid2);
           end;
 
-          with Row.Items.Add do
+          with Row.Items.add do
           begin
             FormGroup('').AddVCLObj(btnNovoContato, CSSClass.Button.add);
-            FormGroup('').AddVCLObj(btnEditarContato, CSSClass.Button.edit);
+            FormGroup('').AddVCLObj(btnEditarContato, CSSClass.Button.Edit);
             FormGroup('').AddVCLObj(btnExcluirContato, CSSClass.Button.delete);
             FormGroup('').AddVCLObj(btnSalvar, CSSClass.Button.save);
-            FormGroup('').AddVCLObj(btnCancelar, CSSClass.Button.cancel);
+            FormGroup('').AddVCLObj(btnCancelar, CSSClass.Button.Cancel);
           end;
         end;
 
       end;
   end;
 
+end;
+
+procedure TFrmClientes.LimparCamposCliente;
+begin
+  edtRazao_Nome.Text := '';
+  edtFantasia.Text := '';
+  edtCPFCNPJ.Text := '';
+  edtIE.Text := '';
+  edtTelefone.Text := '';
+  edtEmail.Text := '';
+  edtEndereco.Text := '';
+  edtNumero.Text := '';
+  edtComplemento.Text := '';
+  edtBairro.Text := '';
+  edtMunicipio.Text := '';
+  edtCEP.Text := '';
+  cmbUF.ItemIndex := 23;
+  ComboBox1.ItemIndex := 1;
 end;
 
 procedure TFrmClientes.Listarclientes;
@@ -413,7 +469,7 @@ end;
 
 procedure TFrmClientes.ListarContatos;
 begin
-  DM.ListarContatos(EdtPesquisar2.Text, CBNomeCliente.KeyValue);
+  DM.ListarContatos(EdtPesquisar2.Text, CBNomecliente.KeyValue);
 end;
 
 procedure TFrmClientes.PreencherCamposCliente;
@@ -422,31 +478,43 @@ begin
     Exit;
 
   // Preenche os campos do cadastro com os dados do cliente atual
-  edtRazao_Nome.Text   := DM.qryCliente.FieldByName('NOME_RAZAO').AsString;
-  edtFantasia.Text     := DM.qryCliente.FieldByName('NOME_FANTASIA').AsString;
-  edtCPFCNPJ.Text      := DM.qryCliente.FieldByName('CPF_CNPJ').AsString;
-  edtIE.Text           := DM.qryCliente.FieldByName('IE').AsString;
-  edtTelefone.Text     := DM.qryCliente.FieldByName('TELEFONE').AsString;
-  edtEmail.Text        := DM.qryCliente.FieldByName('EMAIL').AsString;
-  edtEndereco.Text     := DM.qryCliente.FieldByName('ENDERECO').AsString;
-  edtNumero.Text       := DM.qryCliente.FieldByName('NUMERO').AsString;
-  edtComplemento.Text  := DM.qryCliente.FieldByName('COMPLEMENTO').AsString;
-  edtBairro.Text       := DM.qryCliente.FieldByName('BAIRRO').AsString;
-  edtMunicipio.Text    := DM.qryCliente.FieldByName('MUNICIPIO').AsString;
-  edtCEP.Text          := DM.qryCliente.FieldByName('CEP').AsString;
+  edtRazao_Nome.Text := DM.qryCliente.FieldByName('NOME_RAZAO').AsString;
+  edtFantasia.Text := DM.qryCliente.FieldByName('NOME_FANTASIA').AsString;
+  edtCPFCNPJ.Text := DM.qryCliente.FieldByName('CPF_CNPJ').AsString;
+  edtIE.Text := DM.qryCliente.FieldByName('IE').AsString;
+  edtTelefone.Text := DM.qryCliente.FieldByName('TELEFONE').AsString;
+  edtEmail.Text := DM.qryCliente.FieldByName('EMAIL').AsString;
+  edtEndereco.Text := DM.qryCliente.FieldByName('ENDERECO').AsString;
+  edtNumero.Text := DM.qryCliente.FieldByName('NUMERO').AsString;
+  edtComplemento.Text := DM.qryCliente.FieldByName('COMPLEMENTO').AsString;
+  edtBairro.Text := DM.qryCliente.FieldByName('BAIRRO').AsString;
+  edtMunicipio.Text := DM.qryCliente.FieldByName('MUNICIPIO').AsString;
+  edtCEP.Text := DM.qryCliente.FieldByName('CEP').AsString;
 
   // ComboBoxes
   ComboBox1.Text := DM.qryCliente.FieldByName('TIPO_PESSOA').AsString;
-  cmbUF.Text     := DM.qryCliente.FieldByName('UF').AsString;
+  cmbUF.Text := DM.qryCliente.FieldByName('UF').AsString;
 
 end;
 
 procedure TFrmClientes.FinalizarEdicaoContatos;
 begin
   if DM.qryContatos.State in [dsEdit, dsInsert] then
-    DM.qryContatos.Post;
+  begin
+    try
+      DM.SalvarContatoAtual;
+      ShowMessage('Contato salvo com sucesso!');
+    except
+      on E: Exception do
+        ShowMessage('Erro ao salvar contato: ' + E.Message);
+    end;
+  end;
 
   DesativarEdicaoGridContatos;
+  //DM.ListarContatos('', DM.qryContatos.FieldByName('ID_CLIENTE').Value);
+
+
+  // Atualiza os dados no grid (não precisa refazer a SQL)
   DM.qryContatos.Refresh;
 
 end;
@@ -454,18 +522,19 @@ end;
 procedure TFrmClientes.FormShow(Sender: TObject);
 begin
   inherited;
-//  if not DM.qryCliente.Active then
-//    DM.qryCliente.Open;
-//
-//  // Se você quiser garantir a configuração no código (caso não esteja no Object Inspector):
-//  CBNomecliente.ListSource := DM.DSCliente;
-//  CBNomecliente.ListField := 'NOME_RAZAO';
-//  CBNomecliente.KeyField := 'ID_CLIENTE';
-//
-//  CBNomecliente.DataSource := DM.DSContatos; // ou outro dataset de destino
-//  CBNomecliente.DataField := 'ID_CLIENTE';   // campo vinculado no formulário
+  // if not DM.qryCliente.Active then
+  // DM.qryCliente.Open;
+  //
+  // // Se você quiser garantir a configuração no código (caso não esteja no Object Inspector):
+  // CBNomecliente.ListSource := DM.DSCliente;
+  // CBNomecliente.ListField := 'NOME_RAZAO';
+  // CBNomecliente.KeyField := 'ID_CLIENTE';
+  //
+  // CBNomecliente.DataSource := DM.DSContatos; // ou outro dataset de destino
+  // CBNomecliente.DataField := 'ID_CLIENTE';   // campo vinculado no formulário
 
-  ListarClientes;
+  Listarclientes;
+  PreencherCamposCliente;
   ListarContatos;
 
   DM.DSContatos.OnDataChange := dsContatosDataChange;

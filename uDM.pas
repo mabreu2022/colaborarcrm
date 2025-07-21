@@ -58,6 +58,18 @@ type
     qryClienteCODIGO_PAIS: TIntegerField;
     qryContatos: TFDQuery;
     DScontatos: TDataSource;
+    qryClienteATIVO: TWideStringField;
+    qryContatosID_CONTATO: TIntegerField;
+    qryContatosID_CLIENTE: TIntegerField;
+    qryContatosNOME_CONTATO: TWideStringField;
+    qryContatosTELEFONE_CONTATO: TWideStringField;
+    qryContatosEMAIL_CONTATO: TWideStringField;
+    qryContatosCARGO: TWideStringField;
+    qryContatosOBSERVACAO: TWideStringField;
+    qryContatosTIPO_CONTATO: TWideStringField;
+    qryContatosDATA_CADASTRO: TDateField;
+    qryContatosATIVO: TWideStringField;
+    qryContatosNOME_RAZAO: TWideStringField;
 
   private
 
@@ -67,6 +79,9 @@ type
     procedure DestroyInstance;
     procedure ListarClientes(Busca:String);
     procedure ListarContatos(Busca: String; IdClienteSelecionado: Variant);
+    procedure InativarCliente;
+    procedure SalvarContatoAtual;
+
 
   end;
 
@@ -96,6 +111,16 @@ begin
  D2BridgeInstance.DestroyInstance(self);
 end;
 
+procedure TDM.InativarCliente;
+begin
+  if not qryCliente.IsEmpty then
+  begin
+    qryCliente.Edit;
+    qryCliente.FieldByName('ATIVO').AsString := 'N';
+    qryCliente.Post;
+  end;
+end;
+
 procedure TDM.ListarClientes(Busca: String);
 begin
   qryCliente.Active := False;
@@ -104,17 +129,15 @@ begin
 
   if Busca <> '' then
   begin
-    qryCliente.SQL.Add('where NOME_RAZAO like :nome');
+    qryCliente.SQL.Add('where UPPER(NOME_RAZAO) like :nome');
     qryCliente.SQL.Add('  and ATIVO = ''S''');
-    qryCliente.ParamByName('nome').Value := '%' + Busca + '%';
+    qryCliente.ParamByName('nome').Value := '%' + UpperCase(Busca) + '%';
   end
   else
     qryCliente.SQL.Add('where ATIVO = ''S''');
 
   qryCliente.SQL.Add('order by NOME_RAZAO');
-  qryCliente.SQL.SaveToFile('c:\qryClientesSQL.txt');
   qryCliente.Active := True;
-  ShowMessage('Qtde. Registros Clientes: ' + IntToStr(qryCliente.RecordCount));
 
 end;
 
@@ -122,7 +145,10 @@ procedure TDM.ListarContatos(Busca: String; IdClienteSelecionado: Variant);
 begin
   qryContatos.Active := False;
   qryContatos.SQL.Clear;
-  qryContatos.SQL.Add('SELECT * FROM CONTATOS');
+
+  qryContatos.SQL.Add('SELECT c.*, cli.NOME_RAZAO');
+  qryContatos.SQL.Add('FROM CONTATOS c');
+  qryContatos.SQL.Add('INNER JOIN CLIENTES cli ON cli.ID_CLIENTE = c.ID_CLIENTE');
 
   if (Busca <> '') or (not VarIsNull(IdClienteSelecionado)) then
   begin
@@ -130,21 +156,50 @@ begin
 
     if Busca <> '' then
     begin
-      qryContatos.SQL.Add('AND NOME_CONTATO LIKE :nome');
-      qryContatos.ParamByName('nome').Value := '%' + Busca + '%';
+      qryContatos.SQL.Add('AND UPPER(NOME_CONTATO) LIKE :nome');
+      qryContatos.ParamByName('nome').Value := '%' + UpperCase(Busca) + '%';
     end;
 
     if not VarIsNull(IdClienteSelecionado) then
     begin
-      qryContatos.SQL.Add('AND ID_CLIENTE = :idCliente');
+      qryContatos.SQL.Add('AND c.ID_CLIENTE = :idCliente');
       qryContatos.ParamByName('idCliente').AsInteger := IdClienteSelecionado;
     end;
   end;
 
-  qryContatos.SQL.Add('ORDER BY NOME_CONTATO');
-  qryContatos.Sql.SaveToFile('C:\QryContatos.txt');
+  qryContatos.SQL.Add('ORDER BY c.NOME_CONTATO');
   qryContatos.Active := True;
-  ShowMessage('Qtde de Registros QryContatos:' + InttoStr(qryContatos.RecordCount));
+
+end;
+
+procedure TDM.SalvarContatoAtual;
+var
+  qryEdicao: TFDQuery;
+begin
+  qryEdicao := TFDQuery.Create(nil);
+  try
+    qryEdicao.Connection := Conn;
+
+    qryEdicao.SQL.Text :=
+      'UPDATE CONTATOS SET ' +
+      '  NOME_CONTATO     = :NOME_CONTATO, ' +
+      '  CARGO            = :CARGO,        ' +
+      '  TELEFONE_CONTATO = :TELEFONE,     ' +
+      '  EMAIL_CONTATO    = :EMAIL,        ' +
+      '  ID_CLIENTE       = :ID_CLIENTE    ' +
+      'WHERE ID_CONTATO   = :ID_CONTATO    ';
+
+    qryEdicao.ParamByName('NOME_CONTATO').AsString := qryContatos.FieldByName('NOME_CONTATO').AsString;
+    qryEdicao.ParamByName('CARGO').AsString        := qryContatos.FieldByName('CARGO').AsString;
+    qryEdicao.ParamByName('TELEFONE').AsString     := qryContatos.FieldByName('TELEFONE_CONTATO').AsString;
+    qryEdicao.ParamByName('EMAIL').AsString        := qryContatos.FieldByName('EMAIL_CONTATO').AsString;
+    qryEdicao.ParamByName('ID_CLIENTE').AsInteger  := qryContatos.FieldByName('ID_CLIENTE').AsInteger;
+    qryEdicao.ParamByName('ID_CONTATO').AsInteger  := qryContatos.FieldByName('ID_CONTATO').AsInteger;
+    ShowMessage(qryEdicao.SQL.Text);
+    qryEdicao.ExecSQL;
+  finally
+    qryEdicao.Free;
+  end;
 
 end;
 
