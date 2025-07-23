@@ -18,7 +18,7 @@ uses
   Unit1 in 'Unit1.pas' {Form1},
   uView.Clientes in 'uView.Clientes.pas' {FrmClientes},
   uDM in 'uDM.pas' {DM: TDataModule},
-  uView.ClienteCad in 'uView.ClienteCad.pas' {Form2},
+  uView.ContatosCad in 'uView.ContatosCad.pas' {FrmContatosCad},
   Vcl.Themes,
   Vcl.Styles;
 

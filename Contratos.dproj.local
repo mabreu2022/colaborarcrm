@@ -10,5 +10,7 @@
     <Transaction>2025/07/17 18:47:13.000.459,=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
     <Transaction>2025/07/17 18:47:50.000.359,C:\FONTES\Colaborar\Contratos\Unit2.pas=C:\FONTES\Colaborar\Contratos\uView.ClienteCad.pas</Transaction>
     <Transaction>2025/07/17 18:47:50.000.359,C:\FONTES\Colaborar\Contratos\Unit2.dfm=C:\FONTES\Colaborar\Contratos\uView.ClienteCad.dfm</Transaction>
+    <Transaction>2025/07/22 09:12:22.000.247,C:\FONTES\Colaborar\Contratos\uView.ClienteCad.dfm=C:\FONTES\Colaborar\Contratos\uView.ContatosCad.dfm</Transaction>
+    <Transaction>2025/07/22 09:12:22.000.247,C:\FONTES\Colaborar\Contratos\uView.ClienteCad.pas=C:\FONTES\Colaborar\Contratos\uView.ContatosCad.pas</Transaction>
   </Transactions>
 </BorlandProject>

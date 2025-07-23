@@ -140,8 +140,8 @@
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="uView.ClienteCad.pas">
-            <Form>Form2</Form>
+        <DCCReference Include="uView.ContatosCad.pas">
+            <Form>FrmContatosCad</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Base">

@@ -20,13 +20,7 @@ object Form1: TForm1
       OnClick = Module11Click
       object Cliente1: TMenuItem
         Caption = 'Clientes'
-        object Clientes1: TMenuItem
-          Caption = 'Clientes'
-          OnClick = Clientes1Click
-        end
-        object Contatos1: TMenuItem
-          Caption = 'Contatos'
-        end
+        OnClick = Cliente1Click
       end
       object Ativos1: TMenuItem
         Caption = 'Ativos'

@@ -7,10 +7,16 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, 
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
-  D2Bridge.Forms;
+  D2Bridge.Forms, Vcl.ExtCtrls;
 
 type
   TForm2 = class(TD2BridgeForm)
+    Edit1: TEdit;
+    Edit2: TEdit;
+    Edit3: TEdit;
+    Edit4: TEdit;
+    Memo1: TMemo;
+    Panel1: TPanel;
   private
     { Private declarations }
   public

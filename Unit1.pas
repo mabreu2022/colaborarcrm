@@ -17,7 +17,7 @@ uses
   Vcl.Menus,
   D2BridgeFormTemplate,
 
-  D2Bridge.Forms; // Declare D2Bridge.Forms always in the last unit
+  D2Bridge.Forms;
 
 type
   TForm1 = class(TD2BridgeForm)
@@ -25,7 +25,6 @@ type
     Module11: TMenuItem;
     AppModule21: TMenuItem;
     Cliente1: TMenuItem;
-    Clientes1: TMenuItem;
     Ativos1: TMenuItem;
     Contratos1: TMenuItem;
     Clientes2: TMenuItem;
@@ -38,10 +37,10 @@ type
     Contratos3: TMenuItem;
     Listagemcontratosativos1: TMenuItem;
     Listagemcontratosinativos1: TMenuItem;
-    Contatos1: TMenuItem;
     ListagememAberto1: TMenuItem;
     procedure Module11Click(Sender: TObject);
     procedure Clientes1Click(Sender: TObject);
+    procedure Cliente1Click(Sender: TObject);
   private
 
   public
@@ -67,6 +66,14 @@ end;
 
 {$R *.dfm}
 { TForm1 }
+
+procedure TForm1.Cliente1Click(Sender: TObject);
+begin
+  if FrmClientes = nil then
+    TFrmClientes.CreateInstance;
+
+  FrmClientes.ShowModal;
+end;
 
 procedure TForm1.Clientes1Click(Sender: TObject);
 begin

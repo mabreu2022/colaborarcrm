@@ -17,7 +17,7 @@ object FrmClientes: TFrmClientes
     Top = 0
     Width = 958
     Height = 563
-    ActivePage = TabSheet1
+    ActivePage = Cadastro
     Align = alClient
     TabOrder = 0
     object Cadastro: TTabSheet
@@ -279,13 +279,22 @@ object FrmClientes: TFrmClientes
           OnClick = btnEditarClick
         end
         object btnExcluir: TButton
-          Left = 171
+          Left = 253
           Top = 9
           Width = 75
           Height = 25
           Caption = 'Excluir'
           TabOrder = 2
           OnClick = btnExcluirClick
+        end
+        object btnSalvarCliente: TButton
+          Left = 171
+          Top = 9
+          Width = 75
+          Height = 25
+          Caption = 'Salvar'
+          TabOrder = 3
+          OnClick = btnSalvarClienteClick
         end
       end
     end
@@ -555,6 +564,7 @@ object FrmClientes: TFrmClientes
           Height = 25
           Caption = 'Salvar'
           TabOrder = 3
+          Visible = False
           OnClick = btnSalvarClick
         end
         object btnCancelar: TBitBtn
@@ -564,6 +574,7 @@ object FrmClientes: TFrmClientes
           Height = 25
           Caption = 'Cancelar'
           TabOrder = 4
+          Visible = False
           OnClick = btnCancelarClick
         end
       end

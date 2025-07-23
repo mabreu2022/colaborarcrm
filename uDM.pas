@@ -81,6 +81,9 @@ type
     procedure ListarContatos(Busca: String; IdClienteSelecionado: Variant);
     procedure InativarCliente;
     procedure SalvarContatoAtual;
+    procedure InserirContato(aNome, aCargo, aTelefone, aEmail, aObservacao: String; aIDCliente:Integer);
+    procedure EditarContato(aNome, aCargo, aTelefone, aEmail, aObservacao: String; aIDCliente:Integer);
+    procedure SalvarCliente(aTipoPessoa, aNome_Razao, aNome_Fantasia, acpf_cnpj, aIE, aRG, aEndereco, aNumero, aBairro, aCidade, aUf, aCEP, aTelefone: String);
 
 
   end;
@@ -92,7 +95,7 @@ implementation
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
 Uses
-  D2Bridge.Instance, ContratosWebApp, uView.Clientes;
+  D2Bridge.Instance, ContratosWebApp, uView.Clientes, uView.ContatosCad;
 
 {$R *.dfm}
 
@@ -111,6 +114,40 @@ begin
  D2BridgeInstance.DestroyInstance(self);
 end;
 
+procedure TDM.EditarContato(aNome, aCargo, aTelefone, aEmail,
+  aObservacao: String; aIDCliente: Integer);
+var
+  qryEdicao: TFDQuery;
+begin
+  qryEdicao := TFDQuery.Create(nil);
+  try
+    qryEdicao.Connection := Conn;
+
+    qryEdicao.SQL.Text :=
+      'UPDATE CONTATOS SET ' +
+      '  NOME_CONTATO     = :NOME_CONTATO, ' +
+      '  CARGO            = :CARGO,        ' +
+      '  TELEFONE_CONTATO = :TELEFONE,     ' +
+      '  EMAIL_CONTATO    = :EMAIL,        ' +
+      '  OBSERVACAO       = :OBSERVACAO    ' +
+      '  ID_CLIENTE       = :ID_CLIENTE    ' +
+      'WHERE ID_CONTATO   = :ID_CONTATO    ';
+
+    qryEdicao.ParamByName('NOME_CONTATO').AsString := aNome;
+    qryEdicao.ParamByName('CARGO').AsString        := aCargo;
+    qryEdicao.ParamByName('TELEFONE').AsString     := aTelefone;
+    qryEdicao.ParamByName('EMAIL').AsString        := aEmail;
+    qryEdicao.ParamByName('EMAIL').AsString        := aObservacao;
+    qryEdicao.ParamByName('ID_CLIENTE').AsInteger  := aIDCliente;
+
+    ShowMessage('Contato editado com sucesso!');
+    qryEdicao.ExecSQL;
+  finally
+    qryEdicao.Free;
+  end;
+
+end;
+
 procedure TDM.InativarCliente;
 begin
   if not qryCliente.IsEmpty then
@@ -119,6 +156,47 @@ begin
     qryCliente.FieldByName('ATIVO').AsString := 'N';
     qryCliente.Post;
   end;
+end;
+
+procedure TDM.InserirContato(aNome, aCargo, aTelefone, aEmail, aObservacao: String; aIDCliente:Integer);
+var
+  qryEdicao: TFDQuery;
+begin
+  qryEdicao := TFDQuery.Create(nil);
+  try
+    qryEdicao.Connection := Conn;
+
+    qryEdicao.SQL.Text :=
+      'INSERT INTO CONTATOS (' +
+      '  NOME_CONTATO,       ' +
+      '  CARGO,              ' +
+      '  TELEFONE_CONTATO,   ' +
+      '  EMAIL_CONTATO,      ' +
+      '  OBSERVACAO,         ' +
+      '  ID_CLIENTE          ' +
+      ') VALUES (' +
+      '  :NOME_CONTATO,      ' +
+      '  :CARGO,             ' +
+      '  :TELEFONE,          ' +
+      '  :EMAIL,             ' +
+      '  :OBSERVACAO,        ' +
+      '  :ID_CLIENTE         ' +
+      ')';
+
+    qryEdicao.ParamByName('NOME_CONTATO').AsString := aNome;
+    qryEdicao.ParamByName('CARGO').AsString        := aCargo;
+    qryEdicao.ParamByName('TELEFONE').AsString     := aTelefone;
+    qryEdicao.ParamByName('EMAIL').AsString        := aEmail;
+    qryEdicao.ParamByName('OBSERVACAO').AsString   := aObservacao;
+    qryEdicao.ParamByName('ID_CLIENTE').AsInteger  := aIDCliente;
+
+    ShowMessage('Contato inserido com sucesso');
+    qryEdicao.ExecSQL;
+
+  finally
+    qryEdicao.Free;
+  end;
+
 end;
 
 procedure TDM.ListarClientes(Busca: String);
@@ -153,6 +231,7 @@ begin
   if (Busca <> '') or (not VarIsNull(IdClienteSelecionado)) then
   begin
     qryContatos.SQL.Add('WHERE 1=1');
+    qryContatos.SQL.Add('AND c.ATIVO = ''S''');
 
     if Busca <> '' then
     begin
@@ -168,7 +247,70 @@ begin
   end;
 
   qryContatos.SQL.Add('ORDER BY c.NOME_CONTATO');
+
+  //ShowMessage(qryContatos.sql.text);
+
   qryContatos.Active := True;
+
+end;
+
+procedure TDM.SalvarCliente(aTipoPessoa, aNome_Razao, aNome_Fantasia, acpf_cnpj, aIE, aRG, aData_Nascimento, aEndereco, aNumero, aBairro,
+  aCidade, aUf, aCEP, aTelefone: String);
+var
+  qryEdicao: TFDQuery;
+begin
+  qryEdicao := TFDQuery.Create(nil);
+  try
+    qryEdicao.Connection := Conn;
+
+    qryEdicao.SQL.Text :=
+      'INSERT INTO CLIENTES (' +
+      '  TIPO_PESSOA,       ' +
+      '  NOME_RAZAO,        ' +
+      '  NOME_FANTASIA,     ' +
+      '  CPF_CNPJ,          ' +
+      '  IE,                ' +
+      '  RG,                ' +
+      '  DATA_NASCIMENTO    ' +
+      '  TELEFONE           ' +
+
+
+
+
+      '  ID_CLIENTE         ' +
+      ') VALUES (' +
+      '  :TIPO_PESSOA       ' +
+      '  :NOME_RAZAO,       ' +
+      '  :NOME_FANTASIA,    ' +
+      '  :CPF_CNPJ,         ' +
+      '  :IE,               ' +
+      '  :RG,               ' +
+      '  :DATA_NASCIMENTO   ' +
+
+
+
+      '  :ID_CLIENTE        ' +
+      ')';
+
+    qryEdicao.ParamByName('TIPO_PESSOA').AsString   := aTipoPessoa;
+    qryEdicao.ParamByName('NOME_RAZAO').AsString    := aNome_Razao;
+    qryEdicao.ParamByName('NOME_FANTASIA').AsString := aNome_Fantasia;
+    qryEdicao.ParamByName('CPF_CNPJ').AsString      := acpf_cnpj;
+    qryEdicao.ParamByName('IE').AsString      := acpf_cnpj;
+
+
+
+
+    qryEdicao.ParamByName('EMAIL').AsString         := aEmail;
+    qryEdicao.ParamByName('OBSERVACAO').AsString    := aObservacao;
+    qryEdicao.ParamByName('ID_CLIENTE').AsInteger   := aIDCliente;
+
+    ShowMessage('Contato inserido com sucesso');
+    qryEdicao.ExecSQL;
+
+  finally
+    qryEdicao.Free;
+  end;
 
 end;
 
@@ -195,7 +337,7 @@ begin
     qryEdicao.ParamByName('EMAIL').AsString        := qryContatos.FieldByName('EMAIL_CONTATO').AsString;
     qryEdicao.ParamByName('ID_CLIENTE').AsInteger  := qryContatos.FieldByName('ID_CLIENTE').AsInteger;
     qryEdicao.ParamByName('ID_CONTATO').AsInteger  := qryContatos.FieldByName('ID_CONTATO').AsInteger;
-    ShowMessage(qryEdicao.SQL.Text);
+
     qryEdicao.ExecSQL;
   finally
     qryEdicao.Free;

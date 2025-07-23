@@ -21,7 +21,10 @@ uses
   Data.DB,
   Vcl.ExtCtrls,
   Vcl.Grids,
-  Vcl.DBGrids, Vcl.Buttons, Vcl.DBCtrls;
+  Vcl.DBGrids,
+  Vcl.Buttons,
+  Vcl.DBCtrls,
+  uView.ContatosCad;
 
 type
   TFrmClientes = class(TForm1)
@@ -81,6 +84,7 @@ type
     btnSalvar: TBitBtn;
     btnCancelar: TBitBtn;
     btnListaTodos: TBitBtn;
+    btnSalvarCliente: TButton;
     procedure FormShow(Sender: TObject);
     procedure btnPesquisarClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -98,7 +102,9 @@ type
     procedure btnListaTodosClick(Sender: TObject);
     procedure DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure btnSalvarClienteClick(Sender: TObject);
   private
+    vFrmContatosCad: TFrmContatosCad;
     procedure Listarclientes;
     procedure ListarContatos;
     procedure PreencherCamposCliente;
@@ -163,23 +169,18 @@ procedure TFrmClientes.btnEditarClick(Sender: TObject);
 begin
   inherited;
   DM.qryCliente.Edit;
-
-  // Preciso mudar para a aba 1
   PageControl1.TabIndex := 0;
-
-  // Acho que teria que trazer os dados do cliente para oes edits se nãotiver já preenchidos
-
   Listarclientes;
 end;
 
 procedure TFrmClientes.btnEditarContatoClick(Sender: TObject);
+var
+  pop: TFrmContatosCad;
 begin
   inherited;
-  if not DM.qryContatos.IsEmpty then
-  begin
-    DM.qryContatos.Edit;
-    AtivarEdicaoGridContatos;
-  end;
+  pop.ID_CONTATO_RECEBIDO := DM.qryContatos.FieldByName('ID_CONTATO').AsInteger;
+  ShowPopupModal('PopuConstatosCad');
+  ListarContatos;
 end;
 
 procedure TFrmClientes.btnExcluirClick(Sender: TObject);
@@ -209,6 +210,7 @@ begin
       DM.qryContatos.FieldByName('ATIVO').AsString := 'N';
       DM.qryContatos.Post;
     end;
+    ListarContatos;
   end;
 end;
 
@@ -216,20 +218,16 @@ procedure TFrmClientes.btnInserirClick(Sender: TObject);
 begin
   inherited;
   DM.qryCliente.Append;
-  // Preciso mudar para a aba 1
   PageControl1.TabIndex := 0;
-  // Preciso limpar todos os edits do form
   LimparCamposCliente;
-
   Listarclientes;
-
 end;
 
 procedure TFrmClientes.btnNovoContatoClick(Sender: TObject);
 begin
   inherited;
-  DM.qryContatos.Append;
-  AtivarEdicaoGridContatos;
+  ShowPopupModal('PopuConstatosCad');
+  ListarContatos;
 end;
 
 procedure TFrmClientes.btnPesquisar2Click(Sender: TObject);
@@ -250,10 +248,26 @@ begin
   FinalizarEdicaoContatos;
 end;
 
-procedure TFrmClientes.DBGrid1CellClick(Column: TColumn);
+procedure TFrmClientes.btnSalvarClienteClick(Sender: TObject);
 begin
   inherited;
-  PreencherCamposCliente;
+  //
+end;
+
+procedure TFrmClientes.DBGrid1CellClick(Column: TColumn);
+var
+  idClienteSelecionado: Integer;
+
+begin
+  inherited;
+  if not DM.qryCliente.IsEmpty then
+  begin
+    idClienteSelecionado := DM.qryCliente.FieldByName('ID_CLIENTE').AsInteger;
+
+    PreencherCamposCliente;
+    DM.ListarContatos('', idClienteSelecionado);
+  end;
+
 end;
 
 procedure TFrmClientes.DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -315,6 +329,10 @@ begin
   // TemplateClassForm:= TD2BridgeFormTemplate;
   D2Bridge.FrameworkExportType.TemplateMasterHTMLFile := '';
   D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
+
+  //Config  form popup
+  vFrmContatosCad := TFrmContatosCad.Create(Self);
+  D2Bridge.AddNested(vFrmContatosCad);
 
   with D2Bridge.Items.add do
   begin
@@ -439,7 +457,13 @@ begin
           end;
         end;
 
+
       end;
+      //Formulário popup  - dentro da TABs?
+        with Popup('PopuConstatosCad', 'Cadastro de Contatos').Items.Add do
+        begin
+           Nested(vFrmContatosCad);
+        end;
   end;
 
 end;
@@ -478,22 +502,22 @@ begin
     Exit;
 
   // Preenche os campos do cadastro com os dados do cliente atual
-  edtRazao_Nome.Text := DM.qryCliente.FieldByName('NOME_RAZAO').AsString;
-  edtFantasia.Text := DM.qryCliente.FieldByName('NOME_FANTASIA').AsString;
-  edtCPFCNPJ.Text := DM.qryCliente.FieldByName('CPF_CNPJ').AsString;
-  edtIE.Text := DM.qryCliente.FieldByName('IE').AsString;
-  edtTelefone.Text := DM.qryCliente.FieldByName('TELEFONE').AsString;
-  edtEmail.Text := DM.qryCliente.FieldByName('EMAIL').AsString;
-  edtEndereco.Text := DM.qryCliente.FieldByName('ENDERECO').AsString;
-  edtNumero.Text := DM.qryCliente.FieldByName('NUMERO').AsString;
+  edtRazao_Nome.Text  := DM.qryCliente.FieldByName('NOME_RAZAO').AsString;
+  edtFantasia.Text    := DM.qryCliente.FieldByName('NOME_FANTASIA').AsString;
+  edtCPFCNPJ.Text     := DM.qryCliente.FieldByName('CPF_CNPJ').AsString;
+  edtIE.Text          := DM.qryCliente.FieldByName('IE').AsString;
+  edtTelefone.Text    := DM.qryCliente.FieldByName('TELEFONE').AsString;
+  edtEmail.Text       := DM.qryCliente.FieldByName('EMAIL').AsString;
+  edtEndereco.Text    := DM.qryCliente.FieldByName('ENDERECO').AsString;
+  edtNumero.Text      := DM.qryCliente.FieldByName('NUMERO').AsString;
   edtComplemento.Text := DM.qryCliente.FieldByName('COMPLEMENTO').AsString;
-  edtBairro.Text := DM.qryCliente.FieldByName('BAIRRO').AsString;
-  edtMunicipio.Text := DM.qryCliente.FieldByName('MUNICIPIO').AsString;
-  edtCEP.Text := DM.qryCliente.FieldByName('CEP').AsString;
+  edtBairro.Text      := DM.qryCliente.FieldByName('BAIRRO').AsString;
+  edtMunicipio.Text   := DM.qryCliente.FieldByName('MUNICIPIO').AsString;
+  edtCEP.Text         := DM.qryCliente.FieldByName('CEP').AsString;
 
   // ComboBoxes
   ComboBox1.Text := DM.qryCliente.FieldByName('TIPO_PESSOA').AsString;
-  cmbUF.Text := DM.qryCliente.FieldByName('UF').AsString;
+  cmbUF.Text     := DM.qryCliente.FieldByName('UF').AsString;
 
 end;
 
@@ -520,22 +544,20 @@ begin
 end;
 
 procedure TFrmClientes.FormShow(Sender: TObject);
+var
+  idClienteSelecionado : Integer;
 begin
   inherited;
-  // if not DM.qryCliente.Active then
-  // DM.qryCliente.Open;
-  //
-  // // Se você quiser garantir a configuração no código (caso não esteja no Object Inspector):
-  // CBNomecliente.ListSource := DM.DSCliente;
-  // CBNomecliente.ListField := 'NOME_RAZAO';
-  // CBNomecliente.KeyField := 'ID_CLIENTE';
-  //
-  // CBNomecliente.DataSource := DM.DSContatos; // ou outro dataset de destino
-  // CBNomecliente.DataField := 'ID_CLIENTE';   // campo vinculado no formulário
-
   Listarclientes;
   PreencherCamposCliente;
-  ListarContatos;
+  //ListarContatos;
+
+  if not DM.qryCliente.IsEmpty then
+  begin
+    DM.qryCliente.First;
+    idClienteSelecionado := DM.qryCliente.FieldByName('ID_CLIENTE').AsInteger;
+    DM.ListarContatos('', idClienteSelecionado);
+  end;
 
   DM.DSContatos.OnDataChange := dsContatosDataChange;
 
