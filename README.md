@@ -83,6 +83,21 @@ Essa funcionalidade é essencial para organizar a logística dos equipamentos e 
 
 ---
 
+### 🗄️ Banco de Dados
+Este projeto utiliza o Firebird 5.0 como sistema gerenciador de banco de dados relacional.
+Características principais:
+- Suporte a triggers, procedures e geração automática de IDs.
+- Excelente desempenho para aplicações embarcadas ou servidores dedicados.
+- Compatibilidade com camadas de acesso SQL tradicionais, facilitando integração com sistemas legados.
+Tabelas principais:
+- CLIENTE, CONTATO, CONTRATO, ATIVO: armazenam os dados básicos de relacionamento.
+- AGENDA: registra os agendamentos de retirada e devolução de ativos vinculados aos contratos.
+🔐 Importante: Certifique-se de que o servidor Firebird está corretamente configurado e que a codificação dos arquivos está compatível com UTF-8 para evitar problemas com caracteres especiais.
+
+---
+
+
+
 ## 🚀 Como Executar
 
 1. Configure o banco Firebird com charset `UTF8`
