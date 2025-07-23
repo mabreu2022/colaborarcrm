@@ -51,6 +51,16 @@ Este projeto é uma aplicação desenvolvida em **Delphi**, utilizando a bibliot
 
 ---
 
+### 📅 Agendamento de Equipamentos
+O módulo de Agendamento permite registrar, controlar e acompanhar as retiradas e devoluções de ativos vinculados a contratos de locação. Com ele, é possível:
+- Associar agendamentos a clientes, contatos, contratos e ativos específicos.
+- Definir a data de retirada, previsão de devolução e a data efetiva da devolução.
+- Garantir integridade entre os registros por meio de validação de relacionamento entre entidades.
+- Preparar relatórios e análises sobre ativos em circulação, atrasos ou previsões futuras.
+Essa funcionalidade é essencial para organizar a logística dos equipamentos e garantir conformidade com os termos contratuais, proporcionando controle operacional e rastreabilidade ao processo.
+
+---
+
 ## 🧠 Estrutura Técnica
 
 ```
