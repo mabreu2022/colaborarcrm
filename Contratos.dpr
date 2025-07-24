@@ -20,7 +20,8 @@ uses
   uDM in 'uDM.pas' {DM: TDataModule},
   uView.ContatosCad in 'uView.ContatosCad.pas' {FrmContatosCad},
   Vcl.Themes,
-  Vcl.Styles;
+  Vcl.Styles,
+  uView.ControleDeUsuarios in 'uView.ControleDeUsuarios.pas' {FrmControleDeUsuarios};
 
 {$R *.res}
 

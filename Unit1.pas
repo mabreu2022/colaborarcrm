@@ -38,7 +38,7 @@ uses
   FireDAC.DApt,
   FireDAC.Comp.DataSet,
 
-  D2Bridge.Forms;
+  D2Bridge.Forms, Vcl.ComCtrls;
 
 type
   TForm1 = class(TD2BridgeForm)
@@ -63,10 +63,12 @@ type
     Usuarios1: TMenuItem;
     Perfis1: TMenuItem;
     Permisses1: TMenuItem;
+    StatusBar1: TStatusBar;
     procedure Module11Click(Sender: TObject);
     procedure Clientes1Click(Sender: TObject);
     procedure Cliente1Click(Sender: TObject);
     procedure FormActivate(Sender: TObject);
+    procedure Permisses1Click(Sender: TObject);
   private
     JaCarregouPermissoes: Boolean;
 
@@ -89,7 +91,7 @@ Function Form1: TForm1;
 implementation
 
 Uses
-  ContratosWebApp, uView.Clientes, uDM;
+  ContratosWebApp, uView.Clientes, uDM, uView.ControleDeUsuarios;
 
 Function Form1: TForm1;
 begin
@@ -342,6 +344,14 @@ end;
 procedure TForm1.Module11Click(Sender: TObject);
 begin
   TD2BridgeForm(Session.PrimaryForm).Show;
+end;
+
+procedure TForm1.Permisses1Click(Sender: TObject);
+begin
+  if FrmControleDeUsuarios = nil then
+     TFrmControleDeUsuarios.CreateInstance;
+
+  FrmControleDeUsuarios.ShowModal;
 end;
 
 function TForm1.RemoverAcentos(const Texto: string): string;

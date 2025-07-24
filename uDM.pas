@@ -70,6 +70,17 @@ type
     qryContatosDATA_CADASTRO: TDateField;
     qryContatosATIVO: TWideStringField;
     qryContatosNOME_RAZAO: TWideStringField;
+    qryUsuarios: TFDQuery;
+    qryPerfis: TFDQuery;
+    qryPermissoes: TFDQuery;
+    DSUsuarios: TDataSource;
+    DSPerfis: TDataSource;
+    DSPermissoes: TDataSource;
+    qryUsuariosID_USUARIO: TIntegerField;
+    qryUsuariosNOME: TWideStringField;
+    qryUsuariosEMAIL: TWideStringField;
+    qryUsuariosSENHA: TWideStringField;
+    qryUsuariosID_PERFIL: TIntegerField;
 
   private
 

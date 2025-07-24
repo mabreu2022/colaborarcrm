@@ -1,0 +1,113 @@
+object FrmControleDeUsuarios: TFrmControleDeUsuarios
+  Left = 0
+  Top = 0
+  Caption = 'Controle de Usu'#225'rios'
+  ClientHeight = 613
+  ClientWidth = 999
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  Position = poScreenCenter
+  OnDestroy = FormDestroy
+  OnShow = FormShow
+  TextHeight = 15
+  object PageControl1: TPageControl
+    Left = 0
+    Top = 0
+    Width = 999
+    Height = 613
+    ActivePage = TabSheet3
+    Align = alClient
+    TabOrder = 0
+    object TabSheet1: TTabSheet
+      Caption = 'Usu'#225'rios'
+    end
+    object TabSheet2: TTabSheet
+      Caption = 'Perfis'
+      ImageIndex = 1
+    end
+    object TabSheet3: TTabSheet
+      Caption = 'Permiss'#245'es'
+      ImageIndex = 2
+      object CheckListBoxItens: TCheckListBox
+        Left = 0
+        Top = 41
+        Width = 991
+        Height = 501
+        Align = alClient
+        ItemHeight = 17
+        TabOrder = 0
+      end
+      object Panel1: TPanel
+        Left = 0
+        Top = 542
+        Width = 991
+        Height = 41
+        Align = alBottom
+        TabOrder = 1
+        object btnNovo: TButton
+          Left = 24
+          Top = 8
+          Width = 75
+          Height = 25
+          Caption = 'Novo'
+          TabOrder = 0
+        end
+        object btnEditar: TButton
+          Left = 120
+          Top = 8
+          Width = 75
+          Height = 25
+          Caption = 'Editar'
+          TabOrder = 1
+        end
+        object btnExcluir: TButton
+          Left = 216
+          Top = 8
+          Width = 75
+          Height = 25
+          Caption = 'Excluir'
+          TabOrder = 2
+        end
+        object btnCancelar: TButton
+          Left = 312
+          Top = 8
+          Width = 75
+          Height = 25
+          Caption = 'Cancelar'
+          TabOrder = 3
+        end
+      end
+      object Panel2: TPanel
+        Left = 0
+        Top = 0
+        Width = 991
+        Height = 41
+        Align = alTop
+        TabOrder = 2
+        object lblPerfil: TLabel
+          Left = 9
+          Top = 13
+          Width = 27
+          Height = 15
+          Caption = 'Perfil'
+        end
+        object cbPerfil: TDBLookupComboBox
+          Left = 49
+          Top = 10
+          Width = 208
+          Height = 23
+          KeyField = 'ID_PERFIL'
+          ListField = 'NOME'
+          ListSource = DM.DSPerfis
+          TabOrder = 0
+          OnClick = cbPerfilClick
+          OnCloseUp = cbPerfilCloseUp
+        end
+      end
+    end
+  end
+end

@@ -13,6 +13,16 @@ object Form1: TForm1
   Menu = MainMenu1
   OnActivate = FormActivate
   TextHeight = 14
+  object StatusBar1: TStatusBar
+    Left = 0
+    Top = 280
+    Width = 635
+    Height = 19
+    Panels = <>
+    ExplicitLeft = 208
+    ExplicitTop = 256
+    ExplicitWidth = 0
+  end
   object MainMenu1: TMainMenu
     Left = 32
     Top = 16
@@ -49,6 +59,7 @@ object Form1: TForm1
       end
       object Permisses1: TMenuItem
         Caption = 'Permiss'#245'es'
+        OnClick = Permisses1Click
       end
     end
     object AppModule21: TMenuItem

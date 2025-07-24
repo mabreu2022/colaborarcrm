@@ -1,6 +1,6 @@
 object DM: TDM
-  Height = 285
-  Width = 354
+  Height = 374
+  Width = 604
   object Conn: TFDConnection
     Params.Strings = (
       'Database=C:\FONTES\Colaborar\DataBase\BANCOCOLABORAR.FDB'
@@ -11,6 +11,7 @@ object DM: TDM
       'Port=3050'
       'DriverID=FB'
       'CharacterSet=UTF8')
+    Connected = True
     LoginPrompt = False
     Left = 40
     Top = 24
@@ -226,5 +227,70 @@ object DM: TDM
     DataSet = qryContatos
     Left = 112
     Top = 168
+  end
+  object qryUsuarios: TFDQuery
+    Connection = Conn
+    SQL.Strings = (
+      'select * from usuarios')
+    Left = 272
+    Top = 32
+    object qryUsuariosID_USUARIO: TIntegerField
+      FieldName = 'ID_USUARIO'
+      Origin = 'ID_USUARIO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryUsuariosNOME: TWideStringField
+      FieldName = 'NOME'
+      Origin = 'NOME'
+      Required = True
+      Size = 100
+    end
+    object qryUsuariosEMAIL: TWideStringField
+      FieldName = 'EMAIL'
+      Origin = 'EMAIL'
+      Required = True
+      Size = 100
+    end
+    object qryUsuariosSENHA: TWideStringField
+      FieldName = 'SENHA'
+      Origin = 'SENHA'
+      Required = True
+      Size = 100
+    end
+    object qryUsuariosID_PERFIL: TIntegerField
+      FieldName = 'ID_PERFIL'
+      Origin = 'ID_PERFIL'
+      Required = True
+    end
+  end
+  object qryPerfis: TFDQuery
+    Connection = Conn
+    SQL.Strings = (
+      'select * from perfis')
+    Left = 264
+    Top = 88
+  end
+  object qryPermissoes: TFDQuery
+    Connection = Conn
+    SQL.Strings = (
+      'select * from permissoes')
+    Left = 264
+    Top = 144
+  end
+  object DSUsuarios: TDataSource
+    DataSet = qryUsuarios
+    Left = 368
+    Top = 32
+  end
+  object DSPerfis: TDataSource
+    DataSet = qryPerfis
+    Left = 368
+    Top = 88
+  end
+  object DSPermissoes: TDataSource
+    DataSet = qryPermissoes
+    Left = 368
+    Top = 144
   end
 end

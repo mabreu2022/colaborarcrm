@@ -144,6 +144,10 @@
             <Form>FrmContatosCad</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="uView.ControleDeUsuarios.pas">
+            <Form>FrmControleDeUsuarios</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
