@@ -1,4 +1,4 @@
-unit Unit1;
+﻿unit Unit1;
 
 interface
 
@@ -16,6 +16,27 @@ uses
   Vcl.ExtCtrls,
   Vcl.Menus,
   D2BridgeFormTemplate,
+
+  FireDAC.Stan.Intf,
+  FireDAC.Stan.Option,
+  FireDAC.Stan.Error,
+  FireDAC.UI.Intf,
+  FireDAC.Phys.Intf,
+  FireDAC.Stan.Def,
+  FireDAC.Stan.Pool,
+  FireDAC.Stan.Async,
+  FireDAC.Phys,
+  FireDAC.Phys.FB,
+  FireDAC.Phys.FBDef,
+  FireDAC.VCLUI.Wait,
+  FireDAC.Phys.IBBase,
+  Data.DB,
+  FireDAC.Comp.Client,
+  FireDAC.Stan.Param,
+  FireDAC.DatS,
+  FireDAC.DApt.Intf,
+  FireDAC.DApt,
+  FireDAC.Comp.DataSet,
 
   D2Bridge.Forms;
 
@@ -38,12 +59,23 @@ type
     Listagemcontratosativos1: TMenuItem;
     Listagemcontratosinativos1: TMenuItem;
     ListagememAberto1: TMenuItem;
+    Agendamendo1: TMenuItem;
+    Usuarios1: TMenuItem;
+    Perfis1: TMenuItem;
+    Permisses1: TMenuItem;
     procedure Module11Click(Sender: TObject);
     procedure Clientes1Click(Sender: TObject);
     procedure Cliente1Click(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
   private
+    JaCarregouPermissoes: Boolean;
 
   public
+    procedure HabilitarItemMenu(const NomeTela: string);
+    procedure ExportarListaDeTelas;
+    procedure ResetarMenus;
+    function RemoverAcentos(const Texto: string): string;
+    procedure CarregarPermissoesUsuario;
 
   protected
     procedure ExportD2Bridge; override;
@@ -57,7 +89,7 @@ Function Form1: TForm1;
 implementation
 
 Uses
-  ContratosWebApp, uView.Clientes;
+  ContratosWebApp, uView.Clientes, uDM;
 
 Function Form1: TForm1;
 begin
@@ -66,6 +98,29 @@ end;
 
 {$R *.dfm}
 { TForm1 }
+
+procedure TForm1.CarregarPermissoesUsuario;
+var
+  QryPerm: TFDQuery;
+begin
+  QryPerm := TFDQuery.Create(nil);
+  try
+    QryPerm.Connection := DM.Conn;
+    QryPerm.SQL.Text := 'SELECT NOME_TELA FROM PERMISSOES WHERE ID_PERFIL = :ID AND PODE_ACESSAR = TRUE';
+    QryPerm.ParamByName('ID').AsInteger := DM.PerfilID;
+    QryPerm.Open;
+
+    //ShowMessage('O usuário tem acesso a : ' + IntToStr(QryPerm.RecordCount));
+
+    while not QryPerm.Eof do
+    begin
+      HabilitarItemMenu(QryPerm.FieldByName('NOME_TELA').AsString);
+      QryPerm.Next;
+    end;
+  finally
+    QryPerm.Free;
+  end;
+end;
 
 procedure TForm1.Cliente1Click(Sender: TObject);
 begin
@@ -81,6 +136,65 @@ begin
     TFrmClientes.CreateInstance;
 
   FrmClientes.ShowModal;
+end;
+
+procedure TForm1.ExportarListaDeTelas;
+var
+  i, j: Integer;
+  Lista: TStringList;
+  QryCheck: TFDQuery;
+  NomeTela: string;
+  NomePadronizado: string;
+  PerfilID: Integer;
+begin
+  Lista := TStringList.Create;
+  QryCheck := TFDQuery.Create(nil);
+  try
+    QryCheck.Connection := DM.Conn;
+    PerfilID := DM.PerfilID; // ID do perfil logado
+
+    Lista.Add('Menus disponíveis e verificação de permissões:');
+    Lista.Add('');
+
+    for i := 0 to MainMenu1.Items.Count - 1 do
+    begin
+      NomeTela := MainMenu1.Items[i].Caption;
+      NomePadronizado := RemoverAcentos(Trim(NomeTela));
+      Lista.Add(NomeTela);
+
+      // Verifica se essa tela existe na tabela PERMISSOES
+      QryCheck.SQL.Text := 'SELECT COUNT(*) FROM PERMISSOES ' +
+        'WHERE ID_PERFIL = :ID AND TRIM(NOME_TELA) = :TELA AND PODE_ACESSAR = TRUE';
+      QryCheck.ParamByName('ID').AsInteger := PerfilID;
+      QryCheck.ParamByName('TELA').AsString := NomePadronizado;
+      QryCheck.Open;
+
+      if QryCheck.Fields[0].AsInteger = 0 then
+        Lista.Add('    ❌ Sem permissão cadastrada');
+
+      for j := 0 to MainMenu1.Items[i].Count - 1 do
+      begin
+        NomeTela := MainMenu1.Items[i].Items[j].Caption;
+        NomePadronizado := RemoverAcentos(Trim(NomeTela));
+        // 🔄 faltava atualizar aqui!
+        Lista.Add('  - ' + NomeTela);
+
+        QryCheck.ParamByName('TELA').AsString := NomePadronizado;
+        QryCheck.Open;
+
+        if QryCheck.Fields[0].AsInteger = 0 then
+          Lista.Add('      ❌ Sem permissão cadastrada');
+      end;
+
+    end;
+
+    Lista.SaveToFile('ListaDeTelas_Validada.txt');
+    //ShowMessage('Arquivo "ListaDeTelas_Validada.txt" foi gerado com sucesso!');
+  finally
+    QryCheck.Free;
+    Lista.Free;
+
+  end;
 end;
 
 procedure TForm1.ExportD2Bridge;
@@ -102,14 +216,13 @@ begin
   // 'templates/master.html';
   D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
 
-
-   imgLogo := TImage.Create(Self);
-   imgLogo.Picture.LoadFromFile('C:\FONTES\Colaborar\Resources\logo.png');
-   imgLogo.Stretch := True;
-   imgLogo.Width := 200;
-   imgLogo.Height := 60;
-   imgLogo.Transparent := True;
-   imgLogo.Parent := Self;
+  imgLogo := TImage.Create(Self);
+  imgLogo.Picture.LoadFromFile('C:\FONTES\Colaborar\Resources\logo.png');
+  imgLogo.Stretch := True;
+  imgLogo.Width := 200;
+  imgLogo.Height := 60;
+  imgLogo.Transparent := True;
+  imgLogo.Parent := Self;
 
   // Export yours Controls
   with D2Bridge.Items.Add do
@@ -121,6 +234,67 @@ begin
 
     SideMenu(MainMenu1);
 
+  end;
+end;
+
+procedure TForm1.FormActivate(Sender: TObject);
+begin
+  if not JaCarregouPermissoes then
+  begin
+    CarregarPermissoesUsuario;
+    JaCarregouPermissoes := True;
+  end;
+
+end;
+
+procedure TForm1.HabilitarItemMenu(const NomeTela: string);
+var
+  i, j: Integer;
+  NomeMenuItem, NomeSolicitado: string;
+  Log: TStringList;
+begin
+  Log := TStringList.Create;
+  try
+    NomeSolicitado := RemoverAcentos(Trim(NomeTela));
+    Log.Add('=== Comparação para ativar: ' + NomeSolicitado + ' ===');
+
+    for i := 0 to MainMenu1.Items.Count - 1 do
+    begin
+      // Verifica o nome do item pai
+      NomeMenuItem := RemoverAcentos(Trim(MainMenu1.Items[i].Caption));
+      Log.Add('MenuPai [i=' + IntToStr(i) + ']: ' + NomeMenuItem + ' <=> ' + NomeSolicitado);
+
+      if SameText(NomeMenuItem, NomeSolicitado) then
+      begin
+        MainMenu1.Items[i].Enabled := True;
+        MainMenu1.Items[i].Visible := True;
+        Log.Add('  ✅ Ativado como menu pai');
+      end;
+
+      // Verifica os submenus
+      for j := 0 to MainMenu1.Items[i].Count - 1 do
+      begin
+        NomeMenuItem := RemoverAcentos(Trim(MainMenu1.Items[i].Items[j].Caption));
+        Log.Add('  Submenu [j=' + IntToStr(j) + ']: ' + NomeMenuItem + ' <=> ' + NomeSolicitado);
+
+        if SameText(NomeMenuItem, NomeSolicitado) then
+        begin
+          MainMenu1.Items[i].Items[j].Enabled := True;
+          MainMenu1.Items[i].Items[j].Visible := True;
+
+          // Ativa o pai também
+          MainMenu1.Items[i].Enabled := True;
+          MainMenu1.Items[i].Visible := True;
+
+          Log.Add('    ✅ Ativado como submenu + pai');
+          Break; // se bateu, não precisa continuar nos outros submenus
+        end;
+      end;
+    end;
+
+    Log.SaveToFile('Log_ComparacaoPermissoes.txt');
+  finally
+    Log.Free;
   end;
 end;
 
@@ -157,17 +331,36 @@ begin
     if PrismControl.VCLComponent = Edit1 then
     PrismControl.AsEdit.DataType:= TPrismFieldType.PrismFieldTypeInteger;
   }
-    if PrismControl.IsDBGrid then
-    begin
-      PrismControl.AsDBGrid.RecordsPerPage:= 10;
-      PrismControl.AsDBGrid.MaxRecords:= 2000;
-    end;
+  if PrismControl.IsDBGrid then
+  begin
+    PrismControl.AsDBGrid.RecordsPerPage := 10;
+    PrismControl.AsDBGrid.MaxRecords := 2000;
+  end;
 
 end;
 
 procedure TForm1.Module11Click(Sender: TObject);
 begin
   TD2BridgeForm(Session.PrimaryForm).Show;
+end;
+
+function TForm1.RemoverAcentos(const Texto: string): string;
+const
+  AComAcento = 'áàâãäéèêëíìîïóòôõöúùûüçÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ';
+  ASemAcento = 'aaaaaeeeeiiiiooooouuuucAAAAAEEEEIIIIOOOOOUUUUC';
+var
+  i, p: Integer;
+  Resultado: string;
+begin
+  Resultado := Texto;
+  for i := 1 to Length(Resultado) do
+  begin
+    p := Pos(Resultado[i], AComAcento);
+    if p > 0 then
+      Resultado[i] := ASemAcento[p];
+  end;
+  Result := Resultado;
+
 end;
 
 procedure TForm1.RenderD2Bridge(const PrismControl: TPrismControl;
@@ -185,6 +378,24 @@ begin
     HTMLControl:= '</>';
     end;
   }
+end;
+
+procedure TForm1.ResetarMenus;
+var
+  i, j: Integer;
+begin
+  for i := 0 to MainMenu1.Items.Count - 1 do
+  begin
+    MainMenu1.Items[i].Enabled := False;
+    // MainMenu1.Items[i].Visible := False;
+
+    for j := 0 to MainMenu1.Items[i].Count - 1 do
+    begin
+      MainMenu1.Items[i].Items[j].Enabled := False;
+      // MainMenu1.Items[i].Items[j].Visible := False;
+    end;
+  end;
+
 end;
 
 end.

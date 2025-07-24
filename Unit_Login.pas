@@ -45,7 +45,7 @@ Function Form_Login: TForm_Login;
 implementation
 
 Uses
-   ContratosWebApp, Unit1;
+   ContratosWebApp, Unit1, uDM;
 
 Function Form_Login: TForm_Login;
 begin
@@ -58,25 +58,41 @@ end;
 
 procedure TForm_Login.Button_LoginClick(Sender: TObject);
 begin
- //Your Code
+
+  if DM.Login(Edit_UserName.Text, Edit_Password.Text) then
+  begin
+//    if Form1 = nil then
+//       TForm1.CreateInstance;
+    Form1.Show;
+  end else
+  begin
+    if IsD2BridgeContext then
+    begin
+      D2Bridge.Validation(Edit_UserName, false);
+      D2Bridge.Validation(Edit_Password, false, 'Usuário ou senha inválidos');
+    end else
+      MessageDlg('Usuário ou senha inválidos', TMsgDlgType.mtWarning, [mbok], 0);
+
+    Exit;
+  end;
 
  //***EXAMPLE***
- if (Edit_UserName.Text = 'admin') and (Edit_Password.Text = 'admin') then
- begin
-  if Form1 = nil then
-   TForm1.CreateInstance;
-  Form1.Show;
- end else
- begin
-  if IsD2BridgeContext then
-  begin
-   D2Bridge.Validation(Edit_UserName, false);
-   D2Bridge.Validation(Edit_Password, false, 'Invalid username or password');
-  end else
-   MessageDlg('Invalid username or password', TMsgDlgType.mtWarning, [mbok], 0);
-	 
-  Exit;
- end;
+// if (Edit_UserName.Text = 'admin') and (Edit_Password.Text = 'admin') then
+// begin
+//  if Form1 = nil then
+//   TForm1.CreateInstance;
+//  Form1.Show;
+// end else
+// begin
+//  if IsD2BridgeContext then
+//  begin
+//   D2Bridge.Validation(Edit_UserName, false);
+//   D2Bridge.Validation(Edit_Password, false, 'Invalid username or password');
+//  end else
+//   MessageDlg('Invalid username or password', TMsgDlgType.mtWarning, [mbok], 0);
+//
+//  Exit;
+// end;
 
 end;
 

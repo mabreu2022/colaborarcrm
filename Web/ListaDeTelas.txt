@@ -1,0 +1,10 @@
+&Cadastros
+  - Clientes
+  - Ativos
+  - Contratos
+  - Formas de Pagamento
+  - Agendamendos
+&Relatórios
+  - Clientes
+  - -
+  - Contratos

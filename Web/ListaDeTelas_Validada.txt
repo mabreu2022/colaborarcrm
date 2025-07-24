@@ -1,0 +1,22 @@
+Menus disponíveis e verificação de permissões:
+
+&Cadastros
+    ? Sem permissão cadastrada
+  - Clientes
+      ? Sem permissão cadastrada
+  - Ativos
+      ? Sem permissão cadastrada
+  - Contratos
+      ? Sem permissão cadastrada
+  - Formas de Pagamento
+      ? Sem permissão cadastrada
+  - Agendamentos
+      ? Sem permissão cadastrada
+&Relatórios
+    ? Sem permissão cadastrada
+  - Clientes
+      ? Sem permissão cadastrada
+  - -
+      ? Sem permissão cadastrada
+  - Contratos
+      ? Sem permissão cadastrada

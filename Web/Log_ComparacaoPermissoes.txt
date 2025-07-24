@@ -1,0 +1,14 @@
+=== Comparação para ativar: Cadastros ===
+MenuPai [i=0]: &Cadastros <=> Cadastros
+  Submenu [j=0]: Clientes <=> Cadastros
+  Submenu [j=1]: Ativos <=> Cadastros
+  Submenu [j=2]: Contratos <=> Cadastros
+  Submenu [j=3]: Formas de Pagamento <=> Cadastros
+  Submenu [j=4]: Agendamentos <=> Cadastros
+  Submenu [j=5]: Usuarios <=> Cadastros
+  Submenu [j=6]: Perfis <=> Cadastros
+  Submenu [j=7]: Permissoes <=> Cadastros
+MenuPai [i=1]: &Relatorios <=> Cadastros
+  Submenu [j=0]: Clientes <=> Cadastros
+  Submenu [j=1]: - <=> Cadastros
+  Submenu [j=2]: Contratos <=> Cadastros
