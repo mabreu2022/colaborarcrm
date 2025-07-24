@@ -61,6 +61,38 @@ Essa funcionalidade é essencial para organizar a logística dos equipamentos e 
 
 ---
 
+### 🔐 Sistema de Login, Perfis e Controle de Permissões
+Este sistema implementa um mecanismo robusto de autenticação e autorização de usuários, oferecendo controle granular de acesso aos menus e funcionalidades com base em perfis definidos no banco de dados.
+
+### 🧾 Funcionalidades
+- Autenticação de usuário via login e senha
+- Validação em tabela de credenciais
+- Associação automática ao ID_PERFIL do banco
+- Exibição de menus conforme permissões autorizadas
+- Gestão de Perfis
+- Cada perfil tem um identificador único (ID_PERFIL)
+- Os perfis definem quais telas cada grupo pode acessar
+- Exemplo de perfis: Técnico, Administrador, Comercial
+- Controle de Permissões
+- Permissões armazenadas na tabela PERMISSOES:
+
+- Cada NOME_TELA corresponde ao título de um item de menu
+- A lógica remove acentos e espaços para evitar divergências
+- Ativação dinâmica de menus
+- Ao realizar login, o sistema busca todas as permissões autorizadas para o perfil atual
+- Os itens de menu são ativados visualmente apenas se PODE_ACESSAR = TRUE
+- Caso um submenu seja ativado, o menu pai também é exibido automaticamente
+- Logs de verificação
+- Comparações entre NOME_TELA e os itens reais do menu são registradas em arquivo Log_ComparacaoPermissoes.txt
+- Permite auditoria e depuração precisa do comportamento da interface
+
+### 📌 Benefícios
+- Separação clara entre autenticação (quem entra) e autorização (o que pode acessar)
+- Flexibilidade para novos perfis sem alterar a estrutura do menu
+- Facilidade para manter segurança e organização por departamentos
+- Sistema à prova de inconsistência visual: se o submenu tem permissão, o pai é ativado automaticamente
+---
+
 ## 🧠 Estrutura Técnica
 
 ```
