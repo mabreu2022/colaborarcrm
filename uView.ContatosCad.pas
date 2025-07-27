@@ -16,8 +16,9 @@ uses
   Vcl.Dialogs,
   Vcl.StdCtrls,
   Vcl.ExtCtrls,
+  Vcl.DBCtrls,
 
-  D2Bridge.Forms, Vcl.DBCtrls;
+  D2Bridge.Forms;
 
 type
   TFrmContatosCad = class(TD2BridgeForm)
@@ -42,9 +43,8 @@ type
     procedure btnEditarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
-    { Private declarations }
+
   public
-    { Public declarations }
     ID_CONTATO_RECEBIDO: Integer;
     procedure CarregarDadosContato(IDContato: Integer);
 
@@ -102,7 +102,6 @@ begin
 
   Title := 'Cadastro de contatos';
 
-  // TemplateClassForm:= TD2BridgeFormTemplate;
   D2Bridge.FrameworkExportType.TemplateMasterHTMLFile := '';
   D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
 

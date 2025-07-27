@@ -11,6 +11,7 @@ object FrmControleDeUsuarios: TFrmControleDeUsuarios
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poScreenCenter
+  OnDestroy = FormDestroy
   OnShow = FormShow
   TextHeight = 15
   object PageControl1: TPageControl

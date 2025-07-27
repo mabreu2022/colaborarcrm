@@ -98,7 +98,10 @@ Function Form1: TForm1;
 implementation
 
 Uses
-  ContratosWebApp, uView.Clientes, uDM, uView.ControleDeUsuarios;
+  ContratosWebApp,
+  uView.Clientes,
+  uDM,
+  uView.ControleDeUsuarios;
 
 Function Form1: TForm1;
 begin

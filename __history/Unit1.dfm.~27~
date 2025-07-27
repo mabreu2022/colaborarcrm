@@ -11,7 +11,15 @@ object Form1: TForm1
   Font.Name = 'Tahoma'
   Font.Style = []
   Menu = MainMenu1
+  OnActivate = FormActivate
   TextHeight = 14
+  object StatusBar1: TStatusBar
+    Left = 0
+    Top = 280
+    Width = 635
+    Height = 19
+    Panels = <>
+  end
   object MainMenu1: TMainMenu
     Left = 32
     Top = 16
@@ -38,7 +46,17 @@ object Form1: TForm1
         Caption = 'Formas de Pagamento'
       end
       object Agendamendo1: TMenuItem
-        Caption = 'Agendamendos'
+        Caption = 'Agendamentos'
+      end
+      object Usuarios1: TMenuItem
+        Caption = 'Usu'#225'rios'
+      end
+      object Perfis1: TMenuItem
+        Caption = 'Perfis'
+      end
+      object Permisses1: TMenuItem
+        Caption = 'Permiss'#245'es'
+        OnClick = Permisses1Click
       end
     end
     object AppModule21: TMenuItem
@@ -67,6 +85,10 @@ object Form1: TForm1
           Caption = 'Listagem em Aberto'
         end
       end
+    end
+    object LogOff1: TMenuItem
+      Caption = 'Log-Off'
+      OnClick = LogOff1Click
     end
   end
 end

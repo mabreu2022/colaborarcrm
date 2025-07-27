@@ -279,13 +279,22 @@ object FrmClientes: TFrmClientes
           OnClick = btnEditarClick
         end
         object btnExcluir: TButton
-          Left = 171
+          Left = 253
           Top = 9
           Width = 75
           Height = 25
           Caption = 'Excluir'
           TabOrder = 2
           OnClick = btnExcluirClick
+        end
+        object btnSalvarCliente: TButton
+          Left = 171
+          Top = 9
+          Width = 75
+          Height = 25
+          Caption = 'Salvar'
+          TabOrder = 3
+          OnClick = btnSalvarClienteClick
         end
       end
     end
@@ -307,7 +316,6 @@ object FrmClientes: TFrmClientes
         TitleFont.Name = 'Segoe UI'
         TitleFont.Style = []
         OnCellClick = DBGrid1CellClick
-        OnDrawColumnCell = DBGrid1DrawColumnCell
         Columns = <
           item
             Expanded = False
@@ -470,7 +478,6 @@ object FrmClientes: TFrmClientes
           item
             Expanded = False
             FieldName = 'ID_CLIENTE'
-            Width = 64
             Visible = True
           end
           item
@@ -482,43 +489,36 @@ object FrmClientes: TFrmClientes
           item
             Expanded = False
             FieldName = 'TELEFONE_CONTATO'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'EMAIL_CONTATO'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'CARGO'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'OBSERVACAO'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TIPO_CONTATO'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DATA_CADASTRO'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'ATIVO'
-            Width = 64
             Visible = True
           end>
       end
@@ -563,6 +563,7 @@ object FrmClientes: TFrmClientes
           Height = 25
           Caption = 'Salvar'
           TabOrder = 3
+          Visible = False
           OnClick = btnSalvarClick
         end
         object btnCancelar: TBitBtn
@@ -572,6 +573,7 @@ object FrmClientes: TFrmClientes
           Height = 25
           Caption = 'Cancelar'
           TabOrder = 4
+          Visible = False
           OnClick = btnCancelarClick
         end
       end

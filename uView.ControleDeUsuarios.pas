@@ -103,11 +103,9 @@ type
     edtDescricaoPerfil: TEdit;
     lblNomePerfil: TLabel;
     lblDescricaoPerfil: TLabel;
-    procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure cbPerfilCloseUp(Sender: TObject);
   private
-    FListaChecks: TList<TCheckBox>;
     procedure CarregarItensMenu;
     procedure ReexportarAbaPermissoes;
     procedure AtivarPermissoesFixas(const PerfilID: Integer);
@@ -191,10 +189,8 @@ begin
     not cbPerfil.ListSource.DataSet.IsEmpty and not VarIsNull(cbPerfil.KeyValue)
   then
   begin
-
     AtivarPermissoesFixas(cbPerfil.KeyValue);
     ReexportarAbaPermissoes;
-    // CarregarItensMenu;
   end;
 
 end;
@@ -205,17 +201,9 @@ begin
 
   Title := 'Controle de Usuários';
 
-  // Libera FListaChecks se já existir
-  if Assigned(FListaChecks) then
-  begin
-    FListaChecks.Free;
-    FListaChecks := nil;
-  end;
-
-  // Preparar os checkboxes com base no perfil selecionado
+  // Preparar os checkboxes com base no perfil do login
   AtivarPermissoesFixas(DM.PerfilID);
 
-  // TemplateClassForm:= TD2BridgeFormTemplate;
   D2Bridge.FrameworkExportType.TemplateMasterHTMLFile := '';
   D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
 
@@ -296,11 +284,6 @@ begin
 
   end;
 
-end;
-
-procedure TFrmControleDeUsuarios.FormDestroy(Sender: TObject);
-begin
-  FListaChecks.Free;
 end;
 
 procedure TFrmControleDeUsuarios.FormShow(Sender: TObject);

@@ -16,7 +16,7 @@ uses
   Vcl.Menus,
   Vcl.Imaging.pngimage,
   Vcl.ExtCtrls,
-  D2Bridge.Forms; //Declare D2Bridge.Forms always in the last unit
+  D2Bridge.Forms;
 
 type
   TForm_Login = class(TD2BridgeForm)
@@ -76,24 +76,6 @@ begin
     Exit;
   end;
 
- //***EXAMPLE***
-// if (Edit_UserName.Text = 'admin') and (Edit_Password.Text = 'admin') then
-// begin
-//  if Form1 = nil then
-//   TForm1.CreateInstance;
-//  Form1.Show;
-// end else
-// begin
-//  if IsD2BridgeContext then
-//  begin
-//   D2Bridge.Validation(Edit_UserName, false);
-//   D2Bridge.Validation(Edit_Password, false, 'Invalid username or password');
-//  end else
-//   MessageDlg('Invalid username or password', TMsgDlgType.mtWarning, [mbok], 0);
-//
-//  Exit;
-// end;
-
 end;
 
 procedure TForm_Login.Button_ShowPassClick(Sender: TObject);
@@ -123,7 +105,6 @@ begin
  //Background color
  D2Bridge.HTML.Render.BodyStyle:= 'background-color:  #012636'; //#f0f0f0';
 
- //TemplateClassForm:= TD2BridgeFormTemplate;
  D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= '';
  D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
 

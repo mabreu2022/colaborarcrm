@@ -16,7 +16,6 @@ uses
   Vcl.Dialogs,
   Vcl.StdCtrls,
   Unit1,
-  D2Bridge.Forms,
   Vcl.ComCtrls,
   Data.DB,
   Vcl.ExtCtrls,
@@ -24,7 +23,9 @@ uses
   Vcl.DBGrids,
   Vcl.Buttons,
   Vcl.DBCtrls,
-  uView.ContatosCad;
+  uView.ContatosCad,
+
+  D2Bridge.Forms;
 
 type
   TFrmClientes = class(TForm1)
@@ -100,8 +101,6 @@ type
     procedure btnSalvarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure btnListaTodosClick(Sender: TObject);
-    procedure DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
-      DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure btnSalvarClienteClick(Sender: TObject);
   private
     vFrmContatosCad: TFrmContatosCad;
@@ -109,13 +108,10 @@ type
     procedure ListarContatos;
     procedure PreencherCamposCliente;
     procedure dsContatosDataChange(Sender: TObject; Field: TField);
-    procedure AtivarEdicaoGridContatos;
     procedure FinalizarEdicaoContatos;
     procedure LimparCamposCliente;
 
-    { Private declarations }
   public
-    { Public declarations }
     procedure DesativarEdicaoGridContatos;
 
   protected
@@ -137,15 +133,6 @@ Uses
 function FrmClientes: TFrmClientes;
 begin
   result := TFrmClientes(TFrmClientes.GetInstance);
-end;
-
-procedure TFrmClientes.AtivarEdicaoGridContatos;
-var
-  gridOptions: TDBGridOptions;
-begin
-  gridOptions := DBGrid2.Options;
-  Include(gridOptions, dgEditing);
-  DBGrid2.Options := gridOptions;
 end;
 
 procedure TFrmClientes.btnListaTodosClick(Sender: TObject);
@@ -174,11 +161,9 @@ begin
 end;
 
 procedure TFrmClientes.btnEditarContatoClick(Sender: TObject);
-var
-  pop: TFrmContatosCad;
 begin
   inherited;
-  pop.ID_CONTATO_RECEBIDO := DM.qryContatos.FieldByName('ID_CONTATO').AsInteger;
+  FrmContatosCad.ID_CONTATO_RECEBIDO := DM.qryContatos.FieldByName('ID_CONTATO').AsInteger;
   ShowPopupModal('PopuConstatosCad');
   ListarContatos;
 end;
@@ -268,25 +253,6 @@ begin
     DM.ListarContatos('', idClienteSelecionado);
   end;
 
-end;
-
-procedure TFrmClientes.DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
-  DataCol: Integer; Column: TColumn; State: TGridDrawState);
-var
-  lLinha: Integer;
-begin
-  inherited;
-  // obtém o número do registro (linha)
-  lLinha := DBGrid1.DataSource.DataSet.RecNo;
-
-  // verifica se o número da linha é par ou ímpar, aplicando as cores
-  if Odd(lLinha) then
-    DBGrid1.Canvas.Brush.Color := clMenu
-  else
-    DBGrid1.Canvas.Brush.Color := clMoneyGreen;
-
-  // pinta a linha
-  DBGrid1.DefaultDrawColumnCell(Rect, DataCol, Column, State);
 end;
 
 procedure TFrmClientes.DBGrid2DblClick(Sender: TObject);

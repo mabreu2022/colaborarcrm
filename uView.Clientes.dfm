@@ -316,7 +316,6 @@ object FrmClientes: TFrmClientes
         TitleFont.Name = 'Segoe UI'
         TitleFont.Style = []
         OnCellClick = DBGrid1CellClick
-        OnDrawColumnCell = DBGrid1DrawColumnCell
         Columns = <
           item
             Expanded = False

@@ -98,6 +98,8 @@ object FrmContatosCad: TFrmContatosCad
     Height = 41
     Align = alBottom
     TabOrder = 5
+    ExplicitTop = 279
+    ExplicitWidth = 471
     object btnSalvar: TButton
       Left = 24
       Top = 8
