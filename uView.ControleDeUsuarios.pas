@@ -112,8 +112,6 @@ type
     FPerfilAtual: Variant;
 
     procedure CarregarItensMenu;
-    function GerarCheckboxesPermissao(const PerfilID: Integer)
-      : TList<TCheckBox>;
     procedure LimparCheckboxes;
     function NomeSeguro(const Texto: string): string;
     procedure AtualizarPanelPermissoes;
@@ -211,9 +209,6 @@ procedure TFrmControleDeUsuarios.ExportD2Bridge;
 begin
   inherited;
 
-  // Como libero todos os itens exportados anteriormente
-  // D2Bridge.PrismControlFromID('Permissoes').RefreshHTMLControl;
-
   Title := 'Controle de Usuários';
 
   // Libera FListaChecks se já existir
@@ -224,7 +219,6 @@ begin
   end;
 
   // Preparar os checkboxes com base no perfil selecionado
-  // FListaChecks := GerarCheckboxesPermissao(DM.PerfilID);
   AtivarPermissoesFixas(DM.PerfilID);
 
   // TemplateClassForm:= TD2BridgeFormTemplate;
@@ -320,79 +314,6 @@ begin
   Dm.qryUsuarios.Active   := True;
   DM.qryPerfis.Active     := True;
   DM.qryPermissoes.Active := True;
-end;
-
-function TFrmControleDeUsuarios.GerarCheckboxesPermissao(const PerfilID
-  : Integer): TList<TCheckBox>;
-var
-  i, j, PosY: Integer;
-  Qry: TFDQuery;
-  Check: TCheckBox;
-  NomeTela, NomeComp: string;
-  TemPermissao: Boolean;
-begin
-  PosY := 20;
-  FListaChecks := TObjectList<TCheckBox>.Create(True);
-  Result := FListaChecks;
-
-  Qry := TFDQuery.Create(nil);
-  try
-    Qry.Close;
-    Qry.Connection := DM.Conn;
-    Qry.SQL.Text :=
-      'SELECT NOME_TELA, PODE_ACESSAR FROM PERMISSOES WHERE ID_PERFIL = :ID AND PODE_ACESSAR = TRUE';
-    Qry.ParamByName('ID').AsInteger := PerfilID;
-    Qry.Open;
-
-    ShowMessage('Perfil Técnico tem : ' + IntToStr(Qry.recordcount));
-
-    for i := 0 to Form1.MainMenu1.Items.Count - 1 do
-    begin
-      NomeTela := Form1.RemoverAcentos(Trim(Form1.MainMenu1.Items[i].Caption));
-      TemPermissao := Qry.Locate('NOME_TELA', NomeTela, [loCaseInsensitive]);
-
-      Check := TCheckBox.Create(Self);
-      Check.Caption := Form1.MainMenu1.Items[i].Caption;
-      Check.Checked := TemPermissao and Qry.FieldByName('PODE_ACESSAR')
-        .AsBoolean;
-      Check.Left := 20;
-      Check.Top := PosY;
-      Check.Width := 300;
-
-      NomeComp := 'Check_' + NomeSeguro(Check.Caption);
-      if FindComponent(NomeComp) = nil then
-        Check.Name := NomeComp;
-
-      Check.Parent := Self;
-      FListaChecks.Add(Check);
-      PosY := PosY + 30;
-
-      for j := 0 to Form1.MainMenu1.Items[i].Count - 1 do
-      begin
-        NomeTela := Form1.RemoverAcentos
-          (Trim(Form1.MainMenu1.Items[i].Items[j].Caption));
-        TemPermissao := Qry.Locate('NOME_TELA', NomeTela, [loCaseInsensitive]);
-
-        Check := TCheckBox.Create(Self);
-        Check.Caption := Form1.MainMenu1.Items[i].Items[j].Caption;
-        Check.Checked := TemPermissao and Qry.FieldByName('PODE_ACESSAR')
-          .AsBoolean;
-        Check.Left := 40;
-        Check.Top := PosY;
-        Check.Width := 300;
-
-        NomeComp := 'Check_' + NomeSeguro(Check.Caption);
-        if FindComponent(NomeComp) = nil then
-          Check.Name := NomeComp;
-
-        Check.Parent := Self;
-        FListaChecks.Add(Check);
-        PosY := PosY + 30;
-      end;
-    end;
-  finally
-    Qry.Free;
-  end;
 end;
 
 procedure TFrmControleDeUsuarios.InitControlsD2Bridge(const PrismControl
