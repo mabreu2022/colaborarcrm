@@ -78,6 +78,7 @@ type
     cbAtivos: TCheckBox;
     cbClientes: TCheckBox;
     cbContratos: TCheckBox;
+    btnSalvar: TButton;
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure cbPerfilCloseUp(Sender: TObject);
@@ -235,14 +236,6 @@ begin
             FormGroup(lblPerfil.Caption).AddVCLObj(cbPerfil);
           end;
 
-          // with Row.Items.Add do
-          // begin
-          // for var k := 0 to FListaChecks.Count - 1 do
-          // begin
-          // with PanelGroup('Permissoes').Items.Add do
-          // VCLObj(FListaChecks[k]);
-          // end;
-          // end;
           with Row.Items.Add do
           begin
             FormGroup(cbAgendamentos.Caption).AddVCLObj(cbAgendamentos);
@@ -260,9 +253,9 @@ begin
         with Row.Items.Add do
         begin
           FormGroup('').AddVCLObj(btnNovo, CSSClass.Button.Add);
+          FormGroup('').AddVCLObj(btnSalvar, CSSClass.Button.save);
           FormGroup('').AddVCLObj(btnEditar, CSSClass.Button.Edit);
           FormGroup('').AddVCLObj(btnExcluir, CSSClass.Button.delete);
-          // FormGroup('').AddVCLObj(btnSalvar, CSSClass.Button.save);
           FormGroup('').AddVCLObj(btnCancelar, CSSClass.Button.Cancel);
         end;
 
@@ -433,7 +426,7 @@ begin
   begin
     if PrismControlFromID('TabControl01').IsTabs then
     begin
-      PrismControlFromID('TabControl01').AsTabs.ActiveTabIndex := 1;
+      PrismControlFromID('TabControl01').AsTabs.ActiveTabIndex := 2;
 
       with D2Bridge.Items.Add do
       begin
@@ -460,6 +453,7 @@ begin
             with Row.Items.Add do
             begin
               FormGroup('').AddVCLObj(btnNovo, CSSClass.Button.Add);
+              FormGroup('').AddVCLObj(btnSalvar, CSSClass.Button.Save);
               FormGroup('').AddVCLObj(btnEditar, CSSClass.Button.Edit);
               FormGroup('').AddVCLObj(btnExcluir, CSSClass.Button.delete);
               FormGroup('').AddVCLObj(btnCancelar, CSSClass.Button.Cancel);

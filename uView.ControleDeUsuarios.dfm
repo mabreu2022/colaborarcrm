@@ -57,7 +57,7 @@ object FrmControleDeUsuarios: TFrmControleDeUsuarios
           TabOrder = 0
         end
         object btnEditar: TButton
-          Left = 120
+          Left = 195
           Top = 8
           Width = 75
           Height = 25
@@ -65,7 +65,7 @@ object FrmControleDeUsuarios: TFrmControleDeUsuarios
           TabOrder = 1
         end
         object btnExcluir: TButton
-          Left = 216
+          Left = 281
           Top = 8
           Width = 75
           Height = 25
@@ -73,12 +73,20 @@ object FrmControleDeUsuarios: TFrmControleDeUsuarios
           TabOrder = 2
         end
         object btnCancelar: TButton
-          Left = 312
+          Left = 367
           Top = 8
           Width = 75
           Height = 25
           Caption = 'Cancelar'
           TabOrder = 3
+        end
+        object btnSalvar: TButton
+          Left = 105
+          Top = 6
+          Width = 75
+          Height = 25
+          Caption = 'Salvar'
+          TabOrder = 4
         end
       end
       object Panel2: TPanel
