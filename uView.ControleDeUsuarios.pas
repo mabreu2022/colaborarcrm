@@ -107,19 +107,13 @@ type
     procedure FormShow(Sender: TObject);
     procedure cbPerfilCloseUp(Sender: TObject);
   private
-    { Private declarations }
     FListaChecks: TList<TCheckBox>;
-    FPerfilAtual: Variant;
-
     procedure CarregarItensMenu;
-    procedure LimparCheckboxes;
-    function NomeSeguro(const Texto: string): string;
-    procedure AtualizarPanelPermissoes;
     procedure ReexportarAbaPermissoes;
     procedure AtivarPermissoesFixas(const PerfilID: Integer);
 
   public
-    { Public declarations }
+
   protected
     procedure ExportD2Bridge; override;
     procedure InitControlsD2Bridge(const PrismControl: TPrismControl); override;
@@ -332,58 +326,6 @@ begin
     PrismControl.AsDBGrid.MaxRecords:= 2000;
     end;
   }
-end;
-
-procedure TFrmControleDeUsuarios.AtualizarPanelPermissoes;
-begin
-  // Criar nova estrutura visual dentro da aba de Permissões
-  // não passou pela carga do banco?
-  with D2Bridge.Items.Add do
-    with Row.Items.Add do
-      with Tabs.AddTab(PageControl1.Pages[2].Caption).Items.Add do
-      begin
-        for var k := 0 to FListaChecks.Count - 1 do
-        begin
-          with PanelGroup('Permissoes').Items.Add do
-            VCLObj(FListaChecks[k]);
-        end;
-      end;
-end;
-
-procedure TFrmControleDeUsuarios.LimparCheckboxes;
-begin
-
-  if Assigned(FListaChecks) then
-  begin
-    // Remove visualmente da tela, se necessário
-    for var Check in FListaChecks do
-      Check.Parent := nil;
-
-    // Libera os objetos e a lista com segurança
-    // FListaChecks.Clear; // destrói os checkboxes
-    // FreeAndNil(FListaChecks); // remove a lista da memória
-  end;
-end;
-
-function TFrmControleDeUsuarios.NomeSeguro(const Texto: string): string;
-begin
-  Result := StringReplace(Texto, ' ', '_', [rfReplaceAll]);
-  Result := StringReplace(Result, '-', '_', [rfReplaceAll]);
-  Result := StringReplace(Result, '&', '', [rfReplaceAll]);
-  Result := StringReplace(Result, '.', '', [rfReplaceAll]);
-  Result := StringReplace(Result, ',', '', [rfReplaceAll]);
-  Result := StringReplace(Result, '''', '', [rfReplaceAll]);
-  Result := StringReplace(Result, '"', '', [rfReplaceAll]);
-  Result := StringReplace(Result, 'ç', 'c', [rfReplaceAll]);
-  Result := StringReplace(Result, 'á', 'a', [rfReplaceAll]);
-  Result := StringReplace(Result, 'é', 'e', [rfReplaceAll]);
-  Result := StringReplace(Result, 'í', 'i', [rfReplaceAll]);
-  Result := StringReplace(Result, 'ó', 'o', [rfReplaceAll]);
-  Result := StringReplace(Result, 'ú', 'u', [rfReplaceAll]);
-  Result := StringReplace(Result, 'ã', 'a', [rfReplaceAll]);
-  Result := StringReplace(Result, 'ô', 'o', [rfReplaceAll]);
-  Result := StringReplace(Result, 'ê', 'e', [rfReplaceAll]);
-  Result := LowerCase(Result);
 end;
 
 procedure TFrmControleDeUsuarios.ReexportarAbaPermissoes;
