@@ -67,11 +67,13 @@ type
     Perfis1: TMenuItem;
     Permisses1: TMenuItem;
     StatusBar1: TStatusBar;
+    LogOff1: TMenuItem;
     procedure Module11Click(Sender: TObject);
     procedure Clientes1Click(Sender: TObject);
     procedure Cliente1Click(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure Permisses1Click(Sender: TObject);
+    procedure LogOff1Click(Sender: TObject);
   private
     JaCarregouPermissoes: Boolean;
 
@@ -344,6 +346,11 @@ begin
     PrismControl.AsDBGrid.MaxRecords := 2000;
   end;
 
+end;
+
+procedure TForm1.LogOff1Click(Sender: TObject);
+begin
+   //como desloga o usuário e volta a tela de Login?
 end;
 
 procedure TForm1.Module11Click(Sender: TObject);

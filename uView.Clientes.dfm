@@ -17,7 +17,7 @@ object FrmClientes: TFrmClientes
     Top = 0
     Width = 958
     Height = 563
-    ActivePage = Cadastro
+    ActivePage = TabSheet1
     Align = alClient
     TabOrder = 0
     object Cadastro: TTabSheet

@@ -19,15 +19,206 @@ object FrmControleDeUsuarios: TFrmControleDeUsuarios
     Top = 0
     Width = 999
     Height = 613
-    ActivePage = TabSheet3
+    ActivePage = TabSheet1
     Align = alClient
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Usu'#225'rios'
+      object lblNomeUsuario: TLabel
+        Left = 24
+        Top = 8
+        Width = 43
+        Height = 15
+        Caption = ' Usuario'
+      end
+      object lblSenhaUsuario: TLabel
+        Left = 163
+        Top = 8
+        Width = 32
+        Height = 15
+        Caption = 'Senha'
+      end
+      object lblEmailUsuario: TLabel
+        Left = 304
+        Top = 8
+        Width = 34
+        Height = 15
+        Caption = 'E-mail'
+      end
+      object lblPerfilUsuario: TLabel
+        Left = 608
+        Top = 8
+        Width = 86
+        Height = 15
+        Caption = 'Perfil do usuario'
+      end
+      object Panel3: TPanel
+        Left = 0
+        Top = 542
+        Width = 991
+        Height = 41
+        Align = alBottom
+        TabOrder = 0
+        ExplicitLeft = 416
+        ExplicitTop = 488
+        ExplicitWidth = 185
+        object btnNovoUsuario: TButton
+          Left = 16
+          Top = 10
+          Width = 75
+          Height = 25
+          Caption = 'Novo'
+          TabOrder = 0
+        end
+        object btnEditarUsuario: TButton
+          Left = 104
+          Top = 9
+          Width = 75
+          Height = 25
+          Caption = 'Editar'
+          TabOrder = 1
+        end
+        object btnSalvarUsuario: TButton
+          Left = 193
+          Top = 10
+          Width = 75
+          Height = 25
+          Caption = 'Salvar'
+          TabOrder = 2
+        end
+        object btnExcluirUsuario: TButton
+          Left = 279
+          Top = 10
+          Width = 75
+          Height = 25
+          Caption = 'Excluir'
+          TabOrder = 3
+        end
+        object btnCancelarUsuario: TButton
+          Left = 365
+          Top = 10
+          Width = 75
+          Height = 25
+          Caption = 'Cancelar'
+          TabOrder = 4
+        end
+      end
+      object edtNomeUsuario: TEdit
+        Left = 16
+        Top = 24
+        Width = 121
+        Height = 23
+        TabOrder = 1
+      end
+      object edtSenhaUsuario: TEdit
+        Left = 160
+        Top = 24
+        Width = 121
+        Height = 23
+        TabOrder = 2
+      end
+      object edtEmailUsuario: TEdit
+        Left = 303
+        Top = 24
+        Width = 282
+        Height = 23
+        TabOrder = 3
+      end
+      object cbPerfilUsuario: TDBLookupComboBox
+        Left = 608
+        Top = 24
+        Width = 145
+        Height = 23
+        DataField = 'ID_PERFIL'
+        DataSource = DM.DSUsuarios
+        KeyField = 'ID_PERFIL'
+        ListField = 'DESCRICAO'
+        ListSource = DM.DSPerfis
+        TabOrder = 4
+      end
     end
     object TabSheet2: TTabSheet
       Caption = 'Perfis'
       ImageIndex = 1
+      object lblNomePerfil: TLabel
+        Left = 16
+        Top = 8
+        Width = 80
+        Height = 15
+        Caption = 'Nome do Perfil'
+      end
+      object lblDescricaoPerfil: TLabel
+        Left = 152
+        Top = 8
+        Width = 98
+        Height = 15
+        Caption = 'Descri'#231#227'o do Perfil'
+      end
+      object Panel4: TPanel
+        Left = 0
+        Top = 542
+        Width = 991
+        Height = 41
+        Align = alBottom
+        TabOrder = 0
+        ExplicitLeft = 64
+        ExplicitTop = 544
+        ExplicitWidth = 185
+        object btnSalvarPerfis: TButton
+          Left = 100
+          Top = 9
+          Width = 75
+          Height = 25
+          Caption = 'Salvar'
+          TabOrder = 0
+        end
+        object btnNovoPerfis: TButton
+          Left = 16
+          Top = 9
+          Width = 75
+          Height = 25
+          Caption = 'Novo'
+          TabOrder = 1
+        end
+        object btnEditarPerfis: TButton
+          Left = 187
+          Top = 9
+          Width = 75
+          Height = 25
+          Caption = 'Editar'
+          TabOrder = 2
+        end
+        object btnExcluirPerfis: TButton
+          Left = 273
+          Top = 9
+          Width = 75
+          Height = 25
+          Caption = 'Excluir'
+          TabOrder = 3
+        end
+        object btnCancelarPerfis: TButton
+          Left = 359
+          Top = 9
+          Width = 75
+          Height = 25
+          Caption = 'Cancelar'
+          TabOrder = 4
+        end
+      end
+      object edtNomePerfil: TEdit
+        Left = 16
+        Top = 32
+        Width = 121
+        Height = 23
+        TabOrder = 1
+      end
+      object edtDescricaoPerfil: TEdit
+        Left = 152
+        Top = 32
+        Width = 521
+        Height = 23
+        TabOrder = 2
+      end
     end
     object TabSheet3: TTabSheet
       Caption = 'Permiss'#245'es'
@@ -48,7 +239,7 @@ object FrmControleDeUsuarios: TFrmControleDeUsuarios
         Height = 41
         Align = alBottom
         TabOrder = 1
-        object btnNovo: TButton
+        object btnNovoPermissoes: TButton
           Left = 24
           Top = 8
           Width = 75
@@ -56,7 +247,7 @@ object FrmControleDeUsuarios: TFrmControleDeUsuarios
           Caption = 'Novo'
           TabOrder = 0
         end
-        object btnEditar: TButton
+        object btnEditarPermissoes: TButton
           Left = 195
           Top = 8
           Width = 75
@@ -64,7 +255,7 @@ object FrmControleDeUsuarios: TFrmControleDeUsuarios
           Caption = 'Editar'
           TabOrder = 1
         end
-        object btnExcluir: TButton
+        object btnExcluirPermissoes: TButton
           Left = 281
           Top = 8
           Width = 75
@@ -72,7 +263,7 @@ object FrmControleDeUsuarios: TFrmControleDeUsuarios
           Caption = 'Excluir'
           TabOrder = 2
         end
-        object btnCancelar: TButton
+        object btnCancelarPermissoes: TButton
           Left = 367
           Top = 8
           Width = 75
@@ -80,9 +271,9 @@ object FrmControleDeUsuarios: TFrmControleDeUsuarios
           Caption = 'Cancelar'
           TabOrder = 3
         end
-        object btnSalvar: TButton
-          Left = 105
-          Top = 6
+        object btnSalvarPermissoes: TButton
+          Left = 108
+          Top = 8
           Width = 75
           Height = 25
           Caption = 'Salvar'

@@ -12,3 +12,4 @@ MenuPai [i=1]: &Relatorios <=> Relatorios
   Submenu [j=0]: Clientes <=> Relatorios
   Submenu [j=1]: - <=> Relatorios
   Submenu [j=2]: Contratos <=> Relatorios
+MenuPai [i=2]: &Log-Off <=> Relatorios

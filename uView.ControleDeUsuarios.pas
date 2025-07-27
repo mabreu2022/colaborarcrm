@@ -65,10 +65,10 @@ type
     Panel2: TPanel;
     cbPerfil: TDBLookupComboBox;
     lblPerfil: TLabel;
-    btnNovo: TButton;
-    btnEditar: TButton;
-    btnExcluir: TButton;
-    btnCancelar: TButton;
+    btnNovoPermissoes: TButton;
+    btnEditarPermissoes: TButton;
+    btnExcluirPermissoes: TButton;
+    btnCancelarPermissoes: TButton;
     cbAgendamentos: TCheckBox;
     cbPerfis: TCheckBox;
     cbPermissoes: TCheckBox;
@@ -78,7 +78,31 @@ type
     cbAtivos: TCheckBox;
     cbClientes: TCheckBox;
     cbContratos: TCheckBox;
-    btnSalvar: TButton;
+    btnSalvarPermissoes: TButton;
+    Panel3: TPanel;
+    btnNovoUsuario: TButton;
+    btnEditarUsuario: TButton;
+    btnSalvarUsuario: TButton;
+    btnExcluirUsuario: TButton;
+    btnCancelarUsuario: TButton;
+    edtNomeUsuario: TEdit;
+    edtSenhaUsuario: TEdit;
+    edtEmailUsuario: TEdit;
+    cbPerfilUsuario: TDBLookupComboBox;
+    lblNomeUsuario: TLabel;
+    lblSenhaUsuario: TLabel;
+    lblEmailUsuario: TLabel;
+    lblPerfilUsuario: TLabel;
+    Panel4: TPanel;
+    btnSalvarPerfis: TButton;
+    btnNovoPerfis: TButton;
+    btnEditarPerfis: TButton;
+    btnExcluirPerfis: TButton;
+    btnCancelarPerfis: TButton;
+    edtNomePerfil: TEdit;
+    edtDescricaoPerfil: TEdit;
+    lblNomePerfil: TLabel;
+    lblDescricaoPerfil: TLabel;
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure cbPerfilCloseUp(Sender: TObject);
@@ -139,15 +163,15 @@ begin
     Open;
   end;
 
-   AtivarSeTiverPermissao(cbAgendamentos);
-   AtivarSeTiverPermissao(cbAtivos);
-   AtivarSeTiverPermissao(cbClientes);
-   AtivarSeTiverPermissao(cbContratos);
-   AtivarSeTiverPermissao(cbFormas);
-   AtivarSeTiverPermissao(cbPerfis);
-   AtivarSeTiverPermissao(cbPermissoes);
-   AtivarSeTiverPermissao(cbRelatorios);
-   AtivarSeTiverPermissao(cbUsuarios);
+  AtivarSeTiverPermissao(cbAgendamentos);
+  AtivarSeTiverPermissao(cbAtivos);
+  AtivarSeTiverPermissao(cbClientes);
+  AtivarSeTiverPermissao(cbContratos);
+  AtivarSeTiverPermissao(cbFormas);
+  AtivarSeTiverPermissao(cbPerfis);
+  AtivarSeTiverPermissao(cbPermissoes);
+  AtivarSeTiverPermissao(cbRelatorios);
+  AtivarSeTiverPermissao(cbUsuarios);
 end;
 
 function FrmControleDeUsuarios: TFrmControleDeUsuarios;
@@ -176,9 +200,9 @@ begin
   then
   begin
 
-    AtivarPermissoesFixas(cbperfil.KeyValue);
+    AtivarPermissoesFixas(cbPerfil.KeyValue);
     ReexportarAbaPermissoes;
-    //CarregarItensMenu;
+    // CarregarItensMenu;
   end;
 
 end;
@@ -216,7 +240,18 @@ begin
         begin
           with Row.Items.Add do
           begin
-
+            FormGroup(lblNomeUsuario.Caption).AddVCLObj(edtNomeUsuario);
+            FormGroup(lblSenhaUsuario.Caption).AddVCLObj(edtSenhaUsuario);
+            FormGroup(lblEmailUsuario.Caption).AddVCLObj(edtEmailUsuario);
+            FormGroup(lblPerfilUsuario.Caption).AddVCLObj(cbPerfilUsuario);
+          end;
+          with Row.Items.Add do
+          begin
+            FormGroup('').AddVCLObj(btnNovoUsuario, CSSClass.Button.Add);
+            FormGroup('').AddVCLObj(btnSalvarUsuario, CSSClass.Button.save);
+            FormGroup('').AddVCLObj(btnEditarUsuario, CSSClass.Button.Edit);
+            FormGroup('').AddVCLObj(btnExcluirUsuario, CSSClass.Button.delete);
+            FormGroup('').AddVCLObj(btnCancelarUsuario, CSSClass.Button.Cancel);
           end;
 
         end;
@@ -224,7 +259,16 @@ begin
         begin
           with Row.Items.Add do
           begin
-
+            FormGroup(lblNomePerfil.Caption).AddVCLObj(edtNomePerfil);
+            FormGroup(lbldescricaoPerfil.Caption).AddVCLObj(edtDescricaoPerfil);
+          end;
+          with Row.Items.Add do
+          begin
+            FormGroup('').AddVCLObj(btnNovoPerfis, CSSClass.Button.Add);
+            FormGroup('').AddVCLObj(btnSalvarPerfis, CSSClass.Button.save);
+            FormGroup('').AddVCLObj(btnEditarPerfis, CSSClass.Button.Edit);
+            FormGroup('').AddVCLObj(btnExcluirPerfis,CSSClass.Button.delete);
+            FormGroup('').AddVCLObj(btnCancelarPerfis, CSSClass.Button.Cancel);
           end;
 
         end;
@@ -248,15 +292,16 @@ begin
             FormGroup(cbRelatorios.Caption).AddVCLObj(cbRelatorios);
             FormGroup(cbUsuarios.Caption).AddVCLObj(cbUsuarios);
           end;
-        end;
-
-        with Row.Items.Add do
-        begin
-          FormGroup('').AddVCLObj(btnNovo, CSSClass.Button.Add);
-          FormGroup('').AddVCLObj(btnSalvar, CSSClass.Button.save);
-          FormGroup('').AddVCLObj(btnEditar, CSSClass.Button.Edit);
-          FormGroup('').AddVCLObj(btnExcluir, CSSClass.Button.delete);
-          FormGroup('').AddVCLObj(btnCancelar, CSSClass.Button.Cancel);
+          with Row.Items.Add do
+          begin
+            FormGroup('').AddVCLObj(btnNovoPermissoes, CSSClass.Button.Add);
+            FormGroup('').AddVCLObj(btnSalvarPermissoes, CSSClass.Button.save);
+            FormGroup('').AddVCLObj(btnEditarPermissoes, CSSClass.Button.Edit);
+            FormGroup('').AddVCLObj(btnExcluirPermissoes,
+              CSSClass.Button.delete);
+            FormGroup('').AddVCLObj(btnCancelarPermissoes,
+              CSSClass.Button.Cancel);
+          end;
         end;
 
       end;
@@ -272,7 +317,8 @@ end;
 
 procedure TFrmControleDeUsuarios.FormShow(Sender: TObject);
 begin
-  DM.qryPerfis.Active := True;
+  Dm.qryUsuarios.Active   := True;
+  DM.qryPerfis.Active     := True;
   DM.qryPermissoes.Active := True;
 end;
 
@@ -452,11 +498,11 @@ begin
 
             with Row.Items.Add do
             begin
-              FormGroup('').AddVCLObj(btnNovo, CSSClass.Button.Add);
-              FormGroup('').AddVCLObj(btnSalvar, CSSClass.Button.Save);
-              FormGroup('').AddVCLObj(btnEditar, CSSClass.Button.Edit);
-              FormGroup('').AddVCLObj(btnExcluir, CSSClass.Button.delete);
-              FormGroup('').AddVCLObj(btnCancelar, CSSClass.Button.Cancel);
+              FormGroup('').AddVCLObj(btnNovoPermissoes, CSSClass.Button.Add);
+              FormGroup('').AddVCLObj(btnSalvarPermissoes, CSSClass.Button.save);
+              FormGroup('').AddVCLObj(btnEditarPermissoes, CSSClass.Button.Edit);
+              FormGroup('').AddVCLObj(btnExcluirPermissoes, CSSClass.Button.delete);
+              FormGroup('').AddVCLObj(btnCancelarPermissoes, CSSClass.Button.Cancel);
             end;
           end;
       end;

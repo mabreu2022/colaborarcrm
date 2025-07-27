@@ -19,9 +19,6 @@ object Form1: TForm1
     Width = 635
     Height = 19
     Panels = <>
-    ExplicitLeft = 208
-    ExplicitTop = 256
-    ExplicitWidth = 0
   end
   object MainMenu1: TMainMenu
     Left = 32
@@ -88,6 +85,10 @@ object Form1: TForm1
           Caption = 'Listagem em Aberto'
         end
       end
+    end
+    object LogOff1: TMenuItem
+      Caption = 'Log-Off'
+      OnClick = LogOff1Click
     end
   end
 end
