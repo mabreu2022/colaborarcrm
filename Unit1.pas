@@ -15,6 +15,7 @@ uses
   Vcl.StdCtrls,
   Vcl.ExtCtrls,
   Vcl.Menus,
+  Vcl.ComCtrls,
   D2BridgeFormTemplate,
 
   FireDAC.Stan.Intf,
@@ -38,7 +39,9 @@ uses
   FireDAC.DApt,
   FireDAC.Comp.DataSet,
 
-  D2Bridge.Forms, Vcl.ComCtrls;
+  D2Bridge.Interfaces,
+
+  D2Bridge.Forms ;
 
 type
   TForm1 = class(TD2BridgeForm)
@@ -73,6 +76,7 @@ type
     JaCarregouPermissoes: Boolean;
 
   public
+
     procedure HabilitarItemMenu(const NomeTela: string);
     procedure ExportarListaDeTelas;
     procedure ResetarMenus;
@@ -80,6 +84,7 @@ type
     procedure CarregarPermissoesUsuario;
 
   protected
+
     procedure ExportD2Bridge; override;
     procedure InitControlsD2Bridge(const PrismControl: TPrismControl); override;
     procedure RenderD2Bridge(const PrismControl: TPrismControl;

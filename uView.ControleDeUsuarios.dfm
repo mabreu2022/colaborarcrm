@@ -96,17 +96,88 @@ object FrmControleDeUsuarios: TFrmControleDeUsuarios
           Caption = 'Perfil'
         end
         object cbPerfil: TDBLookupComboBox
-          Left = 49
-          Top = 10
+          Left = 42
+          Top = 12
           Width = 208
           Height = 23
           KeyField = 'ID_PERFIL'
           ListField = 'NOME'
           ListSource = DM.DSPerfis
           TabOrder = 0
-          OnClick = cbPerfilClick
           OnCloseUp = cbPerfilCloseUp
         end
+      end
+      object cbAgendamentos: TCheckBox
+        Left = 24
+        Top = 72
+        Width = 97
+        Height = 17
+        Caption = 'Agendamentos'
+        TabOrder = 3
+      end
+      object cbPerfis: TCheckBox
+        Left = 24
+        Top = 104
+        Width = 97
+        Height = 17
+        Caption = 'Perfis'
+        TabOrder = 4
+      end
+      object cbPermissoes: TCheckBox
+        Left = 160
+        Top = 104
+        Width = 97
+        Height = 17
+        Caption = 'Permiss'#245'es'
+        TabOrder = 5
+      end
+      object cbRelatorios: TCheckBox
+        Left = 290
+        Top = 104
+        Width = 97
+        Height = 17
+        Caption = 'Relat'#243'rios'
+        TabOrder = 6
+      end
+      object cbUsuarios: TCheckBox
+        Left = 424
+        Top = 104
+        Width = 97
+        Height = 17
+        Caption = 'Usuarios'
+        TabOrder = 7
+      end
+      object cbFormas: TCheckBox
+        Left = 544
+        Top = 72
+        Width = 161
+        Height = 17
+        Caption = 'Formas de Pagamentos'
+        TabOrder = 8
+      end
+      object cbAtivos: TCheckBox
+        Left = 160
+        Top = 72
+        Width = 97
+        Height = 17
+        Caption = 'Ativos'
+        TabOrder = 9
+      end
+      object cbClientes: TCheckBox
+        Left = 290
+        Top = 72
+        Width = 97
+        Height = 17
+        Caption = 'Clientes'
+        TabOrder = 10
+      end
+      object cbContratos: TCheckBox
+        Left = 424
+        Top = 72
+        Width = 97
+        Height = 17
+        Caption = 'Contratos'
+        TabOrder = 11
       end
     end
   end

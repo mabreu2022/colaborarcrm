@@ -1,0 +1,184 @@
+object FrmControleDeUsuarios: TFrmControleDeUsuarios
+  Left = 0
+  Top = 0
+  Caption = 'Controle de Usu'#225'rios'
+  ClientHeight = 613
+  ClientWidth = 999
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  Position = poScreenCenter
+  OnDestroy = FormDestroy
+  OnShow = FormShow
+  TextHeight = 15
+  object PageControl1: TPageControl
+    Left = 0
+    Top = 0
+    Width = 999
+    Height = 613
+    ActivePage = TabSheet3
+    Align = alClient
+    TabOrder = 0
+    object TabSheet1: TTabSheet
+      Caption = 'Usu'#225'rios'
+    end
+    object TabSheet2: TTabSheet
+      Caption = 'Perfis'
+      ImageIndex = 1
+    end
+    object TabSheet3: TTabSheet
+      Caption = 'Permiss'#245'es'
+      ImageIndex = 2
+      object CheckListBoxItens: TCheckListBox
+        Left = 0
+        Top = 41
+        Width = 991
+        Height = 501
+        Align = alClient
+        ItemHeight = 17
+        TabOrder = 0
+      end
+      object Panel1: TPanel
+        Left = 0
+        Top = 542
+        Width = 991
+        Height = 41
+        Align = alBottom
+        TabOrder = 1
+        object btnNovo: TButton
+          Left = 24
+          Top = 8
+          Width = 75
+          Height = 25
+          Caption = 'Novo'
+          TabOrder = 0
+        end
+        object btnEditar: TButton
+          Left = 120
+          Top = 8
+          Width = 75
+          Height = 25
+          Caption = 'Editar'
+          TabOrder = 1
+        end
+        object btnExcluir: TButton
+          Left = 216
+          Top = 8
+          Width = 75
+          Height = 25
+          Caption = 'Excluir'
+          TabOrder = 2
+        end
+        object btnCancelar: TButton
+          Left = 312
+          Top = 8
+          Width = 75
+          Height = 25
+          Caption = 'Cancelar'
+          TabOrder = 3
+        end
+      end
+      object Panel2: TPanel
+        Left = 0
+        Top = 0
+        Width = 991
+        Height = 41
+        Align = alTop
+        TabOrder = 2
+        object lblPerfil: TLabel
+          Left = 9
+          Top = 13
+          Width = 27
+          Height = 15
+          Caption = 'Perfil'
+        end
+        object cbPerfil: TDBLookupComboBox
+          Left = 42
+          Top = 12
+          Width = 208
+          Height = 23
+          KeyField = 'ID_PERFIL'
+          ListField = 'NOME'
+          ListSource = DM.DSPerfis
+          TabOrder = 0
+          OnCloseUp = cbPerfilCloseUp
+        end
+      end
+      object dbcAgendamentos: TDBCheckBox
+        Left = 24
+        Top = 72
+        Width = 97
+        Height = 17
+        Caption = 'Agendamentos'
+        TabOrder = 3
+      end
+      object dbcAtivos: TDBCheckBox
+        Left = 160
+        Top = 72
+        Width = 97
+        Height = 17
+        Caption = 'Ativos'
+        TabOrder = 4
+      end
+      object dbcClientes: TDBCheckBox
+        Left = 290
+        Top = 72
+        Width = 97
+        Height = 17
+        Caption = 'Clientes'
+        TabOrder = 5
+      end
+      object dbContratos: TDBCheckBox
+        Left = 424
+        Top = 72
+        Width = 97
+        Height = 17
+        Caption = 'Contratos'
+        TabOrder = 6
+      end
+      object dbcFormas: TDBCheckBox
+        Left = 552
+        Top = 72
+        Width = 161
+        Height = 17
+        Caption = 'Formas de Pagamentos'
+        TabOrder = 7
+      end
+      object dbcPerfis: TDBCheckBox
+        Left = 24
+        Top = 104
+        Width = 97
+        Height = 17
+        Caption = 'Perfis'
+        TabOrder = 8
+      end
+      object dbcPermissoes: TDBCheckBox
+        Left = 160
+        Top = 104
+        Width = 97
+        Height = 17
+        Caption = 'Permiss'#245'es'
+        TabOrder = 9
+      end
+      object dbcRelatorios: TDBCheckBox
+        Left = 290
+        Top = 104
+        Width = 97
+        Height = 17
+        Caption = 'Relat'#243'rios'
+        TabOrder = 10
+      end
+      object dbcUsuarios: TDBCheckBox
+        Left = 424
+        Top = 104
+        Width = 97
+        Height = 17
+        Caption = 'Usu'#225'rios'
+        TabOrder = 11
+      end
+    end
+  end
+end
