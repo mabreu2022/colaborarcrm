@@ -67,9 +67,9 @@ type
     ComboBox1: TComboBox;
     cmbUF: TComboBox;
     Panel3: TPanel;
-    btnInserir: TButton;
-    btnEditar: TButton;
-    btnExcluir: TButton;
+    btnNovoCliente: TButton;
+    btnEditarCliente: TButton;
+    btnExcluirCliente: TButton;
     TabSheet1: TTabSheet;
     Panel4: TPanel;
     lblLocalizar2: TLabel;
@@ -82,15 +82,16 @@ type
     btnExcluirContato: TBitBtn;
     CBNomecliente: TDBLookupComboBox;
     lblNomeCliente: TLabel;
-    btnSalvar: TBitBtn;
-    btnCancelar: TBitBtn;
+    btnSalvarContato: TBitBtn;
+    btnCancelarContato: TBitBtn;
     btnListaTodos: TBitBtn;
     btnSalvarCliente: TButton;
+    btnCancelarCliente: TButton;
     procedure FormShow(Sender: TObject);
     procedure btnPesquisarClick(Sender: TObject);
-    procedure btnInserirClick(Sender: TObject);
-    procedure btnEditarClick(Sender: TObject);
-    procedure btnExcluirClick(Sender: TObject);
+    procedure btnNovoClienteClick(Sender: TObject);
+    procedure btnEditarClienteClick(Sender: TObject);
+    procedure btnExcluirClienteClick(Sender: TObject);
     procedure btnPesquisar2Click(Sender: TObject);
     procedure DBGrid1CellClick(Column: TColumn);
     procedure DBGrid2DblClick(Sender: TObject);
@@ -98,10 +99,11 @@ type
     procedure btnNovoContatoClick(Sender: TObject);
     procedure btnExcluirContatoClick(Sender: TObject);
     procedure DBGrid2Exit(Sender: TObject);
-    procedure btnSalvarClick(Sender: TObject);
-    procedure btnCancelarClick(Sender: TObject);
+    procedure btnSalvarContatoClick(Sender: TObject);
+    procedure btnCancelarContatoClick(Sender: TObject);
     procedure btnListaTodosClick(Sender: TObject);
     procedure btnSalvarClienteClick(Sender: TObject);
+    procedure btnCancelarClienteClick(Sender: TObject);
   private
     vFrmContatosCad: TFrmContatosCad;
     procedure Listarclientes;
@@ -126,7 +128,7 @@ function FrmClientes: TFrmClientes;
 implementation
 
 Uses
-  ContratosWebApp, uDM;
+  ContratosWebApp, uDM, uView.ControleDeUsuarios;
 
 {$R *.dfm}
 
@@ -142,7 +144,14 @@ begin
   ListarContatos;
 end;
 
-procedure TFrmClientes.btnCancelarClick(Sender: TObject);
+procedure TFrmClientes.btnCancelarClienteClick(Sender: TObject);
+begin
+  inherited;
+  if DM.qryCliente.State in [dsEdit, dsInsert] then
+    DM.qryCliente.Cancel;
+end;
+
+procedure TFrmClientes.btnCancelarContatoClick(Sender: TObject);
 begin
   inherited;
   if DM.qryContatos.State in [dsEdit, dsInsert] then
@@ -152,7 +161,7 @@ begin
 
 end;
 
-procedure TFrmClientes.btnEditarClick(Sender: TObject);
+procedure TFrmClientes.btnEditarClienteClick(Sender: TObject);
 begin
   inherited;
   DM.qryCliente.Edit;
@@ -168,7 +177,7 @@ begin
   ListarContatos;
 end;
 
-procedure TFrmClientes.btnExcluirClick(Sender: TObject);
+procedure TFrmClientes.btnExcluirClienteClick(Sender: TObject);
 begin
   inherited;
   if not DM.qryCliente.IsEmpty then
@@ -199,7 +208,7 @@ begin
   end;
 end;
 
-procedure TFrmClientes.btnInserirClick(Sender: TObject);
+procedure TFrmClientes.btnNovoClienteClick(Sender: TObject);
 begin
   inherited;
   DM.qryCliente.Append;
@@ -227,7 +236,7 @@ begin
   Listarclientes;
 end;
 
-procedure TFrmClientes.btnSalvarClick(Sender: TObject);
+procedure TFrmClientes.btnSalvarContatoClick(Sender: TObject);
 begin
   inherited;
   FinalizarEdicaoContatos;
@@ -373,12 +382,10 @@ begin
           begin
             with Col.Items.add do
             begin
-              FormGroup('  ').AddVCLObj(btnInserir, CSSClass.Button.add);
-              // 'btn btn-success bi bi-send');
-              FormGroup('  ').AddVCLObj(btnEditar, CSSClass.Button.Edit);
-              // 'btn btn-primary bi bi-send');
-              FormGroup('  ').AddVCLObj(btnExcluir, CSSClass.Button.delete);
-              // 'btn btn-danger bi bi-sender');
+              FormGroup('  ').AddVCLObj(btnNovoCliente, CSSClass.Button.add);
+              FormGroup('  ').AddVCLObj(btnEditarCliente, CSSClass.Button.Edit);
+              FormGroup('  ').AddVCLObj(btnExcluirCliente, CSSClass.Button.delete);
+              FormGroup('  ').AddVCLObj(btnCancelarCliente, CSSClass.Button.cancel);
             end;
           end;
 
@@ -418,18 +425,18 @@ begin
             FormGroup('').AddVCLObj(btnNovoContato, CSSClass.Button.add);
             FormGroup('').AddVCLObj(btnEditarContato, CSSClass.Button.Edit);
             FormGroup('').AddVCLObj(btnExcluirContato, CSSClass.Button.delete);
-            FormGroup('').AddVCLObj(btnSalvar, CSSClass.Button.save);
-            FormGroup('').AddVCLObj(btnCancelar, CSSClass.Button.Cancel);
+            FormGroup('').AddVCLObj(btnSalvarContato, CSSClass.Button.save);
+            FormGroup('').AddVCLObj(btnCancelarContato, CSSClass.Button.Cancel);
           end;
         end;
 
 
       end;
       //Formulário popup  - dentro da TABs?
-        with Popup('PopuConstatosCad', 'Cadastro de Contatos').Items.Add do
-        begin
-           Nested(vFrmContatosCad);
-        end;
+      with Popup('PopuConstatosCad', 'Cadastro de Contatos').Items.Add do
+      begin
+        Nested(vFrmContatosCad);
+      end;
   end;
 
 end;
@@ -526,6 +533,23 @@ begin
   end;
 
   DM.DSContatos.OnDataChange := dsContatosDataChange;
+
+  //FrmControleDeUsuarios.AtivarPermissoesFixas(idClienteSelecionado);
+
+  //Botões aba Clientes
+  FrmControleDeUsuarios.AtivarPermissaoPorComponente(DM.perfilID, 'Clientes', 'Novo', btnNovoCliente);
+  FrmControleDeUsuarios.AtivarPermissaoPorComponente(DM.perfilID, 'Clientes', 'Editar', btnEditarCliente);
+  FrmControleDeUsuarios.AtivarPermissaoPorComponente(DM.perfilID, 'Clientes', 'Excluir', btnExcluirCliente);
+  FrmControleDeUsuarios.AtivarPermissaoPorComponente(DM.perfilID, 'Clientes', 'Salvar', btnSalvarCliente);
+  FrmControleDeUsuarios.AtivarPermissaoPorComponente(DM.perfilID, 'Clientes', 'Cancelar', btnCancelarCliente);
+
+  //Botões aba Contatos
+  FrmControleDeUsuarios.AtivarPermissaoPorComponente(DM.perfilID, 'Clientes', 'Novo', btnNovoContato);
+  FrmControleDeUsuarios.AtivarPermissaoPorComponente(DM.perfilID, 'Clientes', 'Editar', btnEditarContato);
+  FrmControleDeUsuarios.AtivarPermissaoPorComponente(DM.perfilID, 'Clientes', 'Excluir', btnExcluirContato);
+  FrmControleDeUsuarios.AtivarPermissaoPorComponente(DM.perfilID, 'Clientes', 'Salvar', btnSalvarContato);
+  FrmControleDeUsuarios.AtivarPermissaoPorComponente(DM.perfilID, 'Clientes', 'Cancelar', btnCancelarContato);
+
 
 end;
 

@@ -61,7 +61,7 @@ implementation
 
 Uses
   ContratosWebApp,
-  uDM;
+  uDM, uView.ControleDeUsuarios;
 
 {$R *.dfm}
 
@@ -139,6 +139,8 @@ end;
 procedure TFrmContatosCad.FormShow(Sender: TObject);
 begin
   CarregarDadosContato(ID_CONTATO_RECEBIDO);
+  FrmControleDeUsuarios.AtivarPermissaoPorComponente(DM.perfilID, 'Clientes', 'Novo', btnSalvar);
+  FrmControleDeUsuarios.AtivarPermissaoPorComponente(DM.perfilID, 'Clientes', 'Editar', btnEditar);
 end;
 
 procedure TFrmContatosCad.InitControlsD2Bridge(const PrismControl

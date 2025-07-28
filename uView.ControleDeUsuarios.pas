@@ -103,14 +103,24 @@ type
     edtDescricaoPerfil: TEdit;
     lblNomePerfil: TLabel;
     lblDescricaoPerfil: TLabel;
+    cbNovo: TCheckBox;
+    cbSalvar: TCheckBox;
+    cbEditar: TCheckBox;
+    cbExcluir: TCheckBox;
+    cbCancelar: TCheckBox;
     procedure FormShow(Sender: TObject);
     procedure cbPerfilCloseUp(Sender: TObject);
   private
     procedure CarregarItensMenu;
     procedure ReexportarAbaPermissoes;
-    procedure AtivarPermissoesFixas(const PerfilID: Integer);
+
 
   public
+    procedure AtivarPermissoesFixas(const PerfilID: Integer);
+    procedure AtivarPermissaoPorComponente(const PerfilID: Integer;
+                                       const NomeTela, NomeAcao: string;
+                                       Componente: TControl);
+
 
   protected
     procedure ExportD2Bridge; override;
@@ -129,9 +139,39 @@ Uses
 
 {$R *.dfm}
 
+procedure TFrmControleDeUsuarios.AtivarPermissaoPorComponente(
+  const PerfilID: Integer; const NomeTela, NomeAcao: string;
+  Componente: TControl);
+begin
+  with DM.qryPermissoes do
+  begin
+    Close;
+    SQL.Text :=
+      'SELECT PODE_EXECUTAR FROM PERMISSOES ' +
+      'WHERE ID_PERFIL = :ID ' +
+      'AND NOME_TELA = :TELA ' +
+      'AND ACAO = :ACAO';
+    ParamByName('ID').AsInteger := PerfilID;
+    ParamByName('TELA').AsString := Form1.RemoverAcentos(Trim(NomeTela));
+    ParamByName('ACAO').AsString := Form1.RemoverAcentos(Trim(NomeAcao));
+    Open;
+  end;
+
+  if DM.qryPermissoes.RecordCount > 0 then
+  begin
+    if Componente is TCheckBox then
+      TCheckBox(Componente).Checked := DM.qryPermissoes.FieldByName('PODE_EXECUTAR').AsBoolean
+    else
+    if Componente is TButton then
+      TButton(Componente).Enabled := DM.qryPermissoes.FieldByName('PODE_EXECUTAR').AsBoolean;
+  end;
+
+end;
+
 procedure TFrmControleDeUsuarios.AtivarPermissoesFixas(const PerfilID: Integer);
 var
   NomeTela: string;
+  NomeAcao: String;
 
   procedure AtivarSeTiverPermissao(Check: TCheckBox);
   begin
@@ -143,12 +183,32 @@ var
       Check.Checked := False;
   end;
 
+  procedure AtivarCheckBoxDosBotoesSeTiverPermissao(Check: TCheckBox);
+  begin
+    NomeAcao := Form1.RemoverAcentos(Trim(Check.Caption));
+    if DM.qryPermissoes.Locate('ACAO', NomeAcao, [loCaseInsensitive]) and
+      DM.qryPermissoes.FieldByName('PODE_EXECUTAR').AsBoolean then
+      Check.Checked := True
+    else
+      Check.Checked := False;
+  end;
+
+  procedure AtivarBotoesSeTiverPermissao(Botao: TButton);
+  begin
+    NomeAcao := Form1.RemoverAcentos(Trim(Botao.Caption));
+    if DM.qryPermissoes.Locate('ACAO', NomeAcao, [loCaseInsensitive]) and
+      DM.qryPermissoes.FieldByName('PODE_EXECUTAR').AsBoolean then
+      Botao.Enabled := True
+    else
+      Botao.Enabled := False;
+  end;
+
 begin
   with DM.qryPermissoes do
   begin
     Close;
     SQL.Text :=
-      'SELECT NOME_TELA, PODE_ACESSAR FROM PERMISSOES WHERE ID_PERFIL = :ID';
+      'SELECT NOME_TELA, PODE_ACESSAR, ACAO,PODE_EXECUTAR,EXIBE_BOTAO, LOG_ACAO FROM PERMISSOES WHERE ID_PERFIL = :ID';
     ParamByName('ID').AsInteger := PerfilID;
     Open;
   end;
@@ -162,6 +222,16 @@ begin
   AtivarSeTiverPermissao(cbPermissoes);
   AtivarSeTiverPermissao(cbRelatorios);
   AtivarSeTiverPermissao(cbUsuarios);
+
+  //Checks Box sobre botões
+  AtivarCheckBoxDosBotoesSeTiverPermissao(cbNovo);
+  AtivarCheckBoxDosBotoesSeTiverPermissao(cbSalvar);
+  AtivarCheckBoxDosBotoesSeTiverPermissao(cbEditar);
+  AtivarCheckBoxDosBotoesSeTiverPermissao(cbExcluir);
+  AtivarCheckBoxDosBotoesSeTiverPermissao(cbCancelar);
+
+  //Teria que informar todos os botões do sistema
+
 end;
 
 function FrmControleDeUsuarios: TFrmControleDeUsuarios;
@@ -236,14 +306,14 @@ begin
           with Row.Items.Add do
           begin
             FormGroup(lblNomePerfil.Caption).AddVCLObj(edtNomePerfil);
-            FormGroup(lbldescricaoPerfil.Caption).AddVCLObj(edtDescricaoPerfil);
+            FormGroup(lblDescricaoPerfil.Caption).AddVCLObj(edtDescricaoPerfil);
           end;
           with Row.Items.Add do
           begin
             FormGroup('').AddVCLObj(btnNovoPerfis, CSSClass.Button.Add);
             FormGroup('').AddVCLObj(btnSalvarPerfis, CSSClass.Button.save);
             FormGroup('').AddVCLObj(btnEditarPerfis, CSSClass.Button.Edit);
-            FormGroup('').AddVCLObj(btnExcluirPerfis,CSSClass.Button.delete);
+            FormGroup('').AddVCLObj(btnExcluirPerfis, CSSClass.Button.delete);
             FormGroup('').AddVCLObj(btnCancelarPerfis, CSSClass.Button.Cancel);
           end;
 
@@ -258,16 +328,26 @@ begin
 
           with Row.Items.Add do
           begin
-            FormGroup(cbAgendamentos.Caption).AddVCLObj(cbAgendamentos);
-            FormGroup(cbAtivos.Caption).AddVCLObj(cbAtivos);
-            FormGroup(cbClientes.Caption).AddVCLObj(cbClientes);
-            FormGroup(cbContratos.Caption).AddVCLObj(cbContratos);
-            FormGroup(cbFormas.Caption).AddVCLObj(cbFormas);
-            FormGroup(cbPerfis.Caption).AddVCLObj(cbPerfis);
-            FormGroup(cbPermissoes.Caption).AddVCLObj(cbPermissoes);
-            FormGroup(cbRelatorios.Caption).AddVCLObj(cbRelatorios);
-            FormGroup(cbUsuarios.Caption).AddVCLObj(cbUsuarios);
+            FormGroup('').AddVCLObj(cbAgendamentos);
+            FormGroup('').AddVCLObj(cbAtivos);
+            FormGroup('').AddVCLObj(cbClientes);
+            FormGroup('').AddVCLObj(cbContratos);
+            FormGroup('').AddVCLObj(cbFormas);
+            FormGroup('').AddVCLObj(cbPerfis);
+            FormGroup('').AddVCLObj(cbPermissoes);
+            FormGroup('').AddVCLObj(cbRelatorios);
+            FormGroup('').AddVCLObj(cbUsuarios);
           end;
+
+          with Row.Items.Add do
+          begin
+            FormGroup('').AddVCLObj(cbNovo);
+            FormGroup('').AddVCLObj(cbSalvar);
+            FormGroup('').AddVCLObj(cbEditar);
+            FormGroup('').AddVCLObj(cbExcluir);
+            FormGroup('').AddVCLObj(cbCancelar);
+          end;
+
           with Row.Items.Add do
           begin
             FormGroup('').AddVCLObj(btnNovoPermissoes, CSSClass.Button.Add);
@@ -288,8 +368,8 @@ end;
 
 procedure TFrmControleDeUsuarios.FormShow(Sender: TObject);
 begin
-  Dm.qryUsuarios.Active   := True;
-  DM.qryPerfis.Active     := True;
+  DM.qryUsuarios.Active := True;
+  DM.qryPerfis.Active := True;
   DM.qryPermissoes.Active := True;
 end;
 
@@ -344,11 +424,28 @@ begin
 
             with Row.Items.Add do
             begin
+              FormGroup('').AddVCLObj(cbAgendamentos);
+              FormGroup('').AddVCLObj(cbAtivos);
+              FormGroup('').AddVCLObj(cbClientes);
+              FormGroup('').AddVCLObj(cbContratos);
+              FormGroup('').AddVCLObj(cbFormas);
+              FormGroup('').AddVCLObj(cbPerfis);
+              FormGroup('').AddVCLObj(cbPermissoes);
+              FormGroup('').AddVCLObj(cbRelatorios);
+              FormGroup('').AddVCLObj(cbUsuarios);
+            end;
+
+            with Row.Items.Add do
+            begin
               FormGroup('').AddVCLObj(btnNovoPermissoes, CSSClass.Button.Add);
-              FormGroup('').AddVCLObj(btnSalvarPermissoes, CSSClass.Button.save);
-              FormGroup('').AddVCLObj(btnEditarPermissoes, CSSClass.Button.Edit);
-              FormGroup('').AddVCLObj(btnExcluirPermissoes, CSSClass.Button.delete);
-              FormGroup('').AddVCLObj(btnCancelarPermissoes, CSSClass.Button.Cancel);
+              FormGroup('').AddVCLObj(btnSalvarPermissoes,
+                CSSClass.Button.save);
+              FormGroup('').AddVCLObj(btnEditarPermissoes,
+                CSSClass.Button.Edit);
+              FormGroup('').AddVCLObj(btnExcluirPermissoes,
+                CSSClass.Button.delete);
+              FormGroup('').AddVCLObj(btnCancelarPermissoes,
+                CSSClass.Button.Cancel);
             end;
           end;
       end;

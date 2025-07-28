@@ -260,32 +260,32 @@ object FrmClientes: TFrmClientes
         Height = 41
         Align = alBottom
         TabOrder = 14
-        object btnInserir: TButton
+        object btnNovoCliente: TButton
           Left = 3
           Top = 8
           Width = 75
           Height = 25
           Caption = 'Novo'
           TabOrder = 0
-          OnClick = btnInserirClick
+          OnClick = btnNovoClienteClick
         end
-        object btnEditar: TButton
+        object btnEditarCliente: TButton
           Left = 87
           Top = 9
           Width = 75
           Height = 25
           Caption = 'Editar'
           TabOrder = 1
-          OnClick = btnEditarClick
+          OnClick = btnEditarClienteClick
         end
-        object btnExcluir: TButton
+        object btnExcluirCliente: TButton
           Left = 253
           Top = 9
           Width = 75
           Height = 25
           Caption = 'Excluir'
           TabOrder = 2
-          OnClick = btnExcluirClick
+          OnClick = btnExcluirClienteClick
         end
         object btnSalvarCliente: TButton
           Left = 171
@@ -295,6 +295,15 @@ object FrmClientes: TFrmClientes
           Caption = 'Salvar'
           TabOrder = 3
           OnClick = btnSalvarClienteClick
+        end
+        object btnCancelarCliente: TButton
+          Left = 336
+          Top = 9
+          Width = 75
+          Height = 25
+          Caption = 'Cancelar'
+          TabOrder = 4
+          OnClick = btnCancelarClienteClick
         end
       end
     end
@@ -556,7 +565,7 @@ object FrmClientes: TFrmClientes
           TabOrder = 2
           OnClick = btnExcluirContatoClick
         end
-        object btnSalvar: TBitBtn
+        object btnSalvarContato: TBitBtn
           Left = 275
           Top = 6
           Width = 75
@@ -564,9 +573,9 @@ object FrmClientes: TFrmClientes
           Caption = 'Salvar'
           TabOrder = 3
           Visible = False
-          OnClick = btnSalvarClick
+          OnClick = btnSalvarContatoClick
         end
-        object btnCancelar: TBitBtn
+        object btnCancelarContato: TBitBtn
           Left = 355
           Top = 6
           Width = 75
@@ -574,7 +583,7 @@ object FrmClientes: TFrmClientes
           Caption = 'Cancelar'
           TabOrder = 4
           Visible = False
-          OnClick = btnCancelarClick
+          OnClick = btnCancelarContatoClick
         end
       end
     end

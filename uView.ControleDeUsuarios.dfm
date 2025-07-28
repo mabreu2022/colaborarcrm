@@ -18,7 +18,7 @@ object FrmControleDeUsuarios: TFrmControleDeUsuarios
     Top = 0
     Width = 999
     Height = 613
-    ActivePage = TabSheet1
+    ActivePage = TabSheet3
     Align = alClient
     TabOrder = 0
     object TabSheet1: TTabSheet
@@ -58,9 +58,6 @@ object FrmControleDeUsuarios: TFrmControleDeUsuarios
         Height = 41
         Align = alBottom
         TabOrder = 0
-        ExplicitLeft = 416
-        ExplicitTop = 488
-        ExplicitWidth = 185
         object btnNovoUsuario: TButton
           Left = 16
           Top = 10
@@ -160,9 +157,6 @@ object FrmControleDeUsuarios: TFrmControleDeUsuarios
         Height = 41
         Align = alBottom
         TabOrder = 0
-        ExplicitLeft = 64
-        ExplicitTop = 544
-        ExplicitWidth = 185
         object btnSalvarPerfis: TButton
           Left = 100
           Top = 9
@@ -376,6 +370,46 @@ object FrmControleDeUsuarios: TFrmControleDeUsuarios
         Height = 17
         Caption = 'Contratos'
         TabOrder = 11
+      end
+      object cbNovo: TCheckBox
+        Left = 24
+        Top = 168
+        Width = 97
+        Height = 17
+        Caption = 'Bot'#227'o novo'
+        TabOrder = 12
+      end
+      object cbSalvar: TCheckBox
+        Left = 160
+        Top = 168
+        Width = 97
+        Height = 17
+        Caption = 'Bot'#227'o Salvar'
+        TabOrder = 13
+      end
+      object cbEditar: TCheckBox
+        Left = 290
+        Top = 168
+        Width = 97
+        Height = 17
+        Caption = 'Bot'#227'o Editar'
+        TabOrder = 14
+      end
+      object cbExcluir: TCheckBox
+        Left = 424
+        Top = 168
+        Width = 97
+        Height = 17
+        Caption = 'Bot'#227'o Excluir'
+        TabOrder = 15
+      end
+      object cbCancelar: TCheckBox
+        Left = 544
+        Top = 168
+        Width = 97
+        Height = 17
+        Caption = 'Bot'#227'o Cancelar'
+        TabOrder = 16
       end
     end
   end
