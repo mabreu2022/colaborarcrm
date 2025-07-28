@@ -139,8 +139,8 @@ end;
 procedure TFrmContatosCad.FormShow(Sender: TObject);
 begin
   CarregarDadosContato(ID_CONTATO_RECEBIDO);
-  FrmControleDeUsuarios.AtivarPermissaoPorComponente(DM.perfilID, 'Clientes', 'Novo', btnSalvar);
-  FrmControleDeUsuarios.AtivarPermissaoPorComponente(DM.perfilID, 'Clientes', 'Editar', btnEditar);
+  FrmControleDeUsuarios.AtivarPermissaoPorComponente(DM.perfilID, 'Contatos', 'Novo', btnSalvar);
+  FrmControleDeUsuarios.AtivarPermissaoPorComponente(DM.perfilID, 'Contatos', 'Editar', btnEditar);
 end;
 
 procedure TFrmContatosCad.InitControlsD2Bridge(const PrismControl
