@@ -11,6 +11,7 @@ object FrmControleDeUsuarios: TFrmControleDeUsuarios
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poScreenCenter
+  OnClose = FormClose
   OnShow = FormShow
   TextHeight = 15
   object PageControl1: TPageControl
@@ -18,11 +19,11 @@ object FrmControleDeUsuarios: TFrmControleDeUsuarios
     Top = 0
     Width = 999
     Height = 613
-    ActivePage = TabSheet3
+    ActivePage = TabSheet1
     Align = alClient
     TabOrder = 0
     object TabSheet1: TTabSheet
-      Caption = 'Usu'#225'rios'
+      Caption = 'Cadastro'
       object lblNomeUsuario: TLabel
         Left = 24
         Top = 8
@@ -65,6 +66,7 @@ object FrmControleDeUsuarios: TFrmControleDeUsuarios
           Height = 25
           Caption = 'Novo'
           TabOrder = 0
+          OnClick = btnNovoUsuarioClick
         end
         object btnEditarUsuario: TButton
           Left = 104
@@ -73,6 +75,7 @@ object FrmControleDeUsuarios: TFrmControleDeUsuarios
           Height = 25
           Caption = 'Editar'
           TabOrder = 1
+          OnClick = btnEditarUsuarioClick
         end
         object btnSalvarUsuario: TButton
           Left = 193
@@ -81,6 +84,7 @@ object FrmControleDeUsuarios: TFrmControleDeUsuarios
           Height = 25
           Caption = 'Salvar'
           TabOrder = 2
+          OnClick = btnSalvarUsuarioClick
         end
         object btnExcluirUsuario: TButton
           Left = 279
@@ -89,6 +93,7 @@ object FrmControleDeUsuarios: TFrmControleDeUsuarios
           Height = 25
           Caption = 'Excluir'
           TabOrder = 3
+          OnClick = btnExcluirUsuarioClick
         end
         object btnCancelarUsuario: TButton
           Left = 365
@@ -131,6 +136,75 @@ object FrmControleDeUsuarios: TFrmControleDeUsuarios
         ListField = 'DESCRICAO'
         ListSource = DM.DSPerfis
         TabOrder = 4
+      end
+      object DBGrid1: TDBGrid
+        Left = 0
+        Top = 72
+        Width = 991
+        Height = 429
+        Align = alBottom
+        DataSource = DM.DSUsuarios
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        TabOrder = 5
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -12
+        TitleFont.Name = 'Segoe UI'
+        TitleFont.Style = []
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'NOME'
+            Width = 150
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'EMAIL'
+            Width = 250
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'SENHA'
+            Width = 100
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'ID_PERFIL'
+            Visible = True
+          end>
+      end
+      object Panel5: TPanel
+        Left = 0
+        Top = 501
+        Width = 991
+        Height = 41
+        Align = alBottom
+        TabOrder = 6
+        object lblPesquisarUsuario: TLabel
+          Left = 8
+          Top = 13
+          Width = 40
+          Height = 15
+          Caption = 'Usu'#225'rio'
+        end
+        object edtPesquisarUsuario: TEdit
+          Left = 54
+          Top = 10
+          Width = 352
+          Height = 23
+          TabOrder = 0
+        end
+        object btnPesquisarUsuario: TButton
+          Left = 416
+          Top = 10
+          Width = 89
+          Height = 25
+          Caption = 'Pesquisar'
+          TabOrder = 1
+        end
       end
     end
     object TabSheet2: TTabSheet
@@ -211,6 +285,69 @@ object FrmControleDeUsuarios: TFrmControleDeUsuarios
         Width = 521
         Height = 23
         TabOrder = 2
+      end
+      object Panel6: TPanel
+        Left = 0
+        Top = 501
+        Width = 991
+        Height = 41
+        Align = alBottom
+        TabOrder = 3
+        object lblPesquisarPerfil: TLabel
+          Left = 16
+          Top = 10
+          Width = 27
+          Height = 15
+          Caption = 'Perfil'
+        end
+        object edtPesquisarPerfil: TEdit
+          Left = 58
+          Top = 7
+          Width = 217
+          Height = 23
+          TabOrder = 0
+        end
+        object btnPesquisarPerfil: TButton
+          Left = 288
+          Top = 8
+          Width = 75
+          Height = 25
+          Caption = 'Pesquisar'
+          TabOrder = 1
+        end
+      end
+      object DBGrid_Perfil: TDBGrid
+        Left = 0
+        Top = 80
+        Width = 991
+        Height = 421
+        Align = alBottom
+        DataSource = DM.DSPerfis
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        TabOrder = 4
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -12
+        TitleFont.Name = 'Segoe UI'
+        TitleFont.Style = []
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'ID_PERFIL'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NOME'
+            Width = 150
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'DESCRICAO'
+            Width = 250
+            Visible = True
+          end>
       end
     end
     object TabSheet3: TTabSheet

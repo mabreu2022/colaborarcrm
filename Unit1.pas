@@ -74,6 +74,8 @@ type
     procedure FormActivate(Sender: TObject);
     procedure Permisses1Click(Sender: TObject);
     procedure LogOff1Click(Sender: TObject);
+    procedure Usuarios1Click(Sender: TObject);
+    procedure Perfis1Click(Sender: TObject);
   private
     JaCarregouPermissoes: Boolean;
 
@@ -361,12 +363,85 @@ begin
   TD2BridgeForm(Session.PrimaryForm).Show;
 end;
 
+procedure TForm1.Perfis1Click(Sender: TObject);
+begin
+  if FrmControleDeUsuarios = nil then
+    TFrmControleDeUsuarios.CreateInstance;
+
+//  FrmControleDeUsuarios.ShowModal;
+//  FrmControleDeUsuarios.Tab_recebida:='Perfis';
+
+  Try
+   if IsD2BridgeContext then
+    begin
+       With FrmControleDeUsuarios do
+       begin
+         with D2Bridge Do
+         Begin
+           FrmControleDeUsuarios.ShowModal;
+           PrismControlFromID('TabControl01').AsTabs.ActiveTabIndex := 1;
+           //PrismControlFromID('TabControl01').AsTabs.ShowTabs       := True;
+         End;
+       end;
+    end;
+  except on e: exception do
+           ShowMessage('Deu erro: ' + e.Message);
+  End;
+
+end;
+
 procedure TForm1.Permisses1Click(Sender: TObject);
 begin
   if FrmControleDeUsuarios = nil then
      TFrmControleDeUsuarios.CreateInstance;
 
-  FrmControleDeUsuarios.ShowModal;
+//  FrmControleDeUsuarios.ShowModal;
+//  FrmControleDeUsuarios.Tab_recebida:='Permissoes';
+
+  Try
+   if IsD2BridgeContext then
+    begin
+       With FrmControleDeUsuarios do
+       begin
+         with D2Bridge Do
+         Begin
+           FrmControleDeUsuarios.ShowModal;
+           PrismControlFromID('TabControl01').AsTabs.ActiveTabIndex := 2;
+           //A aba abre e depois faz como se tivesse um refresh da página e volta a aba 0
+           //PrismControlFromID('TabControl01').AsTabs.ShowTabs       := True;
+         End;
+       end;
+    end;
+  except on e: exception do
+           ShowMessage('Deu erro: ' + e.Message);
+  End;
+end;
+
+procedure TForm1.Usuarios1Click(Sender: TObject);
+begin
+  if FrmControleDeUsuarios = nil then
+     TFrmControleDeUsuarios.CreateInstance;
+
+//  FrmControleDeUsuarios.ShowModal;
+//  FrmControleDeUsuarios.Tab_recebida:='Usuarios';
+
+  Try
+   if IsD2BridgeContext then
+    begin
+       With FrmControleDeUsuarios do
+       begin
+         with D2Bridge Do
+         Begin
+           FrmControleDeUsuarios.ShowModal;
+           PrismControlFromID('TabControl01').AsTabs.ActiveTabIndex := 1;
+           //PrismControlFromID('TabControl01').AsTabs.ShowTabs       := True;
+         End;
+       end;
+    end;
+  except on e: exception do
+           ShowMessage('Deu erro: ' + e.Message);
+  End;
+
 end;
 
 function TForm1.RemoverAcentos(const Texto: string): string;

@@ -50,9 +50,11 @@ object Form1: TForm1
       end
       object Usuarios1: TMenuItem
         Caption = 'Usu'#225'rios'
+        OnClick = Usuarios1Click
       end
       object Perfis1: TMenuItem
         Caption = 'Perfis'
+        OnClick = Perfis1Click
       end
       object Permisses1: TMenuItem
         Caption = 'Permiss'#245'es'

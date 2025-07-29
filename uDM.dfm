@@ -265,6 +265,7 @@ object DM: TDM
     end
   end
   object qryPerfis: TFDQuery
+    Active = True
     Connection = Conn
     SQL.Strings = (
       'select * from perfis')

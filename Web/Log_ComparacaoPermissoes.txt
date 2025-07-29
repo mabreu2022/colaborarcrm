@@ -1,15 +1,14 @@
-=== Comparação para ativar: Relatorios ===
-MenuPai [i=0]: &Cadastros <=> Relatorios
-  Submenu [j=0]: Clientes <=> Relatorios
-  Submenu [j=1]: Ativos <=> Relatorios
-  Submenu [j=2]: Contratos <=> Relatorios
-  Submenu [j=3]: Formas de Pagamento <=> Relatorios
-  Submenu [j=4]: Agendamentos <=> Relatorios
-  Submenu [j=5]: Usuarios <=> Relatorios
-  Submenu [j=6]: Perfis <=> Relatorios
-  Submenu [j=7]: Permissoes <=> Relatorios
-MenuPai [i=1]: &Relatorios <=> Relatorios
-  Submenu [j=0]: Clientes <=> Relatorios
-  Submenu [j=1]: - <=> Relatorios
-  Submenu [j=2]: Contratos <=> Relatorios
-MenuPai [i=2]: &Log-Off <=> Relatorios
+=== Comparação para ativar: Usuarios ===
+MenuPai [i=0]: &Cadastros <=> Usuarios
+  Submenu [j=0]: Clientes <=> Usuarios
+  Submenu [j=1]: Ativos <=> Usuarios
+  Submenu [j=2]: Contratos <=> Usuarios
+  Submenu [j=3]: Formas de Pagamento <=> Usuarios
+  Submenu [j=4]: Agendamentos <=> Usuarios
+  Submenu [j=5]: Usuarios <=> Usuarios
+    ? Ativado como submenu + pai
+MenuPai [i=1]: &Relatorios <=> Usuarios
+  Submenu [j=0]: Clientes <=> Usuarios
+  Submenu [j=1]: - <=> Usuarios
+  Submenu [j=2]: Contratos <=> Usuarios
+MenuPai [i=2]: &Log-Off <=> Usuarios

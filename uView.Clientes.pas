@@ -303,7 +303,7 @@ begin
 
   // TemplateClassForm:= TD2BridgeFormTemplate;
   D2Bridge.FrameworkExportType.TemplateMasterHTMLFile := '';
-  D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
+  D2Bridge.FrameworkExportType.TemplatePageHTMLFile   := '';
 
   //Config  form popup
   vFrmContatosCad := TFrmContatosCad.Create(Self);

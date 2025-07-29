@@ -41,6 +41,7 @@ uses
   FireDAC.DApt,
   FireDAC.Comp.DataSet,
   Unit1,
+  uDM,
 
   D2Bridge.Interfaces,
   D2Bridge.BaseClass,
@@ -52,7 +53,7 @@ uses
   D2Bridge.Item.HTML.PanelGroup,
   D2Bridge.Item.VCLObj,
 
-  D2Bridge.Forms;
+  D2Bridge.Forms, Vcl.Grids, Vcl.DBGrids;
 
 type
   TFrmControleDeUsuarios = class(TForm1)
@@ -108,11 +109,27 @@ type
     cbEditar: TCheckBox;
     cbExcluir: TCheckBox;
     cbCancelar: TCheckBox;
+    DBGrid1: TDBGrid;
+    Panel5: TPanel;
+    edtPesquisarUsuario: TEdit;
+    lblPesquisarUsuario: TLabel;
+    btnPesquisarUsuario: TButton;
+    Panel6: TPanel;
+    DBGrid_Perfil: TDBGrid;
+    lblPesquisarPerfil: TLabel;
+    edtPesquisarPerfil: TEdit;
+    btnPesquisarPerfil: TButton;
     procedure FormShow(Sender: TObject);
     procedure cbPerfilCloseUp(Sender: TObject);
+    procedure btnNovoUsuarioClick(Sender: TObject);
+    procedure btnSalvarUsuarioClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnEditarUsuarioClick(Sender: TObject);
+    procedure btnExcluirUsuarioClick(Sender: TObject);
   private
     procedure CarregarItensMenu;
     procedure ReexportarAbaPermissoes;
+    procedure ListarUsuarios;
 
 
   public
@@ -120,7 +137,6 @@ type
     procedure AtivarPermissaoPorComponente(const PerfilID: Integer;
                                        const NomeTela, NomeAcao: string;
                                        Componente: TControl);
-
 
   protected
     procedure ExportD2Bridge; override;
@@ -134,8 +150,7 @@ function FrmControleDeUsuarios: TFrmControleDeUsuarios;
 implementation
 
 Uses
-  ContratosWebApp,
-  uDM;
+  ContratosWebApp;
 
 {$R *.dfm}
 
@@ -234,6 +249,47 @@ begin
 
 end;
 
+procedure TFrmControleDeUsuarios.btnEditarUsuarioClick(Sender: TObject);
+begin
+  inherited;
+  Dm.qryUsuarios.Edit;
+end;
+
+procedure TFrmControleDeUsuarios.btnExcluirUsuarioClick(Sender: TObject);
+begin
+  inherited;
+  if not DM.qryUsuarios.IsEmpty then
+  begin
+    if MessageDlg('Deseja inativar este usuário?', mtConfirmation,
+      [mbYes, mbNo], 0) = mrYes then
+    begin
+      DM.qryUsuarios.Edit;
+      DM.qryUsuarios.FieldByName('ATIVO').AsString := 'N';
+      DM.qryUsuarios.Post;
+    end;
+    ListarUsuarios;
+  end;
+end;
+
+procedure TFrmControleDeUsuarios.ListarUsuarios;
+begin
+  DM.ListarUsuarios(edtPesquisarUsuario.Text, cbPerfilUsuario.KeyValue);
+end;
+
+procedure TFrmControleDeUsuarios.btnNovoUsuarioClick(Sender: TObject);
+begin
+  inherited;
+  edtNomeUsuario.Text  := '';
+  edtSenhaUsuario.Text := '';
+  edtEmailUsuario.Text := '';
+end;
+
+procedure TFrmControleDeUsuarios.btnSalvarUsuarioClick(Sender: TObject);
+begin
+  inherited;
+  DM.SalvarUsuario(edtNomeUsuario.Text, edtSenhaUsuario.Text, edtEmailUsuario.Text, cbPerfil.KeyValue);
+end;
+
 function FrmControleDeUsuarios: TFrmControleDeUsuarios;
 begin
   Result := TFrmControleDeUsuarios(TFrmControleDeUsuarios.GetInstance);
@@ -275,7 +331,7 @@ begin
   AtivarPermissoesFixas(DM.PerfilID);
 
   D2Bridge.FrameworkExportType.TemplateMasterHTMLFile := '';
-  D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
+  D2Bridge.FrameworkExportType.TemplatePageHTMLFile   := '';
 
   with D2Bridge.Items.Add do
   begin
@@ -291,6 +347,18 @@ begin
             FormGroup(lblEmailUsuario.Caption).AddVCLObj(edtEmailUsuario);
             FormGroup(lblPerfilUsuario.Caption).AddVCLObj(cbPerfilUsuario);
           end;
+
+          with Row.Items.Add do
+          begin
+            VCLObj(DBGrid1);
+          end;
+
+          with Row.Items.Add do
+          begin
+            FormGroup(lblPesquisarUsuario.Caption).AddVCLObj(edtPesquisarUsuario);
+            FormGroup('').AddVCLObj(btnPesquisarUsuario, CSSClass.Button.search);
+          end;
+
           with Row.Items.Add do
           begin
             FormGroup('').AddVCLObj(btnNovoUsuario, CSSClass.Button.Add);
@@ -301,12 +369,22 @@ begin
           end;
 
         end;
+
         with AddTab('Perfis').Items.Add do
         begin
           with Row.Items.Add do
           begin
             FormGroup(lblNomePerfil.Caption).AddVCLObj(edtNomePerfil);
             FormGroup(lblDescricaoPerfil.Caption).AddVCLObj(edtDescricaoPerfil);
+          end;
+          with Row.Items.Add do
+          begin
+            VCLObj(DBGrid_Perfil);
+          end;
+          with Row.Items.Add do
+          begin
+            FormGroup(lblPesquisarPerfil.Caption).AddVCLObj(edtPesquisarPerfil);
+            FormGroup('').AddVCLObj(btnPesquisarPerfil, CSSClass.Button.search);
           end;
           with Row.Items.Add do
           begin
@@ -366,10 +444,19 @@ begin
 
 end;
 
+procedure TFrmControleDeUsuarios.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  inherited;
+  DM.qryUsuarios.Active   := False;
+  DM.qryPerfis.Active     := False;
+  DM.qryPermissoes.Active := False;
+end;
+
 procedure TFrmControleDeUsuarios.FormShow(Sender: TObject);
 begin
-  DM.qryUsuarios.Active := True;
-  DM.qryPerfis.Active := True;
+  DM.qryUsuarios.Active   := True;
+  DM.qryPerfis.Active     := True;
   DM.qryPermissoes.Active := True;
 end;
 

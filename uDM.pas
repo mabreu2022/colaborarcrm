@@ -84,7 +84,6 @@ type
 
   private
 
-
     { Private declarations }
   public
     perfilID: Integer;
@@ -92,6 +91,7 @@ type
     procedure DestroyInstance;
     procedure ListarClientes(Busca: String);
     procedure ListarContatos(Busca: String; IdClienteSelecionado: Variant);
+    procedure ListarUsuarios(Busca: String; IdUsuarioSelecionado: Variant);
     procedure InativarCliente;
     procedure SalvarContatoAtual;
     procedure InserirContato(aNome, aCargo, aTelefone, aEmail,
@@ -99,12 +99,12 @@ type
     procedure EditarContato(aNome, aCargo, aTelefone, aEmail,
       aObservacao: String; aIDCliente: Integer);
     procedure SalvarCliente(aTipoPessoa, aNome_Razao, aNome_Fantasia, acpf_cnpj,
-               aIE, aRG, aData_Nascimento, aTelefone, aEmail, aEndereco,
-               aNumero, aComplemento, aBairro, aMunicipio, aUf, aCEP,
-               aCodigo_Municipio: String; aId_Cliente: Integer);
+      aIE, aRG, aData_Nascimento, aTelefone, aEmail, aEndereco, aNumero,
+      aComplemento, aBairro, aMunicipio, aUf, aCEP, aCodigo_Municipio: String;
+      aId_Cliente: Integer);
+    procedure SalvarUsuario(aNome, aSenha, aEmail: String; aIdPerfil: Integer);
     function Login(aUser, aSenha: String): Boolean;
     procedure LoadPermissoes(IDPerfil: Integer);
-
 
   end;
 
@@ -266,12 +266,46 @@ begin
 
 end;
 
+procedure TDM.ListarUsuarios(Busca: String; IdUsuarioSelecionado: Variant);
+begin
+  qryUsuarios.Active := False;
+  qryUsuarios.SQL.Clear;
+
+  qryUsuarios.SQL.Add('SELECT *');
+  qryUsuarios.SQL.Add('FROM USUARIOS');
+
+  if (Busca <> '') or (not VarIsNull(IdUsuarioSelecionado)) then
+  begin
+    qryUsuarios.SQL.Add('WHERE 1=1');
+
+    // Se existir o campo ATIVO na tabela, mantenha o filtro
+    qryUsuarios.SQL.Add('AND ATIVO = ''S''');
+
+    if Busca <> '' then
+    begin
+      qryUsuarios.SQL.Add('AND UPPER(NOME) LIKE :nome');
+      qryUsuarios.ParamByName('nome').Value := '%' + UpperCase(Busca) + '%';
+    end;
+
+    if not VarIsNull(IdUsuarioSelecionado) then
+    begin
+      qryUsuarios.SQL.Add('AND ID_CLIENTE = :idCliente');
+      qryUsuarios.ParamByName('idCliente').AsInteger := IdUsuarioSelecionado;
+    end;
+  end;
+
+  qryUsuarios.SQL.Add('ORDER BY NOME');
+
+  qryUsuarios.Active := True;
+
+end;
+
 Function TDM.Login(aUser, aSenha: String): Boolean;
 var
   QryLogin: TFDQuery;
 
 begin
-  Result:= False;
+  result := False;
   QryLogin := TFDQuery.Create(nil);
   try
     QryLogin.Connection := Conn;
@@ -279,7 +313,7 @@ begin
     QryLogin.SQL.Text := 'SELECT ID_USUARIO, ID_PERFIL ' + 'FROM USUARIOS ' +
       'WHERE NOME = :NOME AND SENHA = :SENHA';
 
-    QryLogin.ParamByName('NOME').AsString  := aUser;
+    QryLogin.ParamByName('NOME').AsString := aUser;
     QryLogin.ParamByName('SENHA').AsString := aSenha;
 
     QryLogin.Open;
@@ -289,15 +323,14 @@ begin
       perfilID := QryLogin.FieldByName('ID_PERFIL').AsInteger;
 
       // Agora carregamos as permissões
-      Result:= True;
+      result := True;
       LoadPermissoes(perfilID);
-
 
     end
     else
     begin
       MessageDlg('Usuário ou senha inválido.', mtWarning, [mbOK], 0);
-      Result:= False;
+      result := False;
     end;
   finally
     QryLogin.Free;
@@ -308,7 +341,7 @@ end;
 procedure TDM.LoadPermissoes(IDPerfil: Integer);
 var
   QryPerm: TFDQuery;
-  AForm : TForm1;
+  AForm: TForm1;
 begin
   QryPerm := TFDQuery.Create(nil);
   try
@@ -323,10 +356,10 @@ begin
     if Form1 = nil then
       TForm1.CreateInstance;
 
-    //Primeiro, desativa todos os itens do menu
+    // Primeiro, desativa todos os itens do menu
     Form1.ResetarMenus;
 
-    //Em seguida, ativa os itens permitidos
+    // Em seguida, ativa os itens permitidos
     while not QryPerm.Eof do
     begin
       Form1.HabilitarItemMenu(QryPerm.FieldByName('NOME_TELA').AsString);
@@ -337,7 +370,6 @@ begin
   end;
 
 end;
-
 
 procedure TDM.SalvarCliente(aTipoPessoa, aNome_Razao, aNome_Fantasia, acpf_cnpj,
   aIE, aRG, aData_Nascimento, aTelefone, aEmail, aEndereco, aNumero,
@@ -350,67 +382,47 @@ begin
   try
     qryEdicao.Connection := Conn;
 
-    qryEdicao.SQL.Text := 'INSERT INTO CLIENTES (' +
-      '  TIPO_PESSOA,       ' +
-      '  NOME_RAZAO,        ' +
-      '  NOME_FANTASIA,     ' +
-      '  CPF_CNPJ,          ' +
-      '  IE,                ' +
-      '  RG,                ' +
-      '  DATA_NASCIMENTO,   ' +
-      '  TELEFONE,          ' +
-      '  EMAIL,             ' +
-      '  ENDERECO,          ' +
-      '  NUMERO,            ' +
-      '  COMPLEMENTO,       ' +
-      '  BAIRRO,            ' +
-      '  CEP,               ' +
-      '  MUNICIPIO,         ' +
-      '  UF,                ' +
-      '  CODIGO_MUNICIPIO,  ' +
-      '  PAIS,              ' +
-      '  CODIGO_PAIS,       ' +
-      '  ID_CLIENTE         ' +
-      ') VALUES (           ' +
-      '  :TIPO_PESSOA,      ' +
-      '  :NOME_RAZAO,       ' +
-      '  :NOME_FANTASIA,    ' +
-      '  :IE,               ' +
-      '  :RG,               ' +
-      '  :DATA_NASCIMENTO,  ' +
-      '  :TELEFONE,         ' +
-      '  :EMAIL,            ' +
-      '  :ENDERECO,         ' +
-      '  :NUMERO,           ' +
-      '  :COMPLEMENTO,      ' +
-      '  :BAIRRO,           ' +
-      '  :CEP,              ' +
-      '  :MUNICIPIO,        ' +
-      '  :UF,               ' +
-      '  :CODIGO_MUNICIPIO, ' +
-      '  :PAIS,             ' +
-      '  :CODIGO_PAIS,      ' +
+    qryEdicao.SQL.Text := 'INSERT INTO CLIENTES (' + '  TIPO_PESSOA,       ' +
+      '  NOME_RAZAO,        ' + '  NOME_FANTASIA,     ' +
+      '  CPF_CNPJ,          ' + '  IE,                ' +
+      '  RG,                ' + '  DATA_NASCIMENTO,   ' +
+      '  TELEFONE,          ' + '  EMAIL,             ' +
+      '  ENDERECO,          ' + '  NUMERO,            ' +
+      '  COMPLEMENTO,       ' + '  BAIRRO,            ' +
+      '  CEP,               ' + '  MUNICIPIO,         ' +
+      '  UF,                ' + '  CODIGO_MUNICIPIO,  ' +
+      '  PAIS,              ' + '  CODIGO_PAIS,       ' +
+      '  ID_CLIENTE         ' + ') VALUES (           ' +
+      '  :TIPO_PESSOA,      ' + '  :NOME_RAZAO,       ' +
+      '  :NOME_FANTASIA,    ' + '  :IE,               ' +
+      '  :RG,               ' + '  :DATA_NASCIMENTO,  ' +
+      '  :TELEFONE,         ' + '  :EMAIL,            ' +
+      '  :ENDERECO,         ' + '  :NUMERO,           ' +
+      '  :COMPLEMENTO,      ' + '  :BAIRRO,           ' +
+      '  :CEP,              ' + '  :MUNICIPIO,        ' +
+      '  :UF,               ' + '  :CODIGO_MUNICIPIO, ' +
+      '  :PAIS,             ' + '  :CODIGO_PAIS,      ' +
       '  :ID_CLIENTE        ' + ')';
 
-    qryEdicao.ParamByName('TIPO_PESSOA').AsString      := aTipoPessoa;
-    qryEdicao.ParamByName('NOME_RAZAO').AsString       := aNome_Razao;
-    qryEdicao.ParamByName('NOME_FANTASIA').AsString    := aNome_Fantasia;
-    qryEdicao.ParamByName('CPF_CNPJ').AsString         := acpf_cnpj;
-    qryEdicao.ParamByName('IE').AsString               := aIE;
-    qryEdicao.ParamByName('RG').AsString               := aRG;
-    qryEdicao.ParamByName('EMAIL').AsString            := aEmail;
-    qryEdicao.ParamByName('ENDERECO').AsString         := aEndereco;
-    qryEdicao.ParamByName('NUMERO').AsString           := aNumero;
-    qryEdicao.ParamByName('COMPLEMENTO').AsString      := aComplemento;
-    qryEdicao.ParamByName('BAIRRO').AsString           := aBairro;
-    qryEdicao.ParamByName('CEP').AsString              := aCep;
-    qryEdicao.ParamByName('MUNICIPIO').AsString        := aMunicipio;
-    qryEdicao.ParamByName('UF').AsString               := auF;
+    qryEdicao.ParamByName('TIPO_PESSOA').AsString := aTipoPessoa;
+    qryEdicao.ParamByName('NOME_RAZAO').AsString := aNome_Razao;
+    qryEdicao.ParamByName('NOME_FANTASIA').AsString := aNome_Fantasia;
+    qryEdicao.ParamByName('CPF_CNPJ').AsString := acpf_cnpj;
+    qryEdicao.ParamByName('IE').AsString := aIE;
+    qryEdicao.ParamByName('RG').AsString := aRG;
+    qryEdicao.ParamByName('EMAIL').AsString := aEmail;
+    qryEdicao.ParamByName('ENDERECO').AsString := aEndereco;
+    qryEdicao.ParamByName('NUMERO').AsString := aNumero;
+    qryEdicao.ParamByName('COMPLEMENTO').AsString := aComplemento;
+    qryEdicao.ParamByName('BAIRRO').AsString := aBairro;
+    qryEdicao.ParamByName('CEP').AsString := aCEP;
+    qryEdicao.ParamByName('MUNICIPIO').AsString := aMunicipio;
+    qryEdicao.ParamByName('UF').AsString := aUf;
     qryEdicao.ParamByName('CODIGO_MUNICIPIO').AsString := aCodigo_Municipio;
-    qryEdicao.ParamByName('RG').AsString               := aRG;
-    qryEdicao.ParamByName('EMAIL').AsString            := aEmail;
-    qryEdicao.ParamByName('ENDERECO').AsString         := aEndereco;
-    qryEdicao.ParamByName('ID_CLIENTE').AsInteger      := aId_Cliente;
+    qryEdicao.ParamByName('RG').AsString := aRG;
+    qryEdicao.ParamByName('EMAIL').AsString := aEmail;
+    qryEdicao.ParamByName('ENDERECO').AsString := aEndereco;
+    qryEdicao.ParamByName('ID_CLIENTE').AsInteger := aId_Cliente;
 
     ShowMessage('Cliente inserido com sucesso');
     qryEdicao.ExecSQL;
@@ -451,6 +463,31 @@ begin
       qryContatos.FieldByName('ID_CONTATO').AsInteger;
 
     qryEdicao.ExecSQL;
+  finally
+    qryEdicao.Free;
+  end;
+
+end;
+
+procedure TDM.SalvarUsuario(aNome, aSenha, aEmail: String; aIdPerfil: Integer);
+var
+  qryEdicao: TFDQuery;
+begin
+  qryEdicao := TFDQuery.Create(nil);
+  try
+    qryEdicao.Connection := Conn;
+
+    qryEdicao.SQL.Text := 'INSERT INTO USUARIOS (' + '  NOME,       ' +
+      '  SENHA,      ' + '  EMAIL       ' + ') VALUES (    ' + '  :NOME,      '
+      + '  :SENHA,     ' + '  :EMAIL      ' + ')';
+
+    qryEdicao.ParamByName('NOME  ').AsString := aNome;
+    qryEdicao.ParamByName('SENHA').AsString := aSenha;
+    qryEdicao.ParamByName('EMAIL').AsString := aEmail;
+
+    ShowMessage('Usuário inserido com sucesso');
+    qryEdicao.ExecSQL;
+
   finally
     qryEdicao.Free;
   end;
