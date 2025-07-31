@@ -139,6 +139,7 @@ end;
 procedure TFrmContatosCad.FormShow(Sender: TObject);
 begin
   CarregarDadosContato(ID_CONTATO_RECEBIDO);
+
   FrmControleDeUsuarios.AtivarPermissaoPorComponente(DM.perfilID, 'Contatos', 'Novo', btnSalvar);
   FrmControleDeUsuarios.AtivarPermissaoPorComponente(DM.perfilID, 'Contatos', 'Editar', btnEditar);
 end;

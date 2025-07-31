@@ -542,7 +542,7 @@ begin
 
   DM.DSContatos.OnDataChange := dsContatosDataChange;
 
-  //FrmControleDeUsuarios.AtivarPermissoesFixas(idClienteSelecionado);
+  //FrmControleDeUsuarios.AtivarPermissoesFixas(DM.perfilID);
 
   //Botões aba Clientes
   FrmControleDeUsuarios.AtivarPermissaoPorComponente(DM.perfilID, 'Clientes', 'Novo', btnNovoCliente);
@@ -558,18 +558,12 @@ begin
   FrmControleDeUsuarios.AtivarPermissaoPorComponente(DM.perfilID, 'Clientes', 'Salvar', btnSalvarContato);
   FrmControleDeUsuarios.AtivarPermissaoPorComponente(DM.perfilID, 'Clientes', 'Cancelar', btnCancelarContato);
 
-
 end;
 
 procedure TFrmClientes.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
   inherited;
 
-  // Change Init Property of Prism Controls
-  {
-    if PrismControl.VCLComponent = Edit1 then
-    PrismControl.AsEdit.DataType:= TPrismFieldType.PrismFieldTypeInteger;
-  }
    if PrismControl.IsDBGrid then
    begin
      PrismControl.AsDBGrid.RecordsPerPage := 10;

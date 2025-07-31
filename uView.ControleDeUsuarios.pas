@@ -461,6 +461,25 @@ begin
   DM.qryUsuarios.Active   := True;
   DM.qryPerfis.Active     := True;
   DM.qryPermissoes.Active := True;
+
+  AtivarPermissaoPorComponente(DM.perfilID, 'Usuarios', 'Novo', btnNovoUsuario);
+  AtivarPermissaoPorComponente(DM.perfilID, 'Usuarios', 'Editar', btnEditarUsuario);
+  AtivarPermissaoPorComponente(DM.perfilID, 'Usuarios', 'Excluir', btnExcluirUsuario);
+  AtivarPermissaoPorComponente(DM.perfilID, 'Usuarios', 'Salvar', btnSalvarUsuario);
+  AtivarPermissaoPorComponente(DM.perfilID, 'Usuarios', 'Cancelar', btnCancelarUsuario);
+
+  AtivarPermissaoPorComponente(DM.perfilID, 'Perfis', 'Novo', btnNovoPerfis);
+  AtivarPermissaoPorComponente(DM.perfilID, 'Perfis', 'Editar', btnEditarPerfis);
+  AtivarPermissaoPorComponente(DM.perfilID, 'Perfis', 'Excluir', btnExcluirPerfis);
+  AtivarPermissaoPorComponente(DM.perfilID, 'Perfis', 'Salvar', btnSalvarPerfis);
+  AtivarPermissaoPorComponente(DM.perfilID, 'Perfis', 'Cancelar', btnCancelarPerfis);
+
+  AtivarPermissaoPorComponente(DM.perfilID, 'Permissoes', 'Novo', btnNovoPermissoes);
+  AtivarPermissaoPorComponente(DM.perfilID, 'Permissoes', 'Editar', btnEditarPermissoes);
+  AtivarPermissaoPorComponente(DM.perfilID, 'Permissoes', 'Excluir', btnExcluirPermissoes);
+  AtivarPermissaoPorComponente(DM.perfilID, 'Permissoes', 'Salvar', btnSalvarPermissoes);
+  AtivarPermissaoPorComponente(DM.perfilID, 'Permissoes', 'Cancelar', btnCancelarPermissoes);
+
 end;
 
 procedure TFrmControleDeUsuarios.InitControlsD2Bridge(const PrismControl
@@ -468,11 +487,6 @@ procedure TFrmControleDeUsuarios.InitControlsD2Bridge(const PrismControl
 begin
   inherited;
 
-  // Change Init Property of Prism Controls
-  {
-    if PrismControl.VCLComponent = Edit1 then
-    PrismControl.AsEdit.DataType:= TPrismFieldType.PrismFieldTypeInteger;
- }
    if PrismControl.IsDBGrid then
    begin
      PrismControl.AsDBGrid.RecordsPerPage := 10;

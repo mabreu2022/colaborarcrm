@@ -22,7 +22,7 @@ uses
   Vcl.ExtCtrls,
   Vcl.DBCtrls,
   Unit1,
-  D2Bridge.Forms;
+  D2Bridge.Forms, uView.ControleDeUsuarios;
 
 type
   TFrmAtivos = class(TForm1)
@@ -142,17 +142,19 @@ end;
 procedure TFrmAtivos.FormShow(Sender: TObject);
 begin
   DM.qryAtivos.active := True;
+
+  //Botões Ativos
+  FrmControleDeUsuarios.AtivarPermissaoPorComponente(DM.perfilID, 'Ativos', 'Novo', btnNovoAtivo);
+  FrmControleDeUsuarios.AtivarPermissaoPorComponente(DM.perfilID, 'Ativos', 'Editar', btnEditarAtivo);
+  FrmControleDeUsuarios.AtivarPermissaoPorComponente(DM.perfilID, 'Ativos', 'Excluir', btnExcluirAtivo);
+  FrmControleDeUsuarios.AtivarPermissaoPorComponente(DM.perfilID, 'Ativos', 'Salvar', btnSalvarAtivo);
+  FrmControleDeUsuarios.AtivarPermissaoPorComponente(DM.perfilID, 'Ativos', 'Cancelar', btnCancelarAtivo);
 end;
 
 procedure TFrmAtivos.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
  inherited;
 
- //Change Init Property of Prism Controls
- {
-  if PrismControl.VCLComponent = Edit1 then
-   PrismControl.AsEdit.DataType:= TPrismFieldType.PrismFieldTypeInteger;
- }
   if PrismControl.IsDBGrid then
   begin
    PrismControl.AsDBGrid.RecordsPerPage := 10;

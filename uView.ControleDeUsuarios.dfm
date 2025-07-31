@@ -19,7 +19,7 @@ object FrmControleDeUsuarios: TFrmControleDeUsuarios
     Top = 0
     Width = 999
     Height = 613
-    ActivePage = TabSheet1
+    ActivePage = TabSheet3
     Align = alClient
     TabOrder = 0
     object TabSheet1: TTabSheet
