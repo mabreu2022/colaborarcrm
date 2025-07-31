@@ -131,12 +131,10 @@ type
     procedure ReexportarAbaPermissoes;
     procedure ListarUsuarios;
 
-
   public
     procedure AtivarPermissoesFixas(const PerfilID: Integer);
     procedure AtivarPermissaoPorComponente(const PerfilID: Integer;
-                                       const NomeTela, NomeAcao: string;
-                                       Componente: TControl);
+      const NomeTela, NomeAcao: string; Componente: TControl);
 
   protected
     procedure ExportD2Bridge; override;
@@ -154,18 +152,15 @@ Uses
 
 {$R *.dfm}
 
-procedure TFrmControleDeUsuarios.AtivarPermissaoPorComponente(
-  const PerfilID: Integer; const NomeTela, NomeAcao: string;
+procedure TFrmControleDeUsuarios.AtivarPermissaoPorComponente
+  (const PerfilID: Integer; const NomeTela, NomeAcao: string;
   Componente: TControl);
 begin
   with DM.qryPermissoes do
   begin
     Close;
-    SQL.Text :=
-      'SELECT PODE_EXECUTAR FROM PERMISSOES ' +
-      'WHERE ID_PERFIL = :ID ' +
-      'AND NOME_TELA = :TELA ' +
-      'AND ACAO = :ACAO';
+    SQL.Text := 'SELECT PODE_EXECUTAR FROM PERMISSOES ' +
+      'WHERE ID_PERFIL = :ID ' + 'AND NOME_TELA = :TELA ' + 'AND ACAO = :ACAO';
     ParamByName('ID').AsInteger := PerfilID;
     ParamByName('TELA').AsString := Form1.RemoverAcentos(Trim(NomeTela));
     ParamByName('ACAO').AsString := Form1.RemoverAcentos(Trim(NomeAcao));
@@ -175,10 +170,11 @@ begin
   if DM.qryPermissoes.RecordCount > 0 then
   begin
     if Componente is TCheckBox then
-      TCheckBox(Componente).Checked := DM.qryPermissoes.FieldByName('PODE_EXECUTAR').AsBoolean
-    else
-    if Componente is TButton then
-      TButton(Componente).Enabled := DM.qryPermissoes.FieldByName('PODE_EXECUTAR').AsBoolean;
+      TCheckBox(Componente).Checked := DM.qryPermissoes.FieldByName
+        ('PODE_EXECUTAR').AsBoolean
+    else if Componente is TButton then
+      TButton(Componente).Enabled := DM.qryPermissoes.FieldByName
+        ('PODE_EXECUTAR').AsBoolean;
   end;
 
 end;
@@ -238,21 +234,21 @@ begin
   AtivarSeTiverPermissao(cbRelatorios);
   AtivarSeTiverPermissao(cbUsuarios);
 
-  //Checks Box sobre botões
+  // Checks Box sobre botões
   AtivarCheckBoxDosBotoesSeTiverPermissao(cbNovo);
   AtivarCheckBoxDosBotoesSeTiverPermissao(cbSalvar);
   AtivarCheckBoxDosBotoesSeTiverPermissao(cbEditar);
   AtivarCheckBoxDosBotoesSeTiverPermissao(cbExcluir);
   AtivarCheckBoxDosBotoesSeTiverPermissao(cbCancelar);
 
-  //Teria que informar todos os botões do sistema
+  // Teria que informar todos os botões do sistema
 
 end;
 
 procedure TFrmControleDeUsuarios.btnEditarUsuarioClick(Sender: TObject);
 begin
   inherited;
-  Dm.qryUsuarios.Edit;
+  DM.qryUsuarios.Edit;
 end;
 
 procedure TFrmControleDeUsuarios.btnExcluirUsuarioClick(Sender: TObject);
@@ -279,7 +275,7 @@ end;
 procedure TFrmControleDeUsuarios.btnNovoUsuarioClick(Sender: TObject);
 begin
   inherited;
-  edtNomeUsuario.Text  := '';
+  edtNomeUsuario.Text := '';
   edtSenhaUsuario.Text := '';
   edtEmailUsuario.Text := '';
 end;
@@ -287,7 +283,8 @@ end;
 procedure TFrmControleDeUsuarios.btnSalvarUsuarioClick(Sender: TObject);
 begin
   inherited;
-  DM.SalvarUsuario(edtNomeUsuario.Text, edtSenhaUsuario.Text, edtEmailUsuario.Text, cbPerfil.KeyValue);
+  DM.SalvarUsuario(edtNomeUsuario.Text, edtSenhaUsuario.Text,
+    edtEmailUsuario.Text, cbPerfil.KeyValue);
 end;
 
 function FrmControleDeUsuarios: TFrmControleDeUsuarios;
@@ -331,7 +328,7 @@ begin
   AtivarPermissoesFixas(DM.PerfilID);
 
   D2Bridge.FrameworkExportType.TemplateMasterHTMLFile := '';
-  D2Bridge.FrameworkExportType.TemplatePageHTMLFile   := '';
+  D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
 
   with D2Bridge.Items.Add do
   begin
@@ -347,6 +344,10 @@ begin
             FormGroup(lblEmailUsuario.Caption).AddVCLObj(edtEmailUsuario);
             FormGroup(lblPerfilUsuario.Caption).AddVCLObj(cbPerfilUsuario);
           end;
+//          with Row.Items.Add do
+//          begin
+//            VCLObj(Label5, CSSClass.Space.margim_top5);
+//          end;
 
           with Row.Items.Add do
           begin
@@ -355,8 +356,10 @@ begin
 
           with Row.Items.Add do
           begin
-            FormGroup(lblPesquisarUsuario.Caption).AddVCLObj(edtPesquisarUsuario);
-            FormGroup('').AddVCLObj(btnPesquisarUsuario, CSSClass.Button.search);
+            FormGroup(lblPesquisarUsuario.Caption)
+              .AddVCLObj(edtPesquisarUsuario);
+            FormGroup('').AddVCLObj(btnPesquisarUsuario,
+              CSSClass.Button.search);
           end;
 
           with Row.Items.Add do
@@ -469,13 +472,13 @@ begin
   {
     if PrismControl.VCLComponent = Edit1 then
     PrismControl.AsEdit.DataType:= TPrismFieldType.PrismFieldTypeInteger;
+ }
+   if PrismControl.IsDBGrid then
+   begin
+     PrismControl.AsDBGrid.RecordsPerPage := 10;
+     PrismControl.AsDBGrid.MaxRecords     := 2000;
+   end;
 
-    if PrismControl.IsDBGrid then
-    begin
-    PrismControl.AsDBGrid.RecordsPerPage:= 10;
-    PrismControl.AsDBGrid.MaxRecords:= 2000;
-    end;
-  }
 end;
 
 procedure TFrmControleDeUsuarios.ReexportarAbaPermissoes;

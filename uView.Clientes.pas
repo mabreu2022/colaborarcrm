@@ -104,6 +104,7 @@ type
     procedure btnListaTodosClick(Sender: TObject);
     procedure btnSalvarClienteClick(Sender: TObject);
     procedure btnCancelarClienteClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     vFrmContatosCad: TFrmContatosCad;
     procedure Listarclientes;
@@ -516,6 +517,13 @@ begin
 
 end;
 
+procedure TFrmClientes.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  inherited;
+  DM.qryCliente.Close;
+  DM.qryContatos.Close;
+end;
+
 procedure TFrmClientes.FormShow(Sender: TObject);
 var
   idClienteSelecionado : Integer;
@@ -561,13 +569,13 @@ begin
   {
     if PrismControl.VCLComponent = Edit1 then
     PrismControl.AsEdit.DataType:= TPrismFieldType.PrismFieldTypeInteger;
-
-    if PrismControl.IsDBGrid then
-    begin
-    PrismControl.AsDBGrid.RecordsPerPage:= 10;
-    PrismControl.AsDBGrid.MaxRecords:= 2000;
-    end;
   }
+   if PrismControl.IsDBGrid then
+   begin
+     PrismControl.AsDBGrid.RecordsPerPage := 10;
+     PrismControl.AsDBGrid.MaxRecords     := 2000;
+   end;
+
 end;
 
 procedure TFrmClientes.RenderD2Bridge(const PrismControl: TPrismControl;

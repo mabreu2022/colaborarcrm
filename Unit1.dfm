@@ -32,6 +32,7 @@ object Form1: TForm1
       end
       object Ativos1: TMenuItem
         Caption = 'Ativos'
+        OnClick = Ativos1Click
       end
       object Contratos1: TMenuItem
         Caption = 'Contratos'

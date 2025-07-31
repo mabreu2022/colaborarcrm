@@ -133,7 +133,7 @@ object FrmControleDeUsuarios: TFrmControleDeUsuarios
         DataField = 'ID_PERFIL'
         DataSource = DM.DSUsuarios
         KeyField = 'ID_PERFIL'
-        ListField = 'DESCRICAO'
+        ListField = 'NOME'
         ListSource = DM.DSPerfis
         TabOrder = 4
       end

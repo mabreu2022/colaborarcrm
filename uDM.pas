@@ -81,6 +81,8 @@ type
     qryUsuariosEMAIL: TWideStringField;
     qryUsuariosSENHA: TWideStringField;
     qryUsuariosID_PERFIL: TIntegerField;
+    qryAtivos: TFDQuery;
+    DSAtivos: TDataSource;
 
   private
 

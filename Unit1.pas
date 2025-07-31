@@ -76,6 +76,7 @@ type
     procedure LogOff1Click(Sender: TObject);
     procedure Usuarios1Click(Sender: TObject);
     procedure Perfis1Click(Sender: TObject);
+    procedure Ativos1Click(Sender: TObject);
   private
     JaCarregouPermissoes: Boolean;
 
@@ -103,7 +104,7 @@ Uses
   ContratosWebApp,
   uView.Clientes,
   uDM,
-  uView.ControleDeUsuarios;
+  uView.ControleDeUsuarios, Unit_Login, uView.Ativos;
 
 Function Form1: TForm1;
 begin
@@ -112,6 +113,14 @@ end;
 
 {$R *.dfm}
 { TForm1 }
+
+procedure TForm1.Ativos1Click(Sender: TObject);
+begin
+if FrmAtivos = nil then
+    TFrmAtivos.CreateInstance;
+
+  FrmAtivos.ShowModal;
+end;
 
 procedure TForm1.CarregarPermissoesUsuario;
 var
@@ -165,7 +174,7 @@ begin
   QryCheck := TFDQuery.Create(nil);
   try
     QryCheck.Connection := DM.Conn;
-    PerfilID := DM.PerfilID; // ID do perfil logado
+    PerfilID := DM.PerfilID;
 
     Lista.Add('Menus disponíveis e verificação de permissões:');
     Lista.Add('');
@@ -176,7 +185,6 @@ begin
       NomePadronizado := RemoverAcentos(Trim(NomeTela));
       Lista.Add(NomeTela);
 
-      // Verifica se essa tela existe na tabela PERMISSOES
       QryCheck.SQL.Text := 'SELECT COUNT(*) FROM PERMISSOES ' +
         'WHERE ID_PERFIL = :ID AND TRIM(NOME_TELA) = :TELA AND PODE_ACESSAR = TRUE';
       QryCheck.ParamByName('ID').AsInteger := PerfilID;
@@ -184,20 +192,20 @@ begin
       QryCheck.Open;
 
       if QryCheck.Fields[0].AsInteger = 0 then
-        Lista.Add('    ❌ Sem permissão cadastrada');
+        Lista.Add('❌ Sem permissão cadastrada');
 
       for j := 0 to MainMenu1.Items[i].Count - 1 do
       begin
         NomeTela := MainMenu1.Items[i].Items[j].Caption;
         NomePadronizado := RemoverAcentos(Trim(NomeTela));
-        // 🔄 faltava atualizar aqui!
+
         Lista.Add('  - ' + NomeTela);
 
         QryCheck.ParamByName('TELA').AsString := NomePadronizado;
         QryCheck.Open;
 
         if QryCheck.Fields[0].AsInteger = 0 then
-          Lista.Add('      ❌ Sem permissão cadastrada');
+          Lista.Add('❌ Sem permissão cadastrada');
       end;
 
     end;
@@ -227,7 +235,7 @@ begin
   // TemplateClassForm:= TD2BridgeFormTemplate;
 
   D2Bridge.FrameworkExportType.TemplateMasterHTMLFile := '';
-  // 'templates/master.html';
+
   D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
 
   imgLogo := TImage.Create(Self);
@@ -238,7 +246,6 @@ begin
   imgLogo.Transparent := True;
   imgLogo.Parent := Self;
 
-  // Export yours Controls
   with D2Bridge.Items.Add do
   begin
     with Row.Items.Add do
@@ -274,7 +281,7 @@ begin
 
     for i := 0 to MainMenu1.Items.Count - 1 do
     begin
-      // Verifica o nome do item pai
+
       NomeMenuItem := RemoverAcentos(Trim(MainMenu1.Items[i].Caption));
       Log.Add('MenuPai [i=' + IntToStr(i) + ']: ' + NomeMenuItem + ' <=> ' + NomeSolicitado);
 
@@ -301,7 +308,7 @@ begin
           MainMenu1.Items[i].Visible := True;
 
           Log.Add('    ✅ Ativado como submenu + pai');
-          Break; // se bateu, não precisa continuar nos outros submenus
+          Break;
         end;
       end;
     end;
@@ -316,35 +323,6 @@ procedure TForm1.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
   inherited;
 
-  // Menu example
-  {
-    if PrismControl.VCLComponent = MainMenu1 then
-    PrismControl.AsMainMenu.Title:= 'AppTeste'; //or in SideMenu use asSideMenu
-
-    if PrismControl.VCLComponent = MainMenu1 then
-    PrismControl.AsMainMenu.Image.URL:='https://d2bridge.com.br/images/LogoD2BridgeTransp.png'; //or in SideMenu use asSideMenu
-
-    //GroupIndex example
-    if PrismControl.VCLComponent = MainMenu1 then
-    with PrismControl.AsMainMenu do  //or in SideMenu use asSideMenu
-    begin
-    MenuGroups[0].Caption:= 'Principal';
-    MenuGroups[1].Caption:= 'Services';
-    MenuGroups[2].Caption:= 'Items';
-    end;
-
-    //Chance Icon and Propertys MODE 1 *Using MenuItem component
-    PrismControl.AsMainMenu.MenuItemFromVCLComponent(Abrout1).Icon:= 'fa-solid fa-rocket';
-
-    //Chance Icon and Propertys MODE 2 *Using MenuItem name
-    PrismControl.AsMainMenu.MenuItemFromName('Abrout1').Icon:= 'fa-solid fa-rocket';
-  }
-
-  // Change Init Property of Prism Controls
-  {
-    if PrismControl.VCLComponent = Edit1 then
-    PrismControl.AsEdit.DataType:= TPrismFieldType.PrismFieldTypeInteger;
-  }
   if PrismControl.IsDBGrid then
   begin
     PrismControl.AsDBGrid.RecordsPerPage := 10;
@@ -355,7 +333,14 @@ end;
 
 procedure TForm1.LogOff1Click(Sender: TObject);
 begin
-   //como desloga o usuário e volta a tela de Login?
+//  //como desloga o usuário e volta a tela de Login?
+//   Try
+//     PrismSession.Close(True);
+//
+//  except on e: exception do
+//           ShowMessage('Deu erro: ' + e.Message);
+//  End;
+
 end;
 
 procedure TForm1.Module11Click(Sender: TObject);
@@ -367,9 +352,6 @@ procedure TForm1.Perfis1Click(Sender: TObject);
 begin
   if FrmControleDeUsuarios = nil then
     TFrmControleDeUsuarios.CreateInstance;
-
-//  FrmControleDeUsuarios.ShowModal;
-//  FrmControleDeUsuarios.Tab_recebida:='Perfis';
 
   Try
    if IsD2BridgeContext then
@@ -395,9 +377,6 @@ begin
   if FrmControleDeUsuarios = nil then
      TFrmControleDeUsuarios.CreateInstance;
 
-//  FrmControleDeUsuarios.ShowModal;
-//  FrmControleDeUsuarios.Tab_recebida:='Permissoes';
-
   Try
    if IsD2BridgeContext then
     begin
@@ -421,9 +400,6 @@ procedure TForm1.Usuarios1Click(Sender: TObject);
 begin
   if FrmControleDeUsuarios = nil then
      TFrmControleDeUsuarios.CreateInstance;
-
-//  FrmControleDeUsuarios.ShowModal;
-//  FrmControleDeUsuarios.Tab_recebida:='Usuarios';
 
   Try
    if IsD2BridgeContext then

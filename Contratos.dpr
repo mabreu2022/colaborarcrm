@@ -21,7 +21,8 @@ uses
   uView.ContatosCad in 'uView.ContatosCad.pas' {FrmContatosCad},
   Vcl.Themes,
   Vcl.Styles,
-  uView.ControleDeUsuarios in 'uView.ControleDeUsuarios.pas' {FrmControleDeUsuarios};
+  uView.ControleDeUsuarios in 'uView.ControleDeUsuarios.pas' {FrmControleDeUsuarios},
+  uView.Ativos in 'uView.Ativos.pas' {FrmAtivos};
 
 {$R *.res}
 

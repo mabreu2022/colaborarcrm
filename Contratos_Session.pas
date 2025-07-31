@@ -41,7 +41,13 @@ destructor TContratosSession.Destroy; //OnCloseSession
 begin
  //Close ALL DataBase connection
  //Ex: Dm.DBConnection.Close;
+ DM.qryCliente.close;
+ DM.qryUsuarios.close;
+ DM.qryPerfis.close;
+ DM.qryPermissoes.Close;
+ DM.qryContatos.Close;
  DM.Conn.Close;
+
 
  inherited;
 end;

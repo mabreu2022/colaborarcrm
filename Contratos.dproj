@@ -148,6 +148,10 @@
             <Form>FrmControleDeUsuarios</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="uView.Ativos.pas">
+            <Form>FrmAtivos</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

@@ -134,7 +134,7 @@ begin
  //D2BridgeServerController.Prism.Options.SessionTimeOut:= 300;
 
  //secounds to set Session in Idle
- //D2BridgeServerController.Prism.Options.SessionIdleTimeOut:= 0;
+ D2BridgeServerController.Prism.Options.SessionIdleTimeOut:= 0;
 
 
  D2BridgeServerController.Prism.Options.IncludeJQuery:= true;

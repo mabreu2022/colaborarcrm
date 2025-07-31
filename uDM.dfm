@@ -294,4 +294,16 @@ object DM: TDM
     Left = 368
     Top = 144
   end
+  object qryAtivos: TFDQuery
+    Connection = Conn
+    SQL.Strings = (
+      'SELECT * FROM ATIVOS')
+    Left = 264
+    Top = 216
+  end
+  object DSAtivos: TDataSource
+    DataSet = qryAtivos
+    Left = 368
+    Top = 216
+  end
 end
