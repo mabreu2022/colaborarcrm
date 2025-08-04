@@ -28,6 +28,7 @@ uses
   FireDAC.DApt,
   FireDAC.Comp.DataSet,
   System.Variants,
+  System.UITypes,
   VCL.Dialogs;
 
 type
@@ -83,6 +84,10 @@ type
     qryUsuariosID_PERFIL: TIntegerField;
     qryAtivos: TFDQuery;
     DSAtivos: TDataSource;
+    qryStatus: TFDQuery;
+    DSStatus: TDataSource;
+    qryStatusID_STATUS: TIntegerField;
+    qryStatusSTATUS: TWideStringField;
 
   private
 
@@ -107,6 +112,7 @@ type
     procedure SalvarUsuario(aNome, aSenha, aEmail: String; aIdPerfil: Integer);
     function Login(aUser, aSenha: String): Boolean;
     procedure LoadPermissoes(IDPerfil: Integer);
+    function BuscarAtivoPorNumeroSerie(const NumeroSerie: string): TDataSet;
 
   end;
 
@@ -120,6 +126,51 @@ Uses
   D2Bridge.Instance, ContratosWebApp, uView.Clientes, uView.ContatosCad, Unit1;
 
 {$R *.dfm}
+
+function TDM.BuscarAtivoPorNumeroSerie(const NumeroSerie: string): TDataSet;
+var
+  FDQueryBuscaSerie: TFDQuery;
+begin
+  FDQueryBuscaSerie := TFDQuery.Create(nil);
+  try
+    FDQueryBuscaSerie.Connection := Conn;
+    FDQueryBuscaSerie.SQL.Clear;
+
+    if Trim(NumeroSerie).IsEmpty then
+    begin
+      // SELECT padrão com JOIN
+      FDQueryBuscaSerie.SQL.Add('SELECT a.ID_ATIVO,');
+      FDQueryBuscaSerie.SQL.Add('       a.NUMERO_SERIE,');
+      FDQueryBuscaSerie.SQL.Add('       a.DESCRICAO,');
+      FDQueryBuscaSerie.SQL.Add('       a.ID_CLIENTE_PROPRIETARIO,');
+      FDQueryBuscaSerie.SQL.Add('       a.ID_STATUS,');
+      FDQueryBuscaSerie.SQL.Add('       s.STATUS AS NOME_STATUS');
+      FDQueryBuscaSerie.SQL.Add('FROM ATIVOS a');
+      FDQueryBuscaSerie.SQL.Add('INNER JOIN STATUS s ON s.ID_STATUS = a.ID_STATUS');
+    end
+    else
+    begin
+      // SELECT filtrado por número de série
+      FDQueryBuscaSerie.SQL.Add('SELECT a.ID_ATIVO,');
+      FDQueryBuscaSerie.SQL.Add('       a.NUMERO_SERIE,');
+      FDQueryBuscaSerie.SQL.Add('       a.DESCRICAO,');
+      FDQueryBuscaSerie.SQL.Add('       a.ID_CLIENTE_PROPRIETARIO,');
+      FDQueryBuscaSerie.SQL.Add('       a.ID_STATUS,');
+      FDQueryBuscaSerie.SQL.Add('       s.STATUS AS NOME_STATUS');
+      FDQueryBuscaSerie.SQL.Add('FROM ATIVOS a');
+      FDQueryBuscaSerie.SQL.Add('INNER JOIN STATUS s ON s.ID_STATUS = a.ID_STATUS');
+      FDQueryBuscaSerie.SQL.Add('WHERE UPPER(a.NUMERO_SERIE) = :numeroSerie');
+      FDQueryBuscaSerie.ParamByName('numeroSerie').AsString := UpperCase(Trim(NumeroSerie));
+    end;
+
+    FDQueryBuscaSerie.Open;
+    Result := FDQueryBuscaSerie;
+  except
+    FDQueryBuscaSerie.Free;
+    raise;
+  end;
+
+end;
 
 class procedure TDM.CreateInstance;
 begin
@@ -307,7 +358,7 @@ var
   QryLogin: TFDQuery;
 
 begin
-  result := False;
+
   QryLogin := TFDQuery.Create(nil);
   try
     QryLogin.Connection := Conn;
@@ -343,7 +394,6 @@ end;
 procedure TDM.LoadPermissoes(IDPerfil: Integer);
 var
   QryPerm: TFDQuery;
-  AForm: TForm1;
 begin
   QryPerm := TFDQuery.Create(nil);
   try

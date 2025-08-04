@@ -246,7 +246,7 @@ end;
 procedure TFrmClientes.btnSalvarClienteClick(Sender: TObject);
 begin
   inherited;
-  //
+  DM.qryCliente.Post;
 end;
 
 procedure TFrmClientes.DBGrid1CellClick(Column: TColumn);

@@ -295,9 +295,17 @@ object DM: TDM
     Top = 144
   end
   object qryAtivos: TFDQuery
+    CachedUpdates = True
     Connection = Conn
     SQL.Strings = (
-      'SELECT * FROM ATIVOS')
+      'SELECT a.ID_ATIVO,'
+      '       a.NUMERO_SERIE,'
+      '       a.DESCRICAO,'
+      '       a.ID_CLIENTE_PROPRIETARIO,'
+      '       a.ID_STATUS,'
+      '       s.STATUS AS NOME_STATUS'
+      'FROM ATIVOS a'
+      'INNER JOIN STATUS s ON s.ID_STATUS = a.ID_STATUS')
     Left = 264
     Top = 216
   end
@@ -305,5 +313,28 @@ object DM: TDM
     DataSet = qryAtivos
     Left = 368
     Top = 216
+  end
+  object qryStatus: TFDQuery
+    Connection = Conn
+    SQL.Strings = (
+      'SELECT * FROM STATUS')
+    Left = 248
+    Top = 296
+    object qryStatusID_STATUS: TIntegerField
+      FieldName = 'ID_STATUS'
+      Origin = 'ID_STATUS'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryStatusSTATUS: TWideStringField
+      FieldName = 'STATUS'
+      Origin = 'STATUS'
+      Size = 100
+    end
+  end
+  object DSStatus: TDataSource
+    DataSet = qryStatus
+    Left = 360
+    Top = 304
   end
 end

@@ -2,24 +2,24 @@
 <BorlandProject>
 	<Transactions>
     <Transaction>2025/07/17 09:16:04.000.075,=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
-    <Transaction>2025/07/17 09:23:28.000.119,C:\FONTES\Colaborar\Contratos\uView.Clientes.dfm=C:\FONTES\Colaborar\Contratos\Unit2.dfm</Transaction>
-    <Transaction>2025/07/17 09:23:28.000.119,C:\FONTES\Colaborar\Contratos\uView.Clientes.pas=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
+    <Transaction>2025/07/17 09:23:28.000.119,C:\FONTES\Colaborar\Contratos\Unit2.pas=C:\FONTES\Colaborar\Contratos\uView.Clientes.pas</Transaction>
+    <Transaction>2025/07/17 09:23:28.000.119,C:\FONTES\Colaborar\Contratos\Unit2.dfm=C:\FONTES\Colaborar\Contratos\uView.Clientes.dfm</Transaction>
     <Transaction>2025/07/17 09:39:34.000.626,=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
-    <Transaction>2025/07/17 09:42:04.000.083,C:\FONTES\Colaborar\Contratos\uDM.dfm=C:\FONTES\Colaborar\Contratos\Unit2.dfm</Transaction>
-    <Transaction>2025/07/17 09:42:04.000.083,C:\FONTES\Colaborar\Contratos\uDM.pas=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
+    <Transaction>2025/07/17 09:42:04.000.083,C:\FONTES\Colaborar\Contratos\Unit2.pas=C:\FONTES\Colaborar\Contratos\uDM.pas</Transaction>
+    <Transaction>2025/07/17 09:42:04.000.083,C:\FONTES\Colaborar\Contratos\Unit2.dfm=C:\FONTES\Colaborar\Contratos\uDM.dfm</Transaction>
     <Transaction>2025/07/17 18:47:13.000.459,=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
-    <Transaction>2025/07/17 18:47:50.000.359,C:\FONTES\Colaborar\Contratos\Unit2.pas=C:\FONTES\Colaborar\Contratos\uView.ClienteCad.pas</Transaction>
-    <Transaction>2025/07/17 18:47:50.000.359,C:\FONTES\Colaborar\Contratos\Unit2.dfm=C:\FONTES\Colaborar\Contratos\uView.ClienteCad.dfm</Transaction>
-    <Transaction>2025/07/22 09:12:22.000.247,C:\FONTES\Colaborar\Contratos\uView.ClienteCad.pas=C:\FONTES\Colaborar\Contratos\uView.ContatosCad.pas</Transaction>
-    <Transaction>2025/07/22 09:12:22.000.247,C:\FONTES\Colaborar\Contratos\uView.ClienteCad.dfm=C:\FONTES\Colaborar\Contratos\uView.ContatosCad.dfm</Transaction>
+    <Transaction>2025/07/17 18:47:50.000.359,C:\FONTES\Colaborar\Contratos\uView.ClienteCad.pas=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
+    <Transaction>2025/07/17 18:47:50.000.359,C:\FONTES\Colaborar\Contratos\uView.ClienteCad.dfm=C:\FONTES\Colaborar\Contratos\Unit2.dfm</Transaction>
+    <Transaction>2025/07/22 09:12:22.000.247,C:\FONTES\Colaborar\Contratos\uView.ContatosCad.dfm=C:\FONTES\Colaborar\Contratos\uView.ClienteCad.dfm</Transaction>
+    <Transaction>2025/07/22 09:12:22.000.247,C:\FONTES\Colaborar\Contratos\uView.ContatosCad.pas=C:\FONTES\Colaborar\Contratos\uView.ClienteCad.pas</Transaction>
     <Transaction>2025/07/24 10:57:09.000.371,=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
-    <Transaction>2025/07/24 10:59:54.000.624,C:\FONTES\Colaborar\Contratos\uView.ControleDeUsuarios.pas=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
-    <Transaction>2025/07/24 10:59:54.000.624,C:\FONTES\Colaborar\Contratos\uView.ControleDeUsuarios.dfm=C:\FONTES\Colaborar\Contratos\Unit2.dfm</Transaction>
+    <Transaction>2025/07/24 10:59:54.000.624,C:\FONTES\Colaborar\Contratos\Unit2.dfm=C:\FONTES\Colaborar\Contratos\uView.ControleDeUsuarios.dfm</Transaction>
+    <Transaction>2025/07/24 10:59:54.000.624,C:\FONTES\Colaborar\Contratos\Unit2.pas=C:\FONTES\Colaborar\Contratos\uView.ControleDeUsuarios.pas</Transaction>
     <Transaction>2025/07/26 16:43:34.000.381,=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
-    <Transaction>2025/07/26 16:43:52.000.092,C:\FONTES\Colaborar\Contratos\uBridgeItems.pas=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
+    <Transaction>2025/07/26 16:43:52.000.092,C:\FONTES\Colaborar\Contratos\Unit2.pas=C:\FONTES\Colaborar\Contratos\uBridgeItems.pas</Transaction>
     <Transaction>2025/07/26 16:46:53.000.270,C:\FONTES\Colaborar\Contratos\uBridgeItems.pas=</Transaction>
-    <Transaction>2025/07/30 08:09:05.524,=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
-    <Transaction>2025/07/30 08:09:54.728,C:\FONTES\Colaborar\Contratos\uView.Ativos.pas=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
-    <Transaction>2025/07/30 08:09:54.728,C:\FONTES\Colaborar\Contratos\uView.Ativos.dfm=C:\FONTES\Colaborar\Contratos\Unit2.dfm</Transaction>
+    <Transaction>2025/07/30 08:09:05.000.524,=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
+    <Transaction>2025/07/30 08:09:54.000.728,C:\FONTES\Colaborar\Contratos\Unit2.pas=C:\FONTES\Colaborar\Contratos\uView.Ativos.pas</Transaction>
+    <Transaction>2025/07/30 08:09:54.000.728,C:\FONTES\Colaborar\Contratos\Unit2.dfm=C:\FONTES\Colaborar\Contratos\uView.Ativos.dfm</Transaction>
   </Transactions>
 </BorlandProject>

@@ -116,7 +116,7 @@ end;
 
 procedure TForm1.Ativos1Click(Sender: TObject);
 begin
-if FrmAtivos = nil then
+  if FrmAtivos = nil then
     TFrmAtivos.CreateInstance;
 
   FrmAtivos.ShowModal;
