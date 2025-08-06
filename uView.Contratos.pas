@@ -59,11 +59,11 @@ procedure TFrmContratos.ExportD2Bridge;
 begin
   inherited;
 
-  Title:= 'My D2Bridge Form';
+  Title:= 'Cadastro de Contratos';
 
   //TemplateClassForm:= TD2BridgeFormTemplate;
-  D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= '';
-  D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
+  D2Bridge.FrameworkExportType.TemplateMasterHTMLFile := '';
+  D2Bridge.FrameworkExportType.TemplatePageHTMLFile   := '';
 
   with D2Bridge.Items.add do
   begin

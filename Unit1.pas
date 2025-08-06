@@ -79,6 +79,7 @@ type
     procedure Perfis1Click(Sender: TObject);
     procedure Ativos1Click(Sender: TObject);
     procedure ListagemdeClientes1Click(Sender: TObject);
+    procedure Agendamendo1Click(Sender: TObject);
   private
     JaCarregouPermissoes: Boolean;
 
@@ -106,7 +107,8 @@ Uses
   ContratosWebApp,
   uView.Clientes,
   uDM,
-  uView.ControleDeUsuarios, Unit_Login, uView.Ativos, uView.Relatorios;
+  uView.ControleDeUsuarios, Unit_Login, uView.Ativos, uView.Relatorios,
+  uView.Agendamento;
 
 Function Form1: TForm1;
 begin
@@ -115,6 +117,14 @@ end;
 
 {$R *.dfm}
 { TForm1 }
+
+procedure TForm1.Agendamendo1Click(Sender: TObject);
+begin
+   if FrmAgendamento = nil then
+    TFrmAgendamento.CreateInstance;
+
+  FrmAgendamento.ShowModal;
+end;
 
 procedure TForm1.Ativos1Click(Sender: TObject);
 begin

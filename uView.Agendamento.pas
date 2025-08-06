@@ -27,22 +27,22 @@ type
     TabSheet1: TTabSheet;
     Listagem: TTabSheet;
     Panel1: TPanel;
-    DBLookupComboBox1: TDBLookupComboBox;
-    DBLookupComboBox2: TDBLookupComboBox;
-    DBLookupComboBox3: TDBLookupComboBox;
-    DBLookupComboBox4: TDBLookupComboBox;
-    DateTimePicker1: TDateTimePicker;
-    DateTimePicker2: TDateTimePicker;
+    dblCliente: TDBLookupComboBox;
+    dblContato: TDBLookupComboBox;
+    dblContrato: TDBLookupComboBox;
+    dblAtivo: TDBLookupComboBox;
+    dtpDataRetirada: TDateTimePicker;
+    dtpDataPrevistaDevolucao: TDateTimePicker;
     memoObservacao: TMemo;
     lblCliente: TLabel;
     lblContato: TLabel;
-    Label3: TLabel;
+    lblContrato: TLabel;
     lblAtivo: TLabel;
     lblDataRetirada: TLabel;
-    Label2: TLabel;
-    DateTimePicker3: TDateTimePicker;
+    lblDataPrevistaDeDevolucao: TLabel;
+    dtpDataDaDevolucao: TDateTimePicker;
     lblDataDevolucao: TLabel;
-    DBLookupComboBox5: TDBLookupComboBox;
+    dblMotivoStatus: TDBLookupComboBox;
     lblMotivoStatus: TLabel;
     lblObservacoes: TLabel;
     btnNovoAgendamento: TButton;
@@ -80,50 +80,99 @@ procedure TFrmAgendamento.ExportD2Bridge;
 begin
   inherited;
 
-  Title:= 'My D2Bridge Form';
+  Title:= 'Cadastro de Agendamentos';
 
   //TemplateClassForm:= TD2BridgeFormTemplate;
   D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= '';
   D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
 
-  with D2Bridge.Items.add do
+   with D2Bridge.Items.add do
   begin
-   {Yours Controls}
+    with Row.Items.Add do
+      with Tabs('TabControl01') do
+      begin
+        with AddTab('Agendamento').Items.Add do
+        begin
+          with Row.Items.Add do
+          begin
+            FormGroup(lblcliente.Caption).AddVCLObj(dblCliente);
+            FormGroup(lblContato.Caption).AddVCLObj(dblContato);
+            FormGroup(lblContrato.Caption).AddVCLObj(dblContrato);
+            FormGroup(lblAtivo.Caption).AddVCLObj(dblAtivo);
+          end;
+
+          with Row.Items.Add do
+          begin
+            FormGroup(lblDataretirada.Caption).AddVCLObj(dtpDataRetirada);
+            FormGroup(lblDataPrevistaDeDevolucao.Caption).AddVCLObj(dtpDataPrevistaDevolucao);
+            FormGroup(lblDataDevolucao.Caption).AddVCLObj(dtpDataDaDevolucao);
+            FormGroup(lblMotivoStatus.Caption).AddVCLObj(dblMotivoStatus);
+          end;
+
+          with Row.Items.Add do
+          begin
+            FormGroup(lblObservacoes.Caption).AddVCLObj(memoObservacao);
+          end;
+
+          with Row.Items.Add do
+          begin
+            FormGroup('').AddVCLObj(btnNovoAgendamento, CSSClass.Button.Add);
+            FormGroup('').AddVCLObj(btnSalvarAgendamento, CSSClass.Button.save);
+            FormGroup('').AddVCLObj(btnEditarAgendamento, CSSClass.Button.Edit);
+            FormGroup('').AddVCLObj(btnExcluirAgendamento, CSSClass.Button.delete);
+            FormGroup('').AddVCLObj(btnCancelarAgendamento, CSSClass.Button.Cancel);
+          end;
+
+        end;
+
+//        with AddTab('DashBoard').Items.Add do
+//        begin
+//          with Row.Items.Add do
+//          begin
+//            FormGroup(lblPessuisarNumeroDeSerie.Caption).AddVCLObj(edtPesquisarNumeroDeSerie);
+//            FormGroup('').AddVCLObj(btnPesquisarNumeroDeserie, CSSClass.Button.search);
+//          end;
+//          with Row.Items.Add do
+//          begin
+//            VCLObj(grdAtivos);
+//          end;
+//
+//        end;
+
+      end;
+
   end;
 
 end;
 
 procedure TFrmAgendamento.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  DM.qryCliente.Active  := False;
-  DM.qryContatos.Active := False;
-  DM.qryStatus.Active   := False;
-//  DM.qryContratos.Active := False;
+  DM.qryCliente.Active   := False;
+  DM.qryContatos.Active  := False;
+  DM.qryStatus.Active    := False;
+  DM.qryAtivos.Active    := False;
+  DM.qryContratos.Active := False;
 end;
 
 procedure TFrmAgendamento.FormCreate(Sender: TObject);
 begin
-  DM.qryCliente.Active  := True;
-  DM.qryContatos.Active := True;
-  DM.qryStatus.Active   := True;
-//  DM.qryContratos.Active := True;
+  DM.qryCliente.Active   := True;
+  DM.qryContatos.Active  := True;
+  DM.qryStatus.Active    := True;
+  DM.qryAtivos.Active    := True;
+  DM.qryContratos.Active := True;
 end;
 
 procedure TFrmAgendamento.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
  inherited;
 
- //Change Init Property of Prism Controls
- {
-  if PrismControl.VCLComponent = Edit1 then
-   PrismControl.AsEdit.DataType:= TPrismFieldType.PrismFieldTypeInteger;
-
   if PrismControl.IsDBGrid then
   begin
    PrismControl.AsDBGrid.RecordsPerPage:= 10;
    PrismControl.AsDBGrid.MaxRecords:= 2000;
   end;
- }
+
 end;
 
 procedure TFrmAgendamento.RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string);

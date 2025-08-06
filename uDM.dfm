@@ -467,8 +467,48 @@ object DM: TDM
       'SELECT * FROM CONTRATOS')
     Left = 32
     Top = 240
+    object qryContratosID_CONTRATO: TIntegerField
+      FieldName = 'ID_CONTRATO'
+      Origin = 'ID_CONTRATO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryContratosID_CLIENTE: TIntegerField
+      FieldName = 'ID_CLIENTE'
+      Origin = 'ID_CLIENTE'
+      Required = True
+    end
+    object qryContratosDATA_INICIO: TDateField
+      FieldName = 'DATA_INICIO'
+      Origin = 'DATA_INICIO'
+      Required = True
+    end
+    object qryContratosDATA_FIM: TDateField
+      FieldName = 'DATA_FIM'
+      Origin = 'DATA_FIM'
+    end
+    object qryContratosVALOR_MENSAL: TFMTBCDField
+      FieldName = 'VALOR_MENSAL'
+      Origin = 'VALOR_MENSAL'
+      Precision = 18
+      Size = 2
+    end
+    object qryContratosOBSERVACOES: TWideMemoField
+      FieldName = 'OBSERVACOES'
+      Origin = 'OBSERVACOES'
+      BlobType = ftWideMemo
+    end
+    object qryContratosID_STATUS: TIntegerField
+      FieldName = 'ID_STATUS'
+      Origin = 'ID_STATUS'
+    end
+    object qryContratosDESCRICAO: TWideStringField
+      FieldName = 'DESCRICAO'
+      Origin = 'DESCRICAO'
+      Size = 100
+    end
   end
-  object DataSource1: TDataSource
+  object DSContratos: TDataSource
     DataSet = qryContratos
     Left = 128
     Top = 240

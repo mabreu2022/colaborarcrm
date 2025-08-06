@@ -167,7 +167,7 @@ procedure TFrmAtivos.ExportD2Bridge;
 begin
   inherited;
 
-  Title:= 'My D2Bridge Form';
+  Title:= 'Cadastro de Ativos';
 
   //TemplateClassForm:= TD2BridgeFormTemplate;
   D2Bridge.FrameworkExportType.TemplateMasterHTMLFile := '';

@@ -37,7 +37,7 @@ object FrmAgendamento: TFrmAgendamento
         Height = 15
         Caption = 'Contato'
       end
-      object Label3: TLabel
+      object lblContrato: TLabel
         Left = 528
         Top = 4
         Width = 47
@@ -58,7 +58,7 @@ object FrmAgendamento: TFrmAgendamento
         Height = 15
         Caption = 'Data da retirada'
       end
-      object Label2: TLabel
+      object lblDataPrevistaDeDevolucao: TLabel
         Left = 208
         Top = 59
         Width = 142
@@ -97,8 +97,8 @@ object FrmAgendamento: TFrmAgendamento
         ExplicitTop = 392
         ExplicitWidth = 185
         object btnNovoAgendamento: TButton
-          Left = 3
-          Top = 8
+          Left = 6
+          Top = 9
           Width = 75
           Height = 25
           Caption = 'Novo'
@@ -137,7 +137,7 @@ object FrmAgendamento: TFrmAgendamento
           TabOrder = 4
         end
       end
-      object DBLookupComboBox1: TDBLookupComboBox
+      object dblCliente: TDBLookupComboBox
         Left = 16
         Top = 24
         Width = 250
@@ -149,28 +149,42 @@ object FrmAgendamento: TFrmAgendamento
         ListSource = DM.DSCliente
         TabOrder = 1
       end
-      object DBLookupComboBox2: TDBLookupComboBox
+      object dblContato: TDBLookupComboBox
         Left = 272
         Top = 24
         Width = 250
         Height = 23
+        DataField = 'ID_CONTATO'
+        DataSource = DM.DSAgenda
+        KeyField = 'ID_CONTATO'
+        ListField = 'NOME_CONTATO'
+        ListSource = DM.DScontatos
         TabOrder = 2
       end
-      object DBLookupComboBox3: TDBLookupComboBox
+      object dblContrato: TDBLookupComboBox
         Left = 528
         Top = 24
         Width = 202
         Height = 23
+        DataField = 'ID_CONTRATO'
+        DataSource = DM.DSAgenda
+        ListField = 'DESCRICAO'
+        ListSource = DM.DSContratos
         TabOrder = 3
       end
-      object DBLookupComboBox4: TDBLookupComboBox
+      object dblAtivo: TDBLookupComboBox
         Left = 736
         Top = 24
         Width = 145
         Height = 23
+        DataField = 'ID_ATIVO'
+        DataSource = DM.DSAgenda
+        KeyField = 'ID_ATIVO'
+        ListField = 'NUMERO_SERIE'
+        ListSource = DM.DSAtivos
         TabOrder = 4
       end
-      object DateTimePicker1: TDateTimePicker
+      object dtpDataRetirada: TDateTimePicker
         Left = 16
         Top = 80
         Width = 186
@@ -179,7 +193,7 @@ object FrmAgendamento: TFrmAgendamento
         Time = 0.545078194445523000
         TabOrder = 5
       end
-      object DateTimePicker2: TDateTimePicker
+      object dtpDataPrevistaDevolucao: TDateTimePicker
         Left = 208
         Top = 80
         Width = 186
@@ -201,7 +215,7 @@ object FrmAgendamento: TFrmAgendamento
         ExplicitTop = 248
         ExplicitWidth = 909
       end
-      object DateTimePicker3: TDateTimePicker
+      object dtpDataDaDevolucao: TDateTimePicker
         Left = 400
         Top = 80
         Width = 186
@@ -210,11 +224,16 @@ object FrmAgendamento: TFrmAgendamento
         Time = 0.545094768516719300
         TabOrder = 8
       end
-      object DBLookupComboBox5: TDBLookupComboBox
+      object dblMotivoStatus: TDBLookupComboBox
         Left = 592
         Top = 80
         Width = 289
         Height = 23
+        DataField = 'ID_STATUS'
+        DataSource = DM.DSAgenda
+        KeyField = 'ID_STATUS'
+        ListField = 'STATUS'
+        ListSource = DM.DSStatus
         TabOrder = 9
       end
     end

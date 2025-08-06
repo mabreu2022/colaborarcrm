@@ -103,7 +103,15 @@ type
     qryAgenda_Detalhe: TFDQuery;
     DSAgenda_Detalhe: TDataSource;
     qryContratos: TFDQuery;
-    DataSource1: TDataSource;
+    DSContratos: TDataSource;
+    qryContratosID_CONTRATO: TIntegerField;
+    qryContratosID_CLIENTE: TIntegerField;
+    qryContratosDATA_INICIO: TDateField;
+    qryContratosDATA_FIM: TDateField;
+    qryContratosVALOR_MENSAL: TFMTBCDField;
+    qryContratosOBSERVACOES: TWideMemoField;
+    qryContratosID_STATUS: TIntegerField;
+    qryContratosDESCRICAO: TWideStringField;
 
   private
 

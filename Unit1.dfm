@@ -48,6 +48,7 @@ object Form1: TForm1
       end
       object Agendamendo1: TMenuItem
         Caption = 'Agendamentos'
+        OnClick = Agendamendo1Click
       end
       object Usuarios1: TMenuItem
         Caption = 'Usu'#225'rios'

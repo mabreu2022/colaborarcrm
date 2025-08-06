@@ -16,10 +16,9 @@ object FrmContratos: TFrmContratos
     Top = 0
     Width = 807
     Height = 441
-    ActivePage = TabSheet2
+    ActivePage = TabSheet1
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 624
     object TabSheet1: TTabSheet
       Caption = 'Cadastro'
       object Panel1: TPanel
@@ -29,9 +28,6 @@ object FrmContratos: TFrmContratos
         Height = 41
         Align = alBottom
         TabOrder = 0
-        ExplicitLeft = 96
-        ExplicitTop = 360
-        ExplicitWidth = 185
         object btnNovoAtivo: TButton
           Left = 16
           Top = 10
@@ -84,9 +80,6 @@ object FrmContratos: TFrmContratos
         Height = 41
         Align = alTop
         TabOrder = 0
-        ExplicitLeft = 208
-        ExplicitTop = 248
-        ExplicitWidth = 185
       end
       object DBGrid1: TDBGrid
         Left = 0
