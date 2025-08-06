@@ -164,6 +164,14 @@
             <Form>FrmRelatorioListagemDeClientes</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="uView.Relatorio.ClientesPorCNPJ.pas">
+            <Form>FrmRelatorioClientesPorCNPJ</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uView.Agendamento.pas">
+            <Form>FrmAgendamento</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

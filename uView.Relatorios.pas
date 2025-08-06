@@ -85,7 +85,7 @@ begin
           with Row.Items.add do
           begin
             FormGroup('  ').AddVCLObj(btnListagemDeClientes, CSSClass.Button.add);
-            //FormGroup('  ').AddVCLObj(btnClientesPorCNPJ, CSSClass.Button.Edit);
+            FormGroup('  ').AddVCLObj(btnClientesPorCNPJ, CSSClass.Button.Edit);
           end;
 
         end;

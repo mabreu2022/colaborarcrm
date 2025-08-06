@@ -25,7 +25,9 @@ uses
   uView.Ativos in 'uView.Ativos.pas' {FrmAtivos},
   uView.Contratos in 'uView.Contratos.pas' {FrmContratos},
   uView.Relatorios in 'uView.Relatorios.pas' {FrmRelatorios},
-  uView.Relatorio.ListagemDeClientes in 'uView.Relatorio.ListagemDeClientes.pas' {FrmRelatorioListagemDeClientes};
+  uView.Relatorio.ListagemDeClientes in 'uView.Relatorio.ListagemDeClientes.pas' {FrmRelatorioListagemDeClientes},
+  uView.Relatorio.ClientesPorCNPJ in 'uView.Relatorio.ClientesPorCNPJ.pas' {FrmRelatorioClientesPorCNPJ},
+  uView.Agendamento in 'uView.Agendamento.pas' {FrmAgendamento};
 
 {$R *.res}
 

@@ -1,6 +1,6 @@
 object DM: TDM
   Height = 374
-  Width = 604
+  Width = 718
   object Conn: TFDConnection
     Params.Strings = (
       'Database=C:\FONTES\Colaborar\DataBase\BANCOCOLABORAR.FDB'
@@ -226,7 +226,7 @@ object DM: TDM
   end
   object DScontatos: TDataSource
     DataSet = qryContatos
-    Left = 112
+    Left = 128
     Top = 168
   end
   object qryUsuarios: TFDQuery
@@ -319,8 +319,8 @@ object DM: TDM
     Connection = Conn
     SQL.Strings = (
       'SELECT * FROM STATUS')
-    Left = 248
-    Top = 296
+    Left = 264
+    Top = 288
     object qryStatusID_STATUS: TIntegerField
       FieldName = 'ID_STATUS'
       Origin = 'ID_STATUS'
@@ -335,7 +335,142 @@ object DM: TDM
   end
   object DSStatus: TDataSource
     DataSet = qryStatus
-    Left = 360
-    Top = 304
+    Left = 368
+    Top = 288
+  end
+  object qryAgenda: TFDQuery
+    Connection = Conn
+    SQL.Strings = (
+      'SELECT'
+      '    A.ID_AGENDA,'
+      '    A.ID_CLIENTE,'
+      '    C.NOME_RAZAO AS CLIENTE,'
+      '    A.ID_CONTATO,'
+      '    CT.NOME_CONTATO AS CONTATO,'
+      '    CT.TELEFONE_CONTATO,'
+      '    CT.EMAIL_CONTATO,'
+      '    CT.CARGO,'
+      '    A.ID_ATIVO,'
+      '    ATI.DESCRICAO AS ATIVO_DESCRICAO,'
+      '    ATI.NUMERO_SERIE,'
+      '    A.ID_CONTRATO,'
+      '    CO.DESCRICAO AS CONTRATO_DESCRICAO,'
+      '    CO.VALOR_MENSAL,'
+      '    A.DATA_RETIRADA,'
+      '    A.DATA_DEVOLUCAO_PREVISTA,'
+      '    A.DATA_DEVOLUCAO,'
+      '    A.OBSERVACAO,'
+      '    A.ID_STATUS'
+      'FROM'
+      '    AGENDA A'
+      '    LEFT JOIN CLIENTES C ON C.ID_CLIENTE = A.ID_CLIENTE'
+      '    LEFT JOIN CONTATOS CT ON CT.ID_CONTATO = A.ID_CONTATO'
+      '    LEFT JOIN ATIVOS ATI ON ATI.ID_ATIVO = A.ID_ATIVO'
+      '    LEFT JOIN CONTRATOS CO ON CO.ID_CONTRATO = A.ID_CONTRATO'
+      'ORDER BY'
+      '    A.DATA_RETIRADA DESC;')
+    Left = 464
+    Top = 32
+    object qryAgendaID_AGENDA: TIntegerField
+      FieldName = 'ID_AGENDA'
+      Origin = 'ID_AGENDA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryAgendaID_CLIENTE: TIntegerField
+      FieldName = 'ID_CLIENTE'
+      Origin = 'ID_CLIENTE'
+      Required = True
+    end
+    object qryAgendaID_CONTATO: TIntegerField
+      FieldName = 'ID_CONTATO'
+      Origin = 'ID_CONTATO'
+      Required = True
+    end
+    object qryAgendaID_CONTRATO: TIntegerField
+      FieldName = 'ID_CONTRATO'
+      Origin = 'ID_CONTRATO'
+      Required = True
+    end
+    object qryAgendaID_ATIVO: TIntegerField
+      FieldName = 'ID_ATIVO'
+      Origin = 'ID_ATIVO'
+      Required = True
+    end
+    object qryAgendaDATA_RETIRADA: TDateField
+      FieldName = 'DATA_RETIRADA'
+      Origin = 'DATA_RETIRADA'
+    end
+    object qryAgendaDATA_DEVOLUCAO_PREVISTA: TDateField
+      FieldName = 'DATA_DEVOLUCAO_PREVISTA'
+      Origin = 'DATA_DEVOLUCAO_PREVISTA'
+    end
+    object qryAgendaDATA_DEVOLUCAO: TDateField
+      FieldName = 'DATA_DEVOLUCAO'
+      Origin = 'DATA_DEVOLUCAO'
+    end
+    object qryAgendaOBSERVACAO: TWideStringField
+      FieldName = 'OBSERVACAO'
+      Origin = 'OBSERVACAO'
+      Size = 5000
+    end
+    object qryAgendaID_STATUS: TIntegerField
+      FieldName = 'ID_STATUS'
+      Origin = 'ID_STATUS'
+    end
+  end
+  object DSAgenda: TDataSource
+    DataSet = qryAgenda
+    Left = 584
+    Top = 32
+  end
+  object qryAgenda_Detalhe: TFDQuery
+    Connection = Conn
+    SQL.Strings = (
+      'SELECT'
+      '    D.ID_DETALHE,'
+      '    D.ID_AGENDA,'
+      '    D.HORARIO_INICIO,'
+      '    D.HORARIO_FIM,'
+      '    D.DESCRICAO,'
+      '    D.ID_USUARIO,'
+      '    U.NOME AS NOME_USUARIO,'
+      '    U.EMAIL AS EMAIL_USUARIO,'
+      '    D.ID_STATUS,'
+      '    S.STATUS AS STATUS_DESCRICAO'
+      'FROM'
+      '    AGENDA_DETALHE D'
+      '    LEFT JOIN USUARIOS U ON U.ID_USUARIO = D.ID_USUARIO'
+      '    LEFT JOIN STATUS S ON S.ID_STATUS = D.ID_STATUS'
+      'WHERE'
+      '    D.ID_AGENDA = :ID_AGENDA'
+      'ORDER BY'
+      '    D.HORARIO_INICIO;')
+    Left = 464
+    Top = 120
+    ParamData = <
+      item
+        Name = 'ID_AGENDA'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
+  end
+  object DSAgenda_Detalhe: TDataSource
+    DataSet = qryAgenda_Detalhe
+    Left = 584
+    Top = 120
+  end
+  object qryContratos: TFDQuery
+    Connection = Conn
+    SQL.Strings = (
+      'SELECT * FROM CONTRATOS')
+    Left = 32
+    Top = 240
+  end
+  object DataSource1: TDataSource
+    DataSet = qryContratos
+    Left = 128
+    Top = 240
   end
 end

@@ -88,6 +88,22 @@ type
     DSStatus: TDataSource;
     qryStatusID_STATUS: TIntegerField;
     qryStatusSTATUS: TWideStringField;
+    qryAgenda: TFDQuery;
+    DSAgenda: TDataSource;
+    qryAgendaID_AGENDA: TIntegerField;
+    qryAgendaID_CLIENTE: TIntegerField;
+    qryAgendaID_CONTATO: TIntegerField;
+    qryAgendaID_CONTRATO: TIntegerField;
+    qryAgendaID_ATIVO: TIntegerField;
+    qryAgendaDATA_RETIRADA: TDateField;
+    qryAgendaDATA_DEVOLUCAO_PREVISTA: TDateField;
+    qryAgendaDATA_DEVOLUCAO: TDateField;
+    qryAgendaOBSERVACAO: TWideStringField;
+    qryAgendaID_STATUS: TIntegerField;
+    qryAgenda_Detalhe: TFDQuery;
+    DSAgenda_Detalhe: TDataSource;
+    qryContratos: TFDQuery;
+    DataSource1: TDataSource;
 
   private
 
