@@ -72,6 +72,10 @@ object Form1: TForm1
         object ContratoporID1: TMenuItem
           Caption = 'Contrato por ID'
         end
+        object ListagemdeClientes1: TMenuItem
+          Caption = 'Listagem de Clientes'
+          OnClick = ListagemdeClientes1Click
+        end
       end
       object N1: TMenuItem
         Caption = '-'

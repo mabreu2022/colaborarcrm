@@ -68,6 +68,7 @@ type
     Permisses1: TMenuItem;
     StatusBar1: TStatusBar;
     LogOff1: TMenuItem;
+    ListagemdeClientes1: TMenuItem;
     procedure Module11Click(Sender: TObject);
     procedure Clientes1Click(Sender: TObject);
     procedure Cliente1Click(Sender: TObject);
@@ -77,6 +78,7 @@ type
     procedure Usuarios1Click(Sender: TObject);
     procedure Perfis1Click(Sender: TObject);
     procedure Ativos1Click(Sender: TObject);
+    procedure ListagemdeClientes1Click(Sender: TObject);
   private
     JaCarregouPermissoes: Boolean;
 
@@ -104,7 +106,7 @@ Uses
   ContratosWebApp,
   uView.Clientes,
   uDM,
-  uView.ControleDeUsuarios, Unit_Login, uView.Ativos;
+  uView.ControleDeUsuarios, Unit_Login, uView.Ativos, uView.Relatorios;
 
 Function Form1: TForm1;
 begin
@@ -329,6 +331,14 @@ begin
     PrismControl.AsDBGrid.MaxRecords := 2000;
   end;
 
+end;
+
+procedure TForm1.ListagemdeClientes1Click(Sender: TObject);
+begin
+  if FrmRelatorios = nil then
+     TFrmRelatorios.CreateInstance;
+
+   FrmRelatorios.ShowModal;
 end;
 
 procedure TForm1.LogOff1Click(Sender: TObject);

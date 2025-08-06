@@ -152,6 +152,18 @@
             <Form>FrmAtivos</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="uView.Contratos.pas">
+            <Form>FrmContratos</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uView.Relatorios.pas">
+            <Form>FrmRelatorios</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uView.Relatorio.ListagemDeClientes.pas">
+            <Form>FrmRelatorioListagemDeClientes</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

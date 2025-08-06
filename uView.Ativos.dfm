@@ -18,10 +18,9 @@ object FrmAtivos: TFrmAtivos
     Top = 0
     Width = 1021
     Height = 441
-    ActivePage = TabSheet1
+    ActivePage = TabSheet2
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 735
     object TabSheet1: TTabSheet
       Caption = 'Cadastro'
       object lblAtivo: TLabel
@@ -97,7 +96,6 @@ object FrmAtivos: TFrmAtivos
         Height = 41
         Align = alBottom
         TabOrder = 4
-        ExplicitWidth = 727
         object btnNovoAtivo: TButton
           Left = 16
           Top = 10
@@ -155,7 +153,6 @@ object FrmAtivos: TFrmAtivos
         Height = 41
         Align = alTop
         TabOrder = 0
-        ExplicitWidth = 727
         object lblPessuisarNumeroDeSerie: TLabel
           Left = 5
           Top = 11

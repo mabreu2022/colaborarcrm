@@ -22,6 +22,7 @@ object DM: TDM
     Top = 24
   end
   object qryCliente: TFDQuery
+    Active = True
     Connection = Conn
     SQL.Strings = (
       'select * from clientes')

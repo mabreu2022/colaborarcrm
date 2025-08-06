@@ -22,7 +22,10 @@ uses
   Vcl.Themes,
   Vcl.Styles,
   uView.ControleDeUsuarios in 'uView.ControleDeUsuarios.pas' {FrmControleDeUsuarios},
-  uView.Ativos in 'uView.Ativos.pas' {FrmAtivos};
+  uView.Ativos in 'uView.Ativos.pas' {FrmAtivos},
+  uView.Contratos in 'uView.Contratos.pas' {FrmContratos},
+  uView.Relatorios in 'uView.Relatorios.pas' {FrmRelatorios},
+  uView.Relatorio.ListagemDeClientes in 'uView.Relatorio.ListagemDeClientes.pas' {FrmRelatorioListagemDeClientes};
 
 {$R *.res}
 
