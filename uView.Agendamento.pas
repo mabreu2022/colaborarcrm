@@ -19,7 +19,7 @@ uses
   Vcl.DBCtrls,
   Vcl.ExtCtrls,
   Unit1,
-  D2Bridge.Forms;
+  D2Bridge.Forms, Data.DB, Vcl.Grids, Vcl.DBGrids;
 
 type
   TFrmAgendamento = class(TForm1)
@@ -27,31 +27,38 @@ type
     TabSheet1: TTabSheet;
     Listagem: TTabSheet;
     Panel1: TPanel;
-    dblCliente: TDBLookupComboBox;
-    dblContato: TDBLookupComboBox;
-    dblContrato: TDBLookupComboBox;
-    dblAtivo: TDBLookupComboBox;
-    dtpDataRetirada: TDateTimePicker;
-    dtpDataPrevistaDevolucao: TDateTimePicker;
-    memoObservacao: TMemo;
-    lblCliente: TLabel;
-    lblContato: TLabel;
-    lblContrato: TLabel;
-    lblAtivo: TLabel;
-    lblDataRetirada: TLabel;
-    lblDataPrevistaDeDevolucao: TLabel;
-    dtpDataDaDevolucao: TDateTimePicker;
-    lblDataDevolucao: TLabel;
-    dblMotivoStatus: TDBLookupComboBox;
-    lblMotivoStatus: TLabel;
-    lblObservacoes: TLabel;
     btnNovoAgendamento: TButton;
     btnEditarAgendamento: TButton;
     btnSalvarAgendamento: TButton;
     btnExcluirAgendamento: TButton;
     btnCancelarAgendamento: TButton;
+    Panel2: TPanel;
+    lblCliente: TLabel;
+    lblContato: TLabel;
+    lblContrato: TLabel;
+    lblAtivo: TLabel;
+    dblCliente: TDBLookupComboBox;
+    dblContato: TDBLookupComboBox;
+    dblContrato: TDBLookupComboBox;
+    dblAtivo: TDBLookupComboBox;
+    lblDataRetirada: TLabel;
+    dtpDataRetirada: TDateTimePicker;
+    lblObservacoes: TLabel;
+    lblDataPrevistaDeDevolucao: TLabel;
+    dtpDataPrevistaDevolucao: TDateTimePicker;
+    lblDataDevolucao: TLabel;
+    dtpDataDaDevolucao: TDateTimePicker;
+    lblMotivoStatus: TLabel;
+    dblMotivoStatus: TDBLookupComboBox;
+    memoObservacao: TMemo;
+    Panel3: TPanel;
+    dbgListaEquipamentosLocados: TDBGrid;
+    Panel4: TPanel;
+    lblListaDeEquipamentos: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure dblClienteCloseUp(Sender: TObject);
+    procedure dblContratoCloseUp(Sender: TObject);
   private
     { Private declarations }
   public
@@ -76,13 +83,25 @@ begin
   result:= TFrmAgendamento(TFrmAgendamento.GetInstance);
 end;
 
+procedure TFrmAgendamento.dblClienteCloseUp(Sender: TObject);
+begin
+  inherited;
+  DM.PreenchecblContatos(dblCliente.KeyValue);
+  DM.PreencheContratos(dblCliente.keyvalue);
+end;
+
+procedure TFrmAgendamento.dblContratoCloseUp(Sender: TObject);
+begin
+  inherited;
+  DM.ListarEquipamentosPorContrato(dblContrato.KeyValue);
+end;
+
 procedure TFrmAgendamento.ExportD2Bridge;
 begin
   inherited;
 
   Title:= 'Cadastro de Agendamentos';
 
-  //TemplateClassForm:= TD2BridgeFormTemplate;
   D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= '';
   D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
 
@@ -112,6 +131,12 @@ begin
           with Row.Items.Add do
           begin
             FormGroup(lblObservacoes.Caption).AddVCLObj(memoObservacao);
+          end;
+
+          with Row.Items.Add do
+          begin
+            VCLObj(lblListaDeEquipamentos);
+            VCLObj(dbgListaEquipamentosLocados);
           end;
 
           with Row.Items.Add do
@@ -152,20 +177,26 @@ begin
   DM.qryStatus.Active    := False;
   DM.qryAtivos.Active    := False;
   DM.qryContratos.Active := False;
+  DM.qryEquipamentosLocados.Active := True;
 end;
 
 procedure TFrmAgendamento.FormCreate(Sender: TObject);
 begin
-  DM.qryCliente.Active   := True;
-  DM.qryContatos.Active  := True;
-  DM.qryStatus.Active    := True;
-  DM.qryAtivos.Active    := True;
-  DM.qryContratos.Active := True;
+  DM.qryCliente.Active             := True;
+  DM.qryContatos.Active            := True;
+  DM.qryStatus.Active              := True;
+  DM.qryAtivos.Active              := True;
+  DM.qryContratos.Active           := True;
+  DM.qryEquipamentosLocados.Active := True;
 end;
 
 procedure TFrmAgendamento.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
  inherited;
+
+  if PrismControl.VCLComponent = memoObservacao then
+    PrismControl.AsMemo.Rows := 10;
+
 
   if PrismControl.IsDBGrid then
   begin

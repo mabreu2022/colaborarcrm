@@ -513,4 +513,66 @@ object DM: TDM
     Left = 128
     Top = 240
   end
+  object qryEquipamentosLocados: TFDQuery
+    Connection = Conn
+    SQL.Strings = (
+      'SELECT AC.*, A.DESCRICAO, A.NUMERO_SERIE'
+      '    FROM ATIVOS_CONTRATOS AC '
+      '    JOIN ATIVOS A ON AC.ID_ATIVO = A.ID_ATIVO '
+      '    WHERE AC.ID_CONTRATO = :ID_CONTRATO')
+    Left = 472
+    Top = 216
+    ParamData = <
+      item
+        Name = 'ID_CONTRATO'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
+    object qryEquipamentosLocadosID_CONTRATO: TIntegerField
+      FieldName = 'ID_CONTRATO'
+      Origin = 'ID_CONTRATO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryEquipamentosLocadosID_ATIVO: TIntegerField
+      FieldName = 'ID_ATIVO'
+      Origin = 'ID_ATIVO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryEquipamentosLocadosDESCRICAO: TWideStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'DESCRICAO'
+      Origin = 'DESCRICAO'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 100
+    end
+    object qryEquipamentosLocadosNUMERO_SERIE: TWideStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NUMERO_SERIE'
+      Origin = 'NUMERO_SERIE'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 50
+    end
+    object qryEquipamentosLocadosQUANTIDADE: TIntegerField
+      FieldName = 'QUANTIDADE'
+      Origin = 'QUANTIDADE'
+    end
+    object qryEquipamentosLocadosDATA_ENTREGA: TDateField
+      FieldName = 'DATA_ENTREGA'
+      Origin = 'DATA_ENTREGA'
+    end
+    object qryEquipamentosLocadosDATA_DEVOLUCAO: TDateField
+      FieldName = 'DATA_DEVOLUCAO'
+      Origin = 'DATA_DEVOLUCAO'
+    end
+  end
+  object DSEquipamentosLocados: TDataSource
+    DataSet = qryEquipamentosLocados
+    Left = 624
+    Top = 216
+  end
 end

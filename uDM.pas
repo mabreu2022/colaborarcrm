@@ -112,9 +112,17 @@ type
     qryContratosOBSERVACOES: TWideMemoField;
     qryContratosID_STATUS: TIntegerField;
     qryContratosDESCRICAO: TWideStringField;
+    qryEquipamentosLocados: TFDQuery;
+    DSEquipamentosLocados: TDataSource;
+    qryEquipamentosLocadosID_CONTRATO: TIntegerField;
+    qryEquipamentosLocadosID_ATIVO: TIntegerField;
+    qryEquipamentosLocadosDATA_ENTREGA: TDateField;
+    qryEquipamentosLocadosDATA_DEVOLUCAO: TDateField;
+    qryEquipamentosLocadosQUANTIDADE: TIntegerField;
+    qryEquipamentosLocadosDESCRICAO: TWideStringField;
+    qryEquipamentosLocadosNUMERO_SERIE: TWideStringField;
 
   private
-
     { Private declarations }
   public
     perfilID: Integer;
@@ -137,6 +145,10 @@ type
     function Login(aUser, aSenha: String): Boolean;
     procedure LoadPermissoes(IDPerfil: Integer);
     function BuscarAtivoPorNumeroSerie(const NumeroSerie: string): TDataSet;
+
+    procedure PreenchecblContatos(ID_Cliente: integer);
+    procedure PreencheContratos(ID_Cliente: Integer);
+    procedure ListarEquipamentosPorContrato(ID_Contrato: Integer);
 
   end;
 
@@ -412,6 +424,44 @@ begin
   finally
     QryLogin.Free;
   end;
+
+end;
+
+procedure TDM.PreencheContratos(ID_Cliente: Integer);
+begin
+  qryContratos.Close;
+  qryContratos.SQL.Text :=
+    'SELECT * FROM CONTRATOS WHERE ID_CLIENTE = :ID_CLIENTE';
+  qryContratos.ParamByName('ID_CLIENTE').AsInteger := ID_Cliente;
+  qryContratos.Open;
+end;
+
+procedure TDM.ListarEquipamentosPorContrato(ID_Contrato: Integer);
+begin
+  qryEquipamentosLocados.Close;
+
+  qryEquipamentosLocados.SQL.Text :=
+    'SELECT AC.*, A.DESCRICAO, A.NUMERO_SERIE ' +
+    'FROM ATIVOS_CONTRATOS AC ' +
+    'JOIN ATIVOS A ON AC.ID_ATIVO = A.ID_ATIVO ' +
+    'WHERE AC.ID_CONTRATO = :ID_CONTRATO';
+
+  qryEquipamentosLocados.ParamByName('ID_CONTRATO').AsInteger := ID_Contrato;
+  qryEquipamentosLocados.Open;
+end;
+
+procedure TDM.PreenchecblContatos(ID_Cliente: integer);
+begin
+  qryContatos.Close;
+
+  qryContatos.SQL.Text :=
+    'SELECT c.*, cli.NOME_RAZAO ' +
+    'FROM CONTATOS c ' +
+    'INNER JOIN CLIENTES cli ON cli.ID_CLIENTE = c.ID_CLIENTE ' +
+    'WHERE c.ID_CLIENTE = :ID_CLIENTE';
+
+  qryContatos.ParamByName('ID_CLIENTE').AsInteger := ID_Cliente;
+  qryContatos.Open;
 
 end;
 

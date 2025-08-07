@@ -24,19 +24,19 @@
     <Transaction>2025/08/04 14:36:47.000.016,=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
     <Transaction>2025/08/04 14:37:25.000.381,C:\FONTES\Colaborar\Contratos\Unit2.dfm=C:\FONTES\Colaborar\Contratos\uView.Contratos.dfm</Transaction>
     <Transaction>2025/08/04 14:37:25.000.381,C:\FONTES\Colaborar\Contratos\Unit2.pas=C:\FONTES\Colaborar\Contratos\uView.Contratos.pas</Transaction>
-    <Transaction>2025/08/06 06:37:43.050,=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
-    <Transaction>2025/08/06 06:38:18.347,C:\FONTES\Colaborar\Contratos\uView.Relatorios.dfm=C:\FONTES\Colaborar\Contratos\Unit2.dfm</Transaction>
-    <Transaction>2025/08/06 06:38:18.347,C:\FONTES\Colaborar\Contratos\uView.Relatorios.pas=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
-    <Transaction>2025/08/06 06:47:57.422,=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
-    <Transaction>2025/08/06 06:48:31.785,C:\FONTES\Colaborar\Contratos\uView.Relatorio.ListagemDeClientes.dfm=C:\FONTES\Colaborar\Contratos\Unit2.dfm</Transaction>
-    <Transaction>2025/08/06 06:48:31.785,C:\FONTES\Colaborar\Contratos\uView.Relatorio.ListagemDeClientes.pas=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
-    <Transaction>2025/08/06 10:26:14.185,=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
-    <Transaction>2025/08/06 10:28:36.104,C:\FONTES\Colaborar\Contratos\uView.Relatorio.ClientesProCNPJ.dfm=C:\FONTES\Colaborar\Contratos\Unit2.dfm</Transaction>
-    <Transaction>2025/08/06 10:28:36.104,C:\FONTES\Colaborar\Contratos\uView.Relatorio.ClientesProCNPJ.pas=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
-    <Transaction>2025/08/06 10:29:00.116,C:\FONTES\Colaborar\Contratos\uView.Relatorio.ClientesPorCNPJ.pas=C:\FONTES\Colaborar\Contratos\uView.Relatorio.ClientesProCNPJ.pas</Transaction>
-    <Transaction>2025/08/06 10:29:00.116,C:\FONTES\Colaborar\Contratos\uView.Relatorio.ClientesPorCNPJ.dfm=C:\FONTES\Colaborar\Contratos\uView.Relatorio.ClientesProCNPJ.dfm</Transaction>
-    <Transaction>2025/08/06 12:59:21.017,=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
-    <Transaction>2025/08/06 13:14:05.008,C:\FONTES\Colaborar\Contratos\uView.Agendamento.dfm=C:\FONTES\Colaborar\Contratos\Unit2.dfm</Transaction>
-    <Transaction>2025/08/06 13:14:05.008,C:\FONTES\Colaborar\Contratos\uView.Agendamento.pas=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
+    <Transaction>2025/08/06 06:37:43.000.050,=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
+    <Transaction>2025/08/06 06:38:18.000.347,C:\FONTES\Colaborar\Contratos\uView.Relatorios.dfm=C:\FONTES\Colaborar\Contratos\Unit2.dfm</Transaction>
+    <Transaction>2025/08/06 06:38:18.000.347,C:\FONTES\Colaborar\Contratos\uView.Relatorios.pas=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
+    <Transaction>2025/08/06 06:47:57.000.422,=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
+    <Transaction>2025/08/06 06:48:31.000.785,C:\FONTES\Colaborar\Contratos\uView.Relatorio.ListagemDeClientes.dfm=C:\FONTES\Colaborar\Contratos\Unit2.dfm</Transaction>
+    <Transaction>2025/08/06 06:48:31.000.785,C:\FONTES\Colaborar\Contratos\uView.Relatorio.ListagemDeClientes.pas=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
+    <Transaction>2025/08/06 10:26:14.000.185,=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
+    <Transaction>2025/08/06 10:28:36.000.104,C:\FONTES\Colaborar\Contratos\uView.Relatorio.ClientesProCNPJ.dfm=C:\FONTES\Colaborar\Contratos\Unit2.dfm</Transaction>
+    <Transaction>2025/08/06 10:28:36.000.104,C:\FONTES\Colaborar\Contratos\uView.Relatorio.ClientesProCNPJ.pas=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
+    <Transaction>2025/08/06 10:29:00.000.116,C:\FONTES\Colaborar\Contratos\uView.Relatorio.ClientesPorCNPJ.pas=C:\FONTES\Colaborar\Contratos\uView.Relatorio.ClientesProCNPJ.pas</Transaction>
+    <Transaction>2025/08/06 10:29:00.000.116,C:\FONTES\Colaborar\Contratos\uView.Relatorio.ClientesPorCNPJ.dfm=C:\FONTES\Colaborar\Contratos\uView.Relatorio.ClientesProCNPJ.dfm</Transaction>
+    <Transaction>2025/08/06 12:59:21.000.017,=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
+    <Transaction>2025/08/06 13:14:05.000.008,C:\FONTES\Colaborar\Contratos\uView.Agendamento.dfm=C:\FONTES\Colaborar\Contratos\Unit2.dfm</Transaction>
+    <Transaction>2025/08/06 13:14:05.000.008,C:\FONTES\Colaborar\Contratos\uView.Agendamento.pas=C:\FONTES\Colaborar\Contratos\Unit2.pas</Transaction>
   </Transactions>
 </BorlandProject>
