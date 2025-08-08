@@ -33,14 +33,18 @@ uses
   FireDAC.Comp.DataSet,
   FireDAC.Comp.Client,
   Unit1,
-  D2Bridge.Forms;
+  D2Bridge.Forms, Vcl.ExtCtrls, frxPreview;
 
 type
   TFrmRelatorioListagemDeClientes = class(TForm1)
     frxReport1: TfrxReport;
     frxDBDataset1: TfrxDBDataset;
     frxPDFExport1: TfrxPDFExport;
+    frxPreview1: TfrxPreview;
+    Panel1: TPanel;
+    Button1: TButton;
     procedure FormCreate(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -65,11 +69,23 @@ begin
   result:= TFrmRelatorioListagemDeClientes(TFrmRelatorioListagemDeClientes.GetInstance);
 end;
 
+procedure TFrmRelatorioListagemDeClientes.Button1Click(Sender: TObject);
+begin
+  inherited;
+
+//  // ESSENCIAL: prepara o relatório antes de exportar
+//  if frxReport1.PrepareReport(True) then
+//  begin
+//    frxReport1.Export(frxPDFExport1);
+//    D2Bridge.PrismSession.SendFile('pdf\ListagemdeClientes.pdf', True);
+//  end;
+end;
+
 procedure TFrmRelatorioListagemDeClientes.ExportD2Bridge;
 begin
   inherited;
 
-  Title:= 'My D2Bridge Form';
+  Title:= 'Relatorio Listagem de clientes';
 
   //TemplateClassForm:= TD2BridgeFormTemplate;
   D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= '';
@@ -77,7 +93,10 @@ begin
 
   with D2Bridge.Items.add do
   begin
-   {Yours Controls}
+//   with Row.Items.Add do
+//   begin
+//     VCLObj(frxPreview1);
+//   end;
   end;
 
 end;
@@ -98,11 +117,11 @@ begin
   frxPDFExport1.OpenAfterExport := False;
   frxPDFExport1.Background := True;
 
-  // ESSENCIAL: prepara o relatório antes de exportar
   if frxReport1.PrepareReport(True) then
   begin
     frxReport1.Export(frxPDFExport1);
     D2Bridge.PrismSession.SendFile('pdf\ListagemdeClientes.pdf', True);
+
   end;
 
 end;
@@ -124,6 +143,7 @@ begin
  }
 end;
 
+
 procedure TFrmRelatorioListagemDeClientes.RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string);
 begin
  inherited;
@@ -136,5 +156,7 @@ begin
   end;
  }
 end;
+
+{ TPrismSession }
 
 end.

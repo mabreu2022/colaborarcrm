@@ -1,11 +1,85 @@
+/* ✅ Seu CSS atual mantido */
 #MAINMENU1, #MAINMENU1 * {
     font-size: 12px;
-	background-color: #012636;
-	
 }
-.d2bridgesidemenulogotitle, .d2bridgemainmenutitle{
-   font-size: 22px !important;
+.d2bridgesidemenulogotitle,
+.d2bridgemainmenutitle {
+    font-size: 22px !important;
 }
-.d2bridgesidemenu-link:hover, .d2bridgemainmenudropdownmenuitem:hover {
-    background-color: #2c2c2c; !important; 
+.d2bridgesidemenu-link:hover,
+.d2bridgemainmenudropdownmenuitem:hover {
+    background-color: #2c2c2c !important;
+}
+
+/* ✅ NOVO: Header com logo injetado via CSS */
+body::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 90px;
+    background-color: rgb(25,44,59);
+    border-bottom: 1px solid #ddd;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-image: url('../img/logo.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: auto 60px;
+    padding-left: 20px;
+}
+
+/* ✅ Compensa o espaço do header fixo */
+body {
+    padding-top: 90px !important;
+}
+
+/* ✅ Se o D2Bridge tiver container principal, ajusta também */
+.d2bridge-main-container,
+.d2bridge-content,
+#d2bridge-app {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* ✅ Estilo alternativo: logo centralizado */
+/*
+body::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 90px;
+    background-color: rgb(25,44,59);
+    border-bottom: 1px solid #ddd;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-image: url('../img/logo.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: auto 60px;
+}
+*/
+
+/* ✅ Seus estilos originais mantidos */
+.logo-header {
+    text-align: center;
+    padding: 15px 0;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+}
+.logo-header img {
+    height: 60px;
+    max-width: 220px;
+    object-fit: contain;
+}
+.titulo-principal {
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: #333;
 }

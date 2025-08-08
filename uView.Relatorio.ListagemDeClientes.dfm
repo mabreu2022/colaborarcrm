@@ -12,6 +12,43 @@ object FrmRelatorioListagemDeClientes: TFrmRelatorioListagemDeClientes
   Font.Style = []
   OnCreate = FormCreate
   TextHeight = 15
+  object frxPreview1: TfrxPreview
+    Left = 0
+    Top = 0
+    Width = 624
+    Height = 400
+    Align = alClient
+    OutlineVisible = True
+    OutlineWidth = 185
+    ThumbnailVisible = False
+    FindFmVisible = False
+    UseReportHints = True
+    OutlineTreeSortType = dtsUnsorted
+    HideScrolls = False
+    ExplicitTop = 8
+    ExplicitWidth = 616
+    ExplicitHeight = 305
+  end
+  object Panel1: TPanel
+    Left = 0
+    Top = 400
+    Width = 624
+    Height = 41
+    Align = alBottom
+    TabOrder = 1
+    ExplicitLeft = 104
+    ExplicitTop = 384
+    ExplicitWidth = 185
+    object Button1: TButton
+      Left = 16
+      Top = 8
+      Width = 75
+      Height = 25
+      Caption = 'Imprimir'
+      TabOrder = 0
+      OnClick = Button1Click
+    end
+  end
   object frxReport1: TfrxReport
     Version = '2023.3.4'
     DotMatrixReport = False

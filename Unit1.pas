@@ -232,9 +232,8 @@ begin
 end;
 
 procedure TForm1.ExportD2Bridge;
-var
-  imgLogo: TImage;
-
+//var
+//  imgLogo: TImage;
 begin
   inherited;
 
@@ -244,29 +243,12 @@ begin
   D2Bridge.HTML.StyleSheets.Add
     ('<link rel="stylesheet" type="text/css" href="css/custom.css">');
 
-  // TemplateClassForm:= TD2BridgeFormTemplate;
-
   D2Bridge.FrameworkExportType.TemplateMasterHTMLFile := '';
-
-  D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
-
-  imgLogo := TImage.Create(Self);
-  imgLogo.Picture.LoadFromFile('C:\FONTES\Colaborar\Resources\logo.png');
-  imgLogo.Stretch := True;
-  imgLogo.Width := 200;
-  imgLogo.Height := 60;
-  imgLogo.Transparent := True;
-  imgLogo.Parent := Self;
+  D2Bridge.FrameworkExportType.TemplatePageHTMLFile   := '';
 
   with D2Bridge.Items.Add do
   begin
-    with Row.Items.Add do
-    begin
-      FormGroup('').AddVCLObj(imgLogo, 'logo-header');
-    end;
-
     SideMenu(MainMenu1);
-
   end;
 end;
 
