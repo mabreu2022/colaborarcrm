@@ -335,14 +335,28 @@ end;
 
 procedure TForm1.LogOff1Click(Sender: TObject);
 begin
-//  //como desloga o usuário e volta a tela de Login?
-//   Try
-//     PrismSession.Close(True);
-//
-//  except on e: exception do
-//           ShowMessage('Deu erro: ' + e.Message);
-//  End;
-
+  Try
+    // Fecha a sessão atual
+    if IsD2BridgeContext then
+      PrismSession.Close(True);
+      
+    // Esconde o formulário principal
+    Self.Hide;
+    
+    // Mostra o formulário de login
+    if Form_Login = nil then
+      TForm_Login.CreateInstance;
+    Form_Login.Show;
+    
+    // Limpa os campos de login
+    Form_Login.Edit_UserName.Text := '';
+    Form_Login.Edit_Password.Text := '';
+    Form_Login.Edit_UserName.SetFocus;
+    
+  except 
+    on e: exception do
+      ShowMessage('Erro ao fazer logout: ' + e.Message);
+  End;
 end;
 
 procedure TForm1.Module11Click(Sender: TObject);
