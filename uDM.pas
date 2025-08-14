@@ -148,7 +148,7 @@ type
 
     procedure PreenchecblContatos(ID_Cliente: integer);
     procedure PreencheContratos(ID_Cliente: Integer);
-    procedure ListarEquipamentosPorContrato(ID_Contrato: Integer);
+    procedure ListarEquipamentosPorContrato(ID_Contrato: Integer; btnNovoApertado: Boolean);
 
   end;
 
@@ -436,17 +436,21 @@ begin
   qryContratos.Open;
 end;
 
-procedure TDM.ListarEquipamentosPorContrato(ID_Contrato: Integer);
+procedure TDM.ListarEquipamentosPorContrato(ID_Contrato: Integer;btnNovoApertado: Boolean);
 begin
   qryEquipamentosLocados.Close;
 
   qryEquipamentosLocados.SQL.Text :=
     'SELECT AC.*, A.DESCRICAO, A.NUMERO_SERIE ' +
     'FROM ATIVOS_CONTRATOS AC ' +
-    'JOIN ATIVOS A ON AC.ID_ATIVO = A.ID_ATIVO ' +
-    'WHERE AC.ID_CONTRATO = :ID_CONTRATO';
+    'JOIN ATIVOS A ON AC.ID_ATIVO = A.ID_ATIVO ';
 
-  qryEquipamentosLocados.ParamByName('ID_CONTRATO').AsInteger := ID_Contrato;
+    if not btnNovoApertado then
+    begin
+      qryEquipamentosLocados.SQL.Text := qryEquipamentosLocados.SQL.Text  + 'WHERE AC.ID_CONTRATO = :ID_CONTRATO';
+      qryEquipamentosLocados.ParamByName('ID_CONTRATO').AsInteger := ID_Contrato;
+    end;
+
   qryEquipamentosLocados.Open;
 end;
 

@@ -21,7 +21,6 @@ object FrmAgendamento: TFrmAgendamento
     ActivePage = TabSheet1
     Align = alClient
     TabOrder = 0
-    ExplicitHeight = 384
     object TabSheet1: TTabSheet
       Caption = 'Agendamento'
       object Panel1: TPanel
@@ -31,7 +30,6 @@ object FrmAgendamento: TFrmAgendamento
         Height = 41
         Align = alBottom
         TabOrder = 0
-        ExplicitTop = 138
         object btnNovoAgendamento: TButton
           Left = 6
           Top = 9
@@ -39,6 +37,7 @@ object FrmAgendamento: TFrmAgendamento
           Height = 25
           Caption = 'Novo'
           TabOrder = 0
+          OnClick = btnNovoAgendamentoClick
         end
         object btnEditarAgendamento: TButton
           Left = 87
@@ -241,7 +240,6 @@ object FrmAgendamento: TFrmAgendamento
           Lines.Strings = (
             '')
           TabOrder = 8
-          ExplicitTop = 137
         end
       end
       object Panel3: TPanel
@@ -251,10 +249,6 @@ object FrmAgendamento: TFrmAgendamento
         Height = 187
         Align = alClient
         TabOrder = 2
-        ExplicitLeft = 80
-        ExplicitTop = 232
-        ExplicitWidth = 185
-        ExplicitHeight = 41
         object dbgListaEquipamentosLocados: TDBGrid
           Left = 1
           Top = 42
@@ -318,9 +312,6 @@ object FrmAgendamento: TFrmAgendamento
           Height = 41
           Align = alTop
           TabOrder = 1
-          ExplicitLeft = 40
-          ExplicitTop = 24
-          ExplicitWidth = 185
           object lblListaDeEquipamentos: TLabel
             Left = 1
             Top = 1
@@ -335,14 +326,60 @@ object FrmAgendamento: TFrmAgendamento
             Font.Style = [fsBold]
             ParentFont = False
             Layout = tlCenter
-            ExplicitLeft = 50
+            ExplicitWidth = 327
+            ExplicitHeight = 21
           end
         end
       end
     end
     object Listagem: TTabSheet
-      Caption = 'DashBoard'
+      Caption = 'Locados'
       ImageIndex = 1
+      object dbgLocados: TDBGrid
+        Left = 0
+        Top = 41
+        Width = 903
+        Height = 396
+        Align = alClient
+        DataSource = DM.DSEquipamentosLocados
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        TabOrder = 0
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -12
+        TitleFont.Name = 'Segoe UI'
+        TitleFont.Style = []
+      end
+      object Panel5: TPanel
+        Left = 0
+        Top = 0
+        Width = 903
+        Height = 41
+        Align = alTop
+        TabOrder = 1
+        object lblPessuisarNumeroDeSerie: TLabel
+          Left = 24
+          Top = 16
+          Width = 88
+          Height = 15
+          Caption = 'N'#250'mero de S'#233'rie'
+        end
+        object edtPesquisarNumeroDeSerie: TEdit
+          Left = 128
+          Top = 10
+          Width = 201
+          Height = 23
+          TabOrder = 0
+        end
+        object btnPesquisarNumeroDeSerie: TButton
+          Left = 352
+          Top = 8
+          Width = 75
+          Height = 25
+          Caption = 'Pesquisar'
+          TabOrder = 1
+        end
+      end
     end
   end
 end
