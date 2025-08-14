@@ -372,6 +372,7 @@ object DM: TDM
     Left = 464
     Top = 32
     object qryAgendaID_AGENDA: TIntegerField
+      AutoGenerateValue = arAutoInc
       FieldName = 'ID_AGENDA'
       Origin = 'ID_AGENDA'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
