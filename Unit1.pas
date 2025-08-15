@@ -38,10 +38,11 @@ uses
   FireDAC.DApt.Intf,
   FireDAC.DApt,
   FireDAC.Comp.DataSet,
+  ShellAPI,
 
   D2Bridge.Interfaces,
-
-  D2Bridge.Forms ;
+  D2Bridge.Instance,
+  D2Bridge.Forms;
 
 type
   TForm1 = class(TD2BridgeForm)
@@ -333,31 +334,16 @@ begin
    FrmRelatorios.ShowModal;
 end;
 
+
 procedure TForm1.LogOff1Click(Sender: TObject);
 begin
-  Try
-    // Fecha a sessão atual
-    if IsD2BridgeContext then
-      PrismSession.Close(True);
-      
-    // Esconde o formulário principal
-    Self.Hide;
-    
-    // Mostra o formulário de login
-    if Form_Login = nil then
-      TForm_Login.CreateInstance;
-    Form_Login.Show;
-    
-    // Limpa os campos de login
-    Form_Login.Edit_UserName.Text := '';
-    Form_Login.Edit_Password.Text := '';
-    Form_Login.Edit_UserName.SetFocus;
-    
-  except 
-    on e: exception do
-      ShowMessage('Erro ao fazer logout: ' + e.Message);
-  End;
+ D2BridgeServerController.PrimaryFormClass:= TForm_Login;
+ if IsD2BridgeContext then
+   Session.close(True)
+ else
+  Application.Terminate;
 end;
+
 
 procedure TForm1.Module11Click(Sender: TObject);
 begin
