@@ -71,6 +71,15 @@ object FrmAgendamento: TFrmAgendamento
           Caption = 'Cancelar'
           TabOrder = 4
         end
+        object btnFechar: TButton
+          Left = 800
+          Top = 8
+          Width = 75
+          Height = 25
+          Caption = 'Fechar'
+          TabOrder = 5
+          OnClick = btnFecharClick
+        end
       end
       object Panel2: TPanel
         Left = 0

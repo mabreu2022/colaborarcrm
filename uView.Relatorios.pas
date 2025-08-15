@@ -31,6 +31,7 @@ type
     btnClientesPorCNPJ: TButton;
     btnFechar: TButton;
     procedure btnListagemDeClientesClick(Sender: TObject);
+    procedure btnFecharClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -55,6 +56,12 @@ begin
   result:= TFrmRelatorios(TFrmRelatorios.GetInstance);
 end;
 
+procedure TFrmRelatorios.btnFecharClick(Sender: TObject);
+begin
+  inherited;
+  Self.Close;
+end;
+
 procedure TFrmRelatorios.btnListagemDeClientesClick(Sender: TObject);
 begin
   if FrmRelatorioListagemDeClientes = nil then
@@ -67,7 +74,7 @@ procedure TFrmRelatorios.ExportD2Bridge;
 begin
   inherited;
 
-  Title:= 'My D2Bridge Form';
+  Title:= 'Relatorios';
 
   //TemplateClassForm:= TD2BridgeFormTemplate;
   D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= '';
@@ -86,6 +93,11 @@ begin
           begin
             FormGroup('  ').AddVCLObj(btnListagemDeClientes, CSSClass.Button.add);
             FormGroup('  ').AddVCLObj(btnClientesPorCNPJ, CSSClass.Button.Edit);
+          end;
+
+          with Row.Items.add do
+          begin
+            FormGroup('').AddVCLObj(btnFechar, CSSClass.Button.Add);
           end;
 
         end;

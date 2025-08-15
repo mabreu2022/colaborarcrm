@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Controle de contratos v1.0 - By Connect Solutions 2025'
-  ClientHeight = 299
-  ClientWidth = 635
+  ClientHeight = 464
+  ClientWidth = 771
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,10 +15,12 @@ object Form1: TForm1
   TextHeight = 14
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 280
-    Width = 635
+    Top = 445
+    Width = 771
     Height = 19
     Panels = <>
+    ExplicitTop = 280
+    ExplicitWidth = 635
   end
   object MainMenu1: TMainMenu
     Left = 32
@@ -61,6 +63,10 @@ object Form1: TForm1
       object Permisses1: TMenuItem
         Caption = 'Permiss'#245'es'
         OnClick = Permisses1Click
+      end
+      object sair1: TMenuItem
+        Caption = 'sair'
+        OnClick = sair1Click
       end
     end
     object AppModule21: TMenuItem

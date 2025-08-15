@@ -25,9 +25,6 @@ object FrmRelatorioListagemDeClientes: TFrmRelatorioListagemDeClientes
     UseReportHints = True
     OutlineTreeSortType = dtsUnsorted
     HideScrolls = False
-    ExplicitTop = 8
-    ExplicitWidth = 616
-    ExplicitHeight = 305
   end
   object Panel1: TPanel
     Left = 0
@@ -36,9 +33,6 @@ object FrmRelatorioListagemDeClientes: TFrmRelatorioListagemDeClientes
     Height = 41
     Align = alBottom
     TabOrder = 1
-    ExplicitLeft = 104
-    ExplicitTop = 384
-    ExplicitWidth = 185
     object Button1: TButton
       Left = 16
       Top = 8
@@ -50,7 +44,7 @@ object FrmRelatorioListagemDeClientes: TFrmRelatorioListagemDeClientes
     end
   end
   object frxReport1: TfrxReport
-    Version = '2023.3.4'
+    Version = '2023.1.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick, pbCopy, pbSelection]

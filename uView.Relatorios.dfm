@@ -18,9 +18,6 @@ object FrmRelatorios: TFrmRelatorios
     Height = 41
     Align = alBottom
     TabOrder = 0
-    ExplicitLeft = 8
-    ExplicitTop = 392
-    ExplicitWidth = 185
     object btnFechar: TButton
       Left = 536
       Top = 6
@@ -28,6 +25,7 @@ object FrmRelatorios: TFrmRelatorios
       Height = 25
       Caption = 'Fechar'
       TabOrder = 0
+      OnClick = btnFecharClick
     end
   end
   object PageControl1: TPageControl

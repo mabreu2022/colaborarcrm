@@ -103,6 +103,15 @@ object FrmControleDeUsuarios: TFrmControleDeUsuarios
           Caption = 'Cancelar'
           TabOrder = 4
         end
+        object btnFechar: TButton
+          Left = 912
+          Top = 9
+          Width = 75
+          Height = 25
+          Caption = 'Fechar'
+          TabOrder = 5
+          OnClick = btnFecharClick
+        end
       end
       object edtNomeUsuario: TEdit
         Left = 16

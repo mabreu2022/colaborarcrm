@@ -77,7 +77,7 @@ end;
 
 procedure TFrmContatosCad.btnFecharClick(Sender: TObject);
 begin
-  Close;
+  Self.Close;
 end;
 
 procedure TFrmContatosCad.btnSalvarClick(Sender: TObject);

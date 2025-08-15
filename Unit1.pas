@@ -70,6 +70,7 @@ type
     StatusBar1: TStatusBar;
     LogOff1: TMenuItem;
     ListagemdeClientes1: TMenuItem;
+    sair1: TMenuItem;
     procedure Module11Click(Sender: TObject);
     procedure Clientes1Click(Sender: TObject);
     procedure Cliente1Click(Sender: TObject);
@@ -81,6 +82,7 @@ type
     procedure Ativos1Click(Sender: TObject);
     procedure ListagemdeClientes1Click(Sender: TObject);
     procedure Agendamendo1Click(Sender: TObject);
+    procedure sair1Click(Sender: TObject);
   private
     JaCarregouPermissoes: Boolean;
 
@@ -223,7 +225,7 @@ begin
 
     end;
 
-    Lista.SaveToFile('ListaDeTelas_Validada.txt');
+    //Lista.SaveToFile('ListaDeTelas_Validada.txt');
     //ShowMessage('Arquivo "ListaDeTelas_Validada.txt" foi gerado com sucesso!');
   finally
     QryCheck.Free;
@@ -243,9 +245,10 @@ begin
 
   D2Bridge.HTML.StyleSheets.Add
     ('<link rel="stylesheet" type="text/css" href="css/custom.css">');
+//  TemplateClassForm:= TD2BridgeFormTemplate;
+//  D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= 'templates\template.html';
+//  D2Bridge.FrameworkExportType.TemplatePageHTMLFile  := 'templates\dashboard.html';
 
-  D2Bridge.FrameworkExportType.TemplateMasterHTMLFile := '';
-  D2Bridge.FrameworkExportType.TemplatePageHTMLFile   := '';
 
   with D2Bridge.Items.Add do
   begin
@@ -308,7 +311,7 @@ begin
       end;
     end;
 
-    Log.SaveToFile('Log_ComparacaoPermissoes.txt');
+   // Log.SaveToFile('Log_ComparacaoPermissoes.txt');
   finally
     Log.Free;
   end;
@@ -337,13 +340,10 @@ end;
 
 procedure TForm1.LogOff1Click(Sender: TObject);
 begin
- D2BridgeServerController.PrimaryFormClass:= TForm_Login;
- if IsD2BridgeContext then
-   Session.close(True)
- else
-  Application.Terminate;
+  if Application.MessageBox('Sair do sistema?', 'Atenção !!!',
+    Mb_IconQuestion + Mb_YesNo) = Id_Yes then
+  Self.close;
 end;
-
 
 procedure TForm1.Module11Click(Sender: TObject);
 begin
@@ -474,6 +474,11 @@ begin
     end;
   end;
 
+end;
+
+procedure TForm1.sair1Click(Sender: TObject);
+begin
+ Self.Close;
 end;
 
 end.

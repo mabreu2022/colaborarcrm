@@ -22,10 +22,17 @@ uses
   Vcl.ExtCtrls,
   Vcl.DBCtrls,
   Unit1,
-  D2Bridge.Forms, uView.ControleDeUsuarios, FireDAC.Stan.Intf,
-  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
-  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Comp.DataSet,
-  FireDAC.Comp.Client;
+  uView.ControleDeUsuarios,
+  FireDAC.Stan.Intf,
+  FireDAC.Stan.Option,
+  FireDAC.Stan.Param,
+  FireDAC.Stan.Error,
+  FireDAC.DatS,
+  FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf,
+  FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client,
+  D2Bridge.Forms;
 
 type
   TFrmAtivos = class(TForm1)
@@ -52,6 +59,7 @@ type
     btnExcluirAtivo: TButton;
     btnCancelarAtivo: TButton;
     fdMemAtivos: TFDMemTable;
+    btnFechar: TButton;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnNovoAtivoClick(Sender: TObject);
@@ -60,6 +68,7 @@ type
     procedure btnEditarAtivoClick(Sender: TObject);
     procedure btnSalvarAtivoClick(Sender: TObject);
     procedure btnExcluirAtivoClick(Sender: TObject);
+    procedure btnFecharClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -116,6 +125,12 @@ begin
     end;
   end;
 
+end;
+
+procedure TFrmAtivos.btnFecharClick(Sender: TObject);
+begin
+  inherited;
+  Self.Close;
 end;
 
 procedure TFrmAtivos.btnNovoAtivoClick(Sender: TObject);
@@ -195,6 +210,7 @@ begin
             FormGroup('').AddVCLObj(btnEditarAtivo, CSSClass.Button.Edit);
             FormGroup('').AddVCLObj(btnExcluirAtivo, CSSClass.Button.delete);
             FormGroup('').AddVCLObj(btnCancelarAtivo, CSSClass.Button.Cancel);
+            FormGroup('').AddVCLObj(btnFechar, CSSClass.Button.Add);
           end;
 
         end;

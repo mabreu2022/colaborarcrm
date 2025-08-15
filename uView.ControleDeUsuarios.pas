@@ -52,8 +52,10 @@ uses
   D2Bridge.Item.HTML.FormGroup,
   D2Bridge.Item.HTML.PanelGroup,
   D2Bridge.Item.VCLObj,
+  Vcl.Grids,
+  Vcl.DBGrids,
 
-  D2Bridge.Forms, Vcl.Grids, Vcl.DBGrids;
+  D2Bridge.Forms;
 
 type
   TFrmControleDeUsuarios = class(TForm1)
@@ -119,6 +121,7 @@ type
     lblPesquisarPerfil: TLabel;
     edtPesquisarPerfil: TEdit;
     btnPesquisarPerfil: TButton;
+    btnFechar: TButton;
     procedure FormShow(Sender: TObject);
     procedure cbPerfilCloseUp(Sender: TObject);
     procedure btnNovoUsuarioClick(Sender: TObject);
@@ -126,6 +129,7 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnEditarUsuarioClick(Sender: TObject);
     procedure btnExcluirUsuarioClick(Sender: TObject);
+    procedure btnFecharClick(Sender: TObject);
   private
     procedure CarregarItensMenu;
     procedure ReexportarAbaPermissoes;
@@ -287,6 +291,12 @@ begin
     edtEmailUsuario.Text, cbPerfil.KeyValue);
 end;
 
+procedure TFrmControleDeUsuarios.btnFecharClick(Sender: TObject);
+begin
+  inherited;
+  Self.Close;
+end;
+
 function FrmControleDeUsuarios: TFrmControleDeUsuarios;
 begin
   Result := TFrmControleDeUsuarios(TFrmControleDeUsuarios.GetInstance);
@@ -328,7 +338,7 @@ begin
   AtivarPermissoesFixas(DM.PerfilID);
 
   D2Bridge.FrameworkExportType.TemplateMasterHTMLFile := '';
-  D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
+  D2Bridge.FrameworkExportType.TemplatePageHTMLFile   := '';
 
   with D2Bridge.Items.Add do
   begin
@@ -369,6 +379,7 @@ begin
             FormGroup('').AddVCLObj(btnEditarUsuario, CSSClass.Button.Edit);
             FormGroup('').AddVCLObj(btnExcluirUsuario, CSSClass.Button.delete);
             FormGroup('').AddVCLObj(btnCancelarUsuario, CSSClass.Button.Cancel);
+            FormGroup('').AddVCLObj(btnFechar, CSSClass.Button.Add);
           end;
 
         end;
@@ -396,6 +407,7 @@ begin
             FormGroup('').AddVCLObj(btnEditarPerfis, CSSClass.Button.Edit);
             FormGroup('').AddVCLObj(btnExcluirPerfis, CSSClass.Button.delete);
             FormGroup('').AddVCLObj(btnCancelarPerfis, CSSClass.Button.Cancel);
+            //FormGroup('').AddVCLObj(btnFechar, CSSClass.Button.Add);
           end;
 
         end;
@@ -438,6 +450,7 @@ begin
               CSSClass.Button.delete);
             FormGroup('').AddVCLObj(btnCancelarPermissoes,
               CSSClass.Button.Cancel);
+            //FormGroup('').AddVCLObj(btnFechar, CSSClass.Button.Add);
           end;
         end;
 

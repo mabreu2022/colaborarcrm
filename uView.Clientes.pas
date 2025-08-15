@@ -87,6 +87,7 @@ type
     btnListaTodos: TBitBtn;
     btnSalvarCliente: TButton;
     btnCancelarCliente: TButton;
+    btnFechar: TButton;
     procedure FormShow(Sender: TObject);
     procedure btnPesquisarClick(Sender: TObject);
     procedure btnNovoClienteClick(Sender: TObject);
@@ -105,6 +106,7 @@ type
     procedure btnSalvarClienteClick(Sender: TObject);
     procedure btnCancelarClienteClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnFecharClick(Sender: TObject);
   private
     vFrmContatosCad: TFrmContatosCad;
     procedure Listarclientes;
@@ -207,6 +209,12 @@ begin
     end;
     ListarContatos;
   end;
+end;
+
+procedure TFrmClientes.btnFecharClick(Sender: TObject);
+begin
+  inherited;
+   Self.Close;
 end;
 
 procedure TFrmClientes.btnNovoClienteClick(Sender: TObject);
@@ -387,6 +395,7 @@ begin
               FormGroup('  ').AddVCLObj(btnEditarCliente, CSSClass.Button.Edit);
               FormGroup('  ').AddVCLObj(btnExcluirCliente, CSSClass.Button.delete);
               FormGroup('  ').AddVCLObj(btnCancelarCliente, CSSClass.Button.cancel);
+              FormGroup('').AddVCLObj(btnFechar, CSSClass.Button.Add);
             end;
           end;
 

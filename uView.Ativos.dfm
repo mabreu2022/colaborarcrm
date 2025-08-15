@@ -18,7 +18,7 @@ object FrmAtivos: TFrmAtivos
     Top = 0
     Width = 1021
     Height = 441
-    ActivePage = TabSheet2
+    ActivePage = TabSheet1
     Align = alClient
     TabOrder = 0
     object TabSheet1: TTabSheet
@@ -140,6 +140,15 @@ object FrmAtivos: TFrmAtivos
           Caption = 'Cancelar'
           TabOrder = 4
           OnClick = btnCancelarAtivoClick
+        end
+        object btnFechar: TButton
+          Left = 928
+          Top = 8
+          Width = 75
+          Height = 25
+          Caption = 'Fechar'
+          TabOrder = 5
+          OnClick = btnFecharClick
         end
       end
     end

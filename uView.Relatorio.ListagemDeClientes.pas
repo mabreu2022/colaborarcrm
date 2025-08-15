@@ -33,7 +33,9 @@ uses
   FireDAC.Comp.DataSet,
   FireDAC.Comp.Client,
   Unit1,
-  D2Bridge.Forms, Vcl.ExtCtrls, frxPreview;
+  Vcl.ExtCtrls,
+  frxPreview,
+  D2Bridge.Forms;
 
 type
   TFrmRelatorioListagemDeClientes = class(TForm1)

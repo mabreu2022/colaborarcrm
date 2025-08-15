@@ -16,7 +16,12 @@ uses
   Vcl.Dialogs,
   Vcl.StdCtrls,
   Unit1,
-  D2Bridge.Forms, Data.DB, Vcl.Grids, Vcl.DBGrids, Vcl.ExtCtrls, Vcl.ComCtrls;
+  Data.DB,
+  Vcl.Grids,
+  Vcl.DBGrids,
+  Vcl.ExtCtrls,
+  Vcl.ComCtrls,
+  D2Bridge.Forms;
 
 type
   TFrmContratos = class(TForm1)
@@ -31,6 +36,8 @@ type
     btnSalvarAtivo: TButton;
     btnExcluirAtivo: TButton;
     btnCancelarAtivo: TButton;
+    btnFechar: TButton;
+    procedure btnFecharClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -55,6 +62,12 @@ begin
   result:= TFrmContratos(TFrmContratos.GetInstance);
 end;
 
+procedure TFrmContratos.btnFecharClick(Sender: TObject);
+begin
+  inherited;
+  Self.Close;
+end;
+
 procedure TFrmContratos.ExportD2Bridge;
 begin
   inherited;
@@ -65,9 +78,9 @@ begin
   D2Bridge.FrameworkExportType.TemplateMasterHTMLFile := '';
   D2Bridge.FrameworkExportType.TemplatePageHTMLFile   := '';
 
-  with D2Bridge.Items.add do
+  with D2Bridge.Items.add do  //falta exportar tudo
   begin
-   {Yours Controls}
+   FormGroup('').AddVCLObj(btnFechar, CSSClass.Button.Add);
   end;
 
 end;

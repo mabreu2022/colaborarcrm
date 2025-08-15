@@ -19,7 +19,10 @@ uses
   Vcl.DBCtrls,
   Vcl.ExtCtrls,
   Unit1,
-  D2Bridge.Forms, Data.DB, Vcl.Grids, Vcl.DBGrids;
+  Data.DB,
+  Vcl.Grids,
+  Vcl.DBGrids,
+  D2Bridge.Forms;
 
 type
   TFrmAgendamento = class(TForm1)
@@ -60,6 +63,7 @@ type
     lblPessuisarNumeroDeSerie: TLabel;
     edtPesquisarNumeroDeSerie: TEdit;
     btnPesquisarNumeroDeSerie: TButton;
+    btnFechar: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure dblClienteCloseUp(Sender: TObject);
@@ -69,6 +73,7 @@ type
     procedure btnSalvarAgendamentoClick(Sender: TObject);
     procedure btnCancelarAgendamentoClick(Sender: TObject);
     procedure btnExcluirAgendamentoClick(Sender: TObject);
+    procedure btnFecharClick(Sender: TObject);
   private
     { Private declarations }
     btnnovoApertado: Boolean;
@@ -200,6 +205,12 @@ begin
   end;
 end;
 
+procedure TFrmAgendamento.btnFecharClick(Sender: TObject);
+begin
+  inherited;
+  Self.Close;
+end;
+
 procedure TFrmAgendamento.btnCancelarAgendamentoClick(Sender: TObject);
 begin
   inherited;
@@ -290,6 +301,7 @@ begin
             FormGroup('').AddVCLObj(btnEditarAgendamento, CSSClass.Button.Edit);
             FormGroup('').AddVCLObj(btnExcluirAgendamento, CSSClass.Button.delete);
             FormGroup('').AddVCLObj(btnCancelarAgendamento, CSSClass.Button.Cancel);
+            FormGroup('').AddVCLObj(btnFechar, CSSClass.Button.Add);
           end;
 
         end;
