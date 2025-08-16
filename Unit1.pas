@@ -70,7 +70,6 @@ type
     StatusBar1: TStatusBar;
     LogOff1: TMenuItem;
     ListagemdeClientes1: TMenuItem;
-    sair1: TMenuItem;
     procedure Module11Click(Sender: TObject);
     procedure Clientes1Click(Sender: TObject);
     procedure Cliente1Click(Sender: TObject);
@@ -339,10 +338,22 @@ end;
 
 
 procedure TForm1.LogOff1Click(Sender: TObject);
+var
+i: integer;
 begin
   if Application.MessageBox('Sair do sistema?', 'Atenção !!!',
-    Mb_IconQuestion + Mb_YesNo) = Id_Yes then
-  Self.close;
+    MB_ICONQUESTION + MB_YESNO) = ID_YES then
+  begin
+    // Fecha todos os formulários abertos, menos o MainForm
+    for i := Screen.FormCount - 1 downto 0 do
+    begin
+      if Screen.Forms[i] <> Application.MainForm then
+        Screen.Forms[i].Close;
+    end;
+
+    // Fecha também o MainForm (encerra a aplicação)
+    Application.MainForm.Close;
+  end;
 end;
 
 procedure TForm1.Module11Click(Sender: TObject);
@@ -354,7 +365,7 @@ procedure TForm1.Perfis1Click(Sender: TObject);
 begin
   if FrmControleDeUsuarios = nil then
     TFrmControleDeUsuarios.CreateInstance;
-
+    FrmControleDeUsuarios.PageControl1.ActivePage :=  FrmControleDeUsuarios.tabPerfis;
   Try
    if IsD2BridgeContext then
     begin
@@ -363,7 +374,7 @@ begin
          with D2Bridge Do
          Begin
            FrmControleDeUsuarios.ShowModal;
-           PrismControlFromID('TabControl01').AsTabs.ActiveTabIndex := 1;
+//           PrismControlFromID('TabControl01').AsTabs.ActiveTabIndex := 1;
            //PrismControlFromID('TabControl01').AsTabs.ShowTabs       := True;
          End;
        end;
@@ -403,6 +414,7 @@ begin
   if FrmControleDeUsuarios = nil then
      TFrmControleDeUsuarios.CreateInstance;
 
+   FrmControleDeUsuarios.PageControl1.ActivePage :=  FrmControleDeUsuarios.tabCadastro;
   Try
    if IsD2BridgeContext then
     begin
@@ -411,7 +423,7 @@ begin
          with D2Bridge Do
          Begin
            FrmControleDeUsuarios.ShowModal;
-           PrismControlFromID('TabControl01').AsTabs.ActiveTabIndex := 1;
+ //          PrismControlFromID('TabControl01').AsTabs.ActiveTabIndex := 1;
            //PrismControlFromID('TabControl01').AsTabs.ShowTabs       := True;
          End;
        end;

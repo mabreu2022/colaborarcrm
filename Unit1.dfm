@@ -19,8 +19,6 @@ object Form1: TForm1
     Width = 771
     Height = 19
     Panels = <>
-    ExplicitTop = 280
-    ExplicitWidth = 635
   end
   object MainMenu1: TMainMenu
     Left = 32
@@ -64,10 +62,6 @@ object Form1: TForm1
         Caption = 'Permiss'#245'es'
         OnClick = Permisses1Click
       end
-      object sair1: TMenuItem
-        Caption = 'sair'
-        OnClick = sair1Click
-      end
     end
     object AppModule21: TMenuItem
       Caption = 'Relat'#243'rios'
@@ -101,7 +95,7 @@ object Form1: TForm1
       end
     end
     object LogOff1: TMenuItem
-      Caption = 'Log-Off'
+      Caption = 'Sair'
       OnClick = LogOff1Click
     end
   end

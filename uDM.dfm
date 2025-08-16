@@ -1,6 +1,6 @@
 object DM: TDM
-  Height = 374
-  Width = 718
+  Height = 409
+  Width = 727
   object Conn: TFDConnection
     Params.Strings = (
       'Database=C:\FONTES\Colaborar\DataBase\BANCOCOLABORAR.FDB'

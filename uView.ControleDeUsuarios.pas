@@ -60,9 +60,9 @@ uses
 type
   TFrmControleDeUsuarios = class(TForm1)
     PageControl1: TPageControl;
-    TabSheet1: TTabSheet;
-    TabSheet2: TTabSheet;
-    TabSheet3: TTabSheet;
+    TabCadastro: TTabSheet;
+    TabPerfis: TTabSheet;
+    TabPermissoes: TTabSheet;
     CheckListBoxItens: TCheckListBox;
     Panel1: TPanel;
     Panel2: TPanel;

@@ -19,10 +19,10 @@ object FrmControleDeUsuarios: TFrmControleDeUsuarios
     Top = 0
     Width = 999
     Height = 613
-    ActivePage = TabSheet3
+    ActivePage = TabCadastro
     Align = alClient
     TabOrder = 0
-    object TabSheet1: TTabSheet
+    object TabCadastro: TTabSheet
       Caption = 'Cadastro'
       object lblNomeUsuario: TLabel
         Left = 24
@@ -216,7 +216,7 @@ object FrmControleDeUsuarios: TFrmControleDeUsuarios
         end
       end
     end
-    object TabSheet2: TTabSheet
+    object TabPerfis: TTabSheet
       Caption = 'Perfis'
       ImageIndex = 1
       object lblNomePerfil: TLabel
@@ -359,7 +359,7 @@ object FrmControleDeUsuarios: TFrmControleDeUsuarios
           end>
       end
     end
-    object TabSheet3: TTabSheet
+    object TabPermissoes: TTabSheet
       Caption = 'Permiss'#245'es'
       ImageIndex = 2
       object CheckListBoxItens: TCheckListBox
