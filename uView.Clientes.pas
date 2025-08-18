@@ -453,19 +453,19 @@ end;
 
 procedure TFrmClientes.LimparCamposCliente;
 begin
-  edtRazao_Nome.Text := '';
-  edtFantasia.Text := '';
-  edtCPFCNPJ.Text := '';
-  edtIE.Text := '';
-  edtTelefone.Text := '';
-  edtEmail.Text := '';
-  edtEndereco.Text := '';
-  edtNumero.Text := '';
+  edtRazao_Nome.Text  := '';
+  edtFantasia.Text    := '';
+  edtCPFCNPJ.Text     := '';
+  edtIE.Text          := '';
+  edtTelefone.Text    := '';
+  edtEmail.Text       := '';
+  edtEndereco.Text    := '';
+  edtNumero.Text      := '';
   edtComplemento.Text := '';
-  edtBairro.Text := '';
-  edtMunicipio.Text := '';
-  edtCEP.Text := '';
-  cmbUF.ItemIndex := 23;
+  edtBairro.Text      := '';
+  edtMunicipio.Text   := '';
+  edtCEP.Text         := '';
+  cmbUF.ItemIndex     := 23;
   ComboBox1.ItemIndex := 1;
 end;
 
@@ -484,7 +484,6 @@ begin
   if not DM.qryCliente.Active then
     Exit;
 
-  // Preenche os campos do cadastro com os dados do cliente atual
   edtRazao_Nome.Text  := DM.qryCliente.FieldByName('NOME_RAZAO').AsString;
   edtFantasia.Text    := DM.qryCliente.FieldByName('NOME_FANTASIA').AsString;
   edtCPFCNPJ.Text     := DM.qryCliente.FieldByName('CPF_CNPJ').AsString;
@@ -498,9 +497,8 @@ begin
   edtMunicipio.Text   := DM.qryCliente.FieldByName('MUNICIPIO').AsString;
   edtCEP.Text         := DM.qryCliente.FieldByName('CEP').AsString;
 
-  // ComboBoxes
-  ComboBox1.Text := DM.qryCliente.FieldByName('TIPO_PESSOA').AsString;
-  cmbUF.Text     := DM.qryCliente.FieldByName('UF').AsString;
+  ComboBox1.Text      := DM.qryCliente.FieldByName('TIPO_PESSOA').AsString;
+  cmbUF.Text          := DM.qryCliente.FieldByName('UF').AsString;
 
 end;
 

@@ -18,7 +18,7 @@ object FrmClientes: TFrmClientes
     Top = 0
     Width = 958
     Height = 563
-    ActivePage = Cadastro
+    ActivePage = Listagem
     Align = alClient
     TabOrder = 0
     object Cadastro: TTabSheet
@@ -497,7 +497,6 @@ object FrmClientes: TFrmClientes
           item
             Expanded = False
             FieldName = 'ID_CLIENTE'
-            Width = 64
             Visible = True
           end
           item
@@ -509,43 +508,36 @@ object FrmClientes: TFrmClientes
           item
             Expanded = False
             FieldName = 'TELEFONE_CONTATO'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'EMAIL_CONTATO'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'CARGO'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'OBSERVACAO'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TIPO_CONTATO'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DATA_CADASTRO'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'ATIVO'
-            Width = 64
             Visible = True
           end>
       end

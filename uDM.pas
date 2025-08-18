@@ -121,8 +121,21 @@ type
     qryEquipamentosLocadosQUANTIDADE: TIntegerField;
     qryEquipamentosLocadosDESCRICAO: TWideStringField;
     qryEquipamentosLocadosNUMERO_SERIE: TWideStringField;
+    QryLocados: TFDQuery;
+    DSQryLocados: TDataSource;
+    QryLocadosNUMERO_SERIE: TWideStringField;
+    QryLocadosDESCRICAO: TWideStringField;
+    QryLocadosID_CLIENTE_PROPRIETARIO: TIntegerField;
+    QryLocadosNOME_CLIENTE: TWideStringField;
+    QryLocadosID_STATUS: TIntegerField;
+    QryLocadosID_CONTRATO: TIntegerField;
+    QryLocadosDATA_ENTREGA: TDateField;
+    QryLocadosDATA_DEVOLUCAO: TDateField;
+    QryLocadosQUANTIDADE: TIntegerField;
 
   private
+
+
     { Private declarations }
   public
     perfilID: Integer;
@@ -150,6 +163,8 @@ type
     procedure PreencheContratos(ID_Cliente: Integer);
     procedure ListarEquipamentosPorContrato(ID_Contrato: Integer; btnNovoApertado: Boolean);
 
+    procedure BuscarAtivosLocados(const NumeroSerie: string);
+
   end;
 
 function DM: TDM;
@@ -159,7 +174,8 @@ implementation
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
 Uses
-  D2Bridge.Instance, ContratosWebApp, uView.Clientes, uView.ContatosCad, Unit1;
+  D2Bridge.Instance, ContratosWebApp, uView.Clientes, uView.ContatosCad, Unit1,
+  uView.Agendamento;
 
 {$R *.dfm}
 
@@ -298,6 +314,42 @@ begin
   end;
 
 end;
+
+procedure TDM.BuscarAtivosLocados(const NumeroSerie: string);
+begin
+  with QryLocados do
+  begin
+   Close;
+    SQL.Clear;
+
+    SQL.Add('SELECT');
+    SQL.Add('  A.ID_ATIVO,');
+    SQL.Add('  A.NUMERO_SERIE,');
+    SQL.Add('  A.DESCRICAO,');
+    SQL.Add('  A.ID_CLIENTE_PROPRIETARIO,');
+    SQL.Add('  CL.NOME_RAZAO AS NOME_CLIENTE,');
+    SQL.Add('  A.ID_STATUS,');
+    SQL.Add('  C.ID_CONTRATO,');
+    SQL.Add('  C.DATA_ENTREGA,');
+    SQL.Add('  C.DATA_DEVOLUCAO,');
+    SQL.Add('  C.QUANTIDADE');
+    SQL.Add('FROM ATIVOS A');
+    SQL.Add('JOIN ATIVOS_CONTRATOS C ON A.ID_ATIVO = C.ID_ATIVO');
+    SQL.Add('JOIN CLIENTES CL ON A.ID_CLIENTE_PROPRIETARIO = CL.ID_CLIENTE');
+
+    if NumeroSerie <> '' then
+    begin
+      SQL.Add('WHERE A.NUMERO_SERIE = :NumeroSerie');
+      ParamByName('NumeroSerie').AsString := NumeroSerie;
+    end;
+
+    Open;
+
+    FrmAgendamento.dbgLocados.DataSource := DSQryLocados;
+  end;
+
+end;
+
 
 procedure TDM.ListarClientes(Busca: String);
 begin

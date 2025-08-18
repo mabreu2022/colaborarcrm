@@ -74,14 +74,15 @@ type
     procedure btnCancelarAgendamentoClick(Sender: TObject);
     procedure btnExcluirAgendamentoClick(Sender: TObject);
     procedure btnFecharClick(Sender: TObject);
+    procedure btnPesquisarNumeroDeSerieClick(Sender: TObject);
   private
-    { Private declarations }
     btnnovoApertado: Boolean;
     procedure HabilitarCampos(AHabilitar: Boolean);
     procedure LimparCampos;
     function ValidarCampos: Boolean;
+    procedure PesquisarAgendamento;
   public
-    { Public declarations }
+
   protected
     procedure ExportD2Bridge; override;
     procedure InitControlsD2Bridge(const PrismControl: TPrismControl); override;
@@ -119,60 +120,60 @@ procedure TFrmAgendamento.btnNovoAgendamentoClick(Sender: TObject);
 begin
   inherited;
   btnnovoApertado := True;
-  // Prepara o formulário para um novo agendamento
+
   DM.qryAgenda.Append;
-  
-  // Limpa e habilita os campos
+
   LimparCampos;
   HabilitarCampos(True);
 
-  // Configura os botões
-  btnNovoAgendamento.Enabled := False;
-  btnEditarAgendamento.Enabled := False;
-  btnSalvarAgendamento.Enabled := True;
+
+  btnNovoAgendamento.Enabled     := False;
+  btnEditarAgendamento.Enabled   := False;
+  btnSalvarAgendamento.Enabled   := True;
   btnCancelarAgendamento.Enabled := True;
-  btnExcluirAgendamento.Enabled := False;
-  
-  // Posiciona o cursor no primeiro campo
-  //dblCliente.SetFocus;
+  btnExcluirAgendamento.Enabled  := False;
+
+end;
+
+procedure TFrmAgendamento.btnPesquisarNumeroDeSerieClick(Sender: TObject);
+begin
+  inherited;
+  PesquisarAgendamento;
+end;
+
+procedure TFrmAgendamento.PesquisarAgendamento;
+begin
+  DM.BuscarAtivosLocados(edtPesquisarNumeroDeSerie.Text);
 end;
 
 procedure TFrmAgendamento.btnEditarAgendamentoClick(Sender: TObject);
 begin
   inherited;
-  // Verifica se existe um agendamento selecionado
   if DM.qryAgenda.IsEmpty then
   begin
     ShowMessage('Selecione um agendamento para editar!');
     Exit;
   end;
-  
-  // Coloca o dataset em modo de edição
+
   DM.qryAgenda.Edit;
-  
-  // Habilita os campos
   HabilitarCampos(True);
-  
-  // Configura os botões
-  btnNovoAgendamento.Enabled := False;
-  btnEditarAgendamento.Enabled := False;
-  btnSalvarAgendamento.Enabled := True;
+
+  btnNovoAgendamento.Enabled     := False;
+  btnEditarAgendamento.Enabled   := False;
+  btnSalvarAgendamento.Enabled   := True;
   btnCancelarAgendamento.Enabled := True;
-  btnExcluirAgendamento.Enabled := False;
-  
-  // Posiciona o cursor no primeiro campo
+  btnExcluirAgendamento.Enabled  := False;
+
   dblCliente.SetFocus;
 end;
 
 procedure TFrmAgendamento.btnSalvarAgendamentoClick(Sender: TObject);
 begin
   inherited;
-  // Valida os campos antes de salvar
   if not ValidarCampos then
     Exit;
   
   try
-    // Preenche os campos do dataset
     DM.qryAgenda.FieldByName('ID_CLIENTE').AsVariant               := dblCliente.KeyValue;
     DM.qryAgenda.FieldByName('ID_CONTATO').AsVariant               := dblContato.KeyValue;
     DM.qryAgenda.FieldByName('ID_CONTRATO').AsVariant              := dblContrato.KeyValue;
@@ -182,20 +183,10 @@ begin
     DM.qryAgenda.FieldByName('DATA_DEVOLUCAO').AsDateTime          := dtpDataDaDevolucao.DateTime;
     DM.qryAgenda.FieldByName('OBSERVACAO').AsString                := memoObservacao.Text;
     DM.qryAgenda.FieldByName('ID_STATUS').AsVariant                := dblMotivoStatus.KeyValue;
-    
-    // Salva o registro
+
     DM.qryAgenda.Post;
-    
-    // Exibe mensagem de sucesso
     ShowMessage('Agendamento salvo com sucesso!');
-    
-    // Desabilita os campos e configura os botões
-//    HabilitarCampos(False);
-//    btnNovoAgendamento.Enabled := True;
-//    btnEditarAgendamento.Enabled := True;
-//    btnSalvarAgendamento.Enabled := False;
-//    btnCancelarAgendamento.Enabled := False;
-//    btnExcluirAgendamento.Enabled := True;
+
   except
     on E: Exception do
     begin
@@ -214,13 +205,10 @@ end;
 procedure TFrmAgendamento.btnCancelarAgendamentoClick(Sender: TObject);
 begin
   inherited;
-  // Cancela a operação atual
   DM.qryAgenda.Cancel;
-  
-  // Desabilita os campos
+
   HabilitarCampos(True);
-  
-  // Configura os botões
+
   btnNovoAgendamento.Enabled     := True;
   btnEditarAgendamento.Enabled   := True;
   btnSalvarAgendamento.Enabled   := False;
@@ -339,37 +327,36 @@ end;
 
 procedure TFrmAgendamento.HabilitarCampos(AHabilitar: Boolean);
 begin
-  // Habilita ou desabilita os campos do formulário
-  dblCliente.Enabled := AHabilitar;
-  dblContato.Enabled := AHabilitar;
-  dblContrato.Enabled := AHabilitar;
-  dblAtivo.Enabled := AHabilitar;
-  dtpDataRetirada.Enabled := AHabilitar;
+
+  dblCliente.Enabled               := AHabilitar;
+  dblContato.Enabled               := AHabilitar;
+  dblContrato.Enabled              := AHabilitar;
+  dblAtivo.Enabled                 := AHabilitar;
+  dtpDataRetirada.Enabled          := AHabilitar;
   dtpDataPrevistaDevolucao.Enabled := AHabilitar;
-  dtpDataDaDevolucao.Enabled := AHabilitar;
-  dblMotivoStatus.Enabled := AHabilitar;
-  memoObservacao.Enabled := AHabilitar;
+  dtpDataDaDevolucao.Enabled       := AHabilitar;
+  dblMotivoStatus.Enabled          := AHabilitar;
+  memoObservacao.Enabled           := AHabilitar;
 end;
 
 procedure TFrmAgendamento.LimparCampos;
 begin
-  // Limpa os campos do formulário
-  dblCliente.KeyValue := null;
-  dblContato.KeyValue := null;
-  dblContrato.KeyValue := null;
-  dblAtivo.KeyValue := null;
-  dtpDataRetirada.Date := Date;
-  dtpDataPrevistaDevolucao.Date := Date + 30; // 30 dias após a data atual
-  dtpDataDaDevolucao.Date := Date;
-  dblMotivoStatus.KeyValue := null;
+
+  dblCliente.KeyValue           := null;
+  dblContato.KeyValue           := null;
+  dblContrato.KeyValue          := null;
+  dblAtivo.KeyValue             := null;
+  dtpDataRetirada.Date          := Date;
+  dtpDataPrevistaDevolucao.Date := Date + 30;
+  dtpDataDaDevolucao.Date       := Date;
+  dblMotivoStatus.KeyValue      := null;
   memoObservacao.Lines.Clear;
 end;
 
 function TFrmAgendamento.ValidarCampos: Boolean;
 begin
   Result := True;
-  
-  // Validação dos campos obrigatórios
+
   if dblCliente.KeyValue = null then
   begin
     ShowMessage('Selecione um cliente!');
@@ -429,16 +416,6 @@ begin
   DM.qryContratos.Active           := True;
   DM.qryEquipamentosLocados.Active := True;
   DM.qryAgenda.Active              := True;
-  
-  // Inicializa a tela com os campos desabilitados
-  //HabilitarCampos(False);
-  
-  // Configura os botões iniciais
-//  btnNovoAgendamento.Enabled := True;
-//  btnEditarAgendamento.Enabled := True;
-//  btnSalvarAgendamento.Enabled := False;
-//  btnCancelarAgendamento.Enabled := False;
-//  btnExcluirAgendamento.Enabled := True;
 end;
 
 procedure TFrmAgendamento.InitControlsD2Bridge(const PrismControl: TPrismControl);

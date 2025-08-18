@@ -7,6 +7,7 @@ interface
 uses
   Winapi.Windows,
   Winapi.Messages,
+  Winapi.ShellAPI,
   System.SysUtils,
   System.Variants,
   System.Classes,
@@ -90,40 +91,52 @@ begin
   Title:= 'Relatorio Listagem de clientes';
 
   //TemplateClassForm:= TD2BridgeFormTemplate;
-  D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= '';
-  D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
-
-  with D2Bridge.Items.add do
-  begin
-//   with Row.Items.Add do
-//   begin
-//     VCLObj(frxPreview1);
-//   end;
-  end;
+  D2Bridge.FrameworkExportType.TemplateMasterHTMLFile := '';
+  D2Bridge.FrameworkExportType.TemplatePageHTMLFile   := '';
 
 end;
 
 procedure TFrmRelatorioListagemDeClientes.FormCreate(Sender: TObject);
+var
+  PDFPath: string;
+  FullPDFPath: string;
 begin
-  DM.QryCliente.Open;
+  try
+    DM.QryCliente.Open;
+    frxDBDataSet1.DataSet := DM.qryCliente;
+    frxDBDataSet1.UserName := 'Clientes';
+    frxReport1.DataSets.Add(frxDBDataSet1);
+    frxReport1.Clear;
+    frxReport1.LoadFromFile('Relatorios\ListagemDeClientes.fr3');
 
-  frxDBDataSet1.DataSet := DM.qryCliente;
-  frxDBDataSet1.UserName := 'Clientes';
-  frxReport1.DataSets.Add(frxDBDataSet1);
+    if not DirectoryExists('pdf') then
+      CreateDir('pdf');
 
-  frxReport1.Clear;
-  frxReport1.LoadFromFile('Relatorios\ListagemDeClientes.fr3');
+    PDFPath := 'pdf\ListagemdeClientes.pdf';
+    FullPDFPath := ExtractFilePath(Application.ExeName) + PDFPath;
 
-  frxPDFExport1.FileName := 'pdf\ListagemdeClientes.pdf';
-  frxPDFExport1.ShowDialog := False;
-  frxPDFExport1.OpenAfterExport := False;
-  frxPDFExport1.Background := True;
+    frxPDFExport1.FileName        := FullPDFPath;
+    frxPDFExport1.ShowDialog      := False;
+    frxPDFExport1.OpenAfterExport := False;
+    frxPDFExport1.Background      := True;
 
-  if frxReport1.PrepareReport(True) then
-  begin
-    frxReport1.Export(frxPDFExport1);
-    D2Bridge.PrismSession.SendFile('pdf\ListagemdeClientes.pdf', True);
+    if frxReport1.PrepareReport(True) then
+    begin
+      frxReport1.Export(frxPDFExport1);
 
+      if FileExists(FullPDFPath) then
+      begin
+        //PDF criado e abrindo no navegador
+        ShellExecute(0, 'open', PChar(FullPDFPath), nil, nil, SW_SHOW);
+
+        //Fechar o form após abrir o PDF (opcional)
+        //Self.Close;
+      end;
+    end;
+
+  except
+    on E: Exception do
+      ShowMessage('Erro: ' + E.Message);
   end;
 
 end;

@@ -3,7 +3,7 @@ object FrmAgendamento: TFrmAgendamento
   Top = 0
   Caption = 'Agendamento'
   ClientHeight = 467
-  ClientWidth = 911
+  ClientWidth = 1101
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,20 +16,22 @@ object FrmAgendamento: TFrmAgendamento
   object PageControl1: TPageControl
     Left = 0
     Top = 0
-    Width = 911
+    Width = 1101
     Height = 467
-    ActivePage = TabSheet1
+    ActivePage = Listagem
     Align = alClient
     TabOrder = 0
+    ExplicitWidth = 911
     object TabSheet1: TTabSheet
       Caption = 'Agendamento'
       object Panel1: TPanel
         Left = 0
         Top = 396
-        Width = 903
+        Width = 1093
         Height = 41
         Align = alBottom
         TabOrder = 0
+        ExplicitWidth = 903
         object btnNovoAgendamento: TButton
           Left = 6
           Top = 9
@@ -84,10 +86,11 @@ object FrmAgendamento: TFrmAgendamento
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 903
+        Width = 1093
         Height = 209
         Align = alTop
         TabOrder = 1
+        ExplicitWidth = 903
         object lblCliente: TLabel
           Left = 16
           Top = 8
@@ -243,25 +246,27 @@ object FrmAgendamento: TFrmAgendamento
         object memoObservacao: TMemo
           Left = 1
           Top = 138
-          Width = 901
+          Width = 1091
           Height = 70
           Align = alBottom
           Lines.Strings = (
             '')
           TabOrder = 8
+          ExplicitWidth = 901
         end
       end
       object Panel3: TPanel
         Left = 0
         Top = 209
-        Width = 903
+        Width = 1093
         Height = 187
         Align = alClient
         TabOrder = 2
+        ExplicitWidth = 903
         object dbgListaEquipamentosLocados: TDBGrid
           Left = 1
           Top = 42
-          Width = 901
+          Width = 1091
           Height = 144
           Align = alClient
           DataSource = DM.DSEquipamentosLocados
@@ -317,14 +322,15 @@ object FrmAgendamento: TFrmAgendamento
         object Panel4: TPanel
           Left = 1
           Top = 1
-          Width = 901
+          Width = 1091
           Height = 41
           Align = alTop
           TabOrder = 1
+          ExplicitWidth = 901
           object lblListaDeEquipamentos: TLabel
             Left = 1
             Top = 1
-            Width = 899
+            Width = 1089
             Height = 39
             Align = alClient
             Caption = 'Lista dos  equipamentos locados no cliente'
@@ -347,10 +353,10 @@ object FrmAgendamento: TFrmAgendamento
       object dbgLocados: TDBGrid
         Left = 0
         Top = 41
-        Width = 903
+        Width = 1093
         Height = 396
         Align = alClient
-        DataSource = DM.DSEquipamentosLocados
+        DataSource = DM.DSQryLocados
         Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
         TabOrder = 0
         TitleFont.Charset = DEFAULT_CHARSET
@@ -358,14 +364,72 @@ object FrmAgendamento: TFrmAgendamento
         TitleFont.Height = -12
         TitleFont.Name = 'Segoe UI'
         TitleFont.Style = []
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'NUMERO_SERIE'
+            Width = 100
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'DESCRICAO'
+            Width = 200
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'ID_CLIENTE_PROPRIETARIO'
+            Title.Caption = 'ID_CLIENTE'
+            Width = 70
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NOME_CLIENTE'
+            Width = 200
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'ID_STATUS'
+            Width = 100
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'ID_CONTRATO'
+            Width = 100
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'DATA_ENTREGA'
+            Width = 150
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'DATA_DEVOLUCAO'
+            Width = 150
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'QUANTIDADE'
+            Title.Caption = 'QTDE.'
+            Width = 100
+            Visible = True
+          end>
       end
       object Panel5: TPanel
         Left = 0
         Top = 0
-        Width = 903
+        Width = 1093
         Height = 41
         Align = alTop
         TabOrder = 1
+        ExplicitWidth = 903
         object lblPessuisarNumeroDeSerie: TLabel
           Left = 24
           Top = 16
@@ -387,6 +451,7 @@ object FrmAgendamento: TFrmAgendamento
           Height = 25
           Caption = 'Pesquisar'
           TabOrder = 1
+          OnClick = btnPesquisarNumeroDeSerieClick
         end
       end
     end

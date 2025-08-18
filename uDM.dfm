@@ -576,4 +576,89 @@ object DM: TDM
     Left = 624
     Top = 216
   end
+  object QryLocados: TFDQuery
+    Connection = Conn
+    SQL.Strings = (
+      'SELECT '
+      '    A.NUMERO_SERIE,'
+      '    A.DESCRICAO,'
+      '    A.ID_CLIENTE_PROPRIETARIO,'
+      '    CL.NOME_RAZAO AS NOME_CLIENTE,'
+      '    A.ID_STATUS,'
+      '    C.ID_CONTRATO,'
+      '    C.DATA_ENTREGA,'
+      '    C.DATA_DEVOLUCAO,'
+      '    C.QUANTIDADE'
+      'FROM '
+      '    ATIVOS A'
+      'JOIN '
+      '    ATIVOS_CONTRATOS C ON A.ID_ATIVO = C.ID_ATIVO'
+      
+        '    JOIN CLIENTES CL ON A.ID_CLIENTE_PROPRIETARIO = CL.ID_CLIENT' +
+        'E'
+      '')
+    Left = 456
+    Top = 288
+    object QryLocadosNUMERO_SERIE: TWideStringField
+      FieldName = 'NUMERO_SERIE'
+      Origin = 'NUMERO_SERIE'
+      Size = 50
+    end
+    object QryLocadosDESCRICAO: TWideStringField
+      FieldName = 'DESCRICAO'
+      Origin = 'DESCRICAO'
+      Required = True
+      Size = 100
+    end
+    object QryLocadosID_CLIENTE_PROPRIETARIO: TIntegerField
+      FieldName = 'ID_CLIENTE_PROPRIETARIO'
+      Origin = 'ID_CLIENTE_PROPRIETARIO'
+    end
+    object QryLocadosNOME_CLIENTE: TWideStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NOME_CLIENTE'
+      Origin = 'NOME_RAZAO'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 100
+    end
+    object QryLocadosID_STATUS: TIntegerField
+      FieldName = 'ID_STATUS'
+      Origin = 'ID_STATUS'
+      Required = True
+    end
+    object QryLocadosID_CONTRATO: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'ID_CONTRATO'
+      Origin = 'ID_CONTRATO'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object QryLocadosDATA_ENTREGA: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'DATA_ENTREGA'
+      Origin = 'DATA_ENTREGA'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object QryLocadosDATA_DEVOLUCAO: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'DATA_DEVOLUCAO'
+      Origin = 'DATA_DEVOLUCAO'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object QryLocadosQUANTIDADE: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'QUANTIDADE'
+      Origin = 'QUANTIDADE'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+  end
+  object DSQryLocados: TDataSource
+    DataSet = QryLocados
+    Left = 560
+    Top = 288
+  end
 end
