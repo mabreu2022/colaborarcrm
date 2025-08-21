@@ -40,7 +40,6 @@ object FrmRelatorioListagemDeClientes: TFrmRelatorioListagemDeClientes
       Height = 25
       Caption = 'Imprimir'
       TabOrder = 0
-      OnClick = Button1Click
     end
   end
   object frxReport1: TfrxReport

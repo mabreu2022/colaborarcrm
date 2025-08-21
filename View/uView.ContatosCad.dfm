@@ -1,0 +1,141 @@
+object FrmContatosCad: TFrmContatosCad
+  Left = 0
+  Top = 0
+  Caption = 'Cadastro de contatos'
+  ClientHeight = 357
+  ClientWidth = 480
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  OnShow = FormShow
+  TextHeight = 15
+  object lblNomeContato: TLabel
+    Left = 8
+    Top = 70
+    Width = 33
+    Height = 15
+    Caption = 'Nome'
+  end
+  object lblTelefone: TLabel
+    Left = 8
+    Top = 99
+    Width = 45
+    Height = 15
+    Caption = 'Telefone'
+  end
+  object lblEmail: TLabel
+    Left = 8
+    Top = 134
+    Width = 29
+    Height = 15
+    Caption = 'Email'
+  end
+  object lblCargo: TLabel
+    Left = 8
+    Top = 171
+    Width = 32
+    Height = 15
+    Caption = 'Cargo'
+  end
+  object lblObservacao: TLabel
+    Left = 8
+    Top = 216
+    Width = 62
+    Height = 15
+    Caption = 'Observacao'
+  end
+  object lblCliente: TLabel
+    Left = 8
+    Top = 27
+    Width = 37
+    Height = 15
+    Caption = 'Cliente'
+  end
+  object edtNome: TEdit
+    Left = 72
+    Top = 67
+    Width = 377
+    Height = 23
+    TabOrder = 0
+  end
+  object edtTelefone: TEdit
+    Left = 72
+    Top = 96
+    Width = 161
+    Height = 23
+    TabOrder = 1
+  end
+  object edtEmail: TEdit
+    Left = 72
+    Top = 131
+    Width = 377
+    Height = 23
+    TabOrder = 2
+  end
+  object edtCargo: TEdit
+    Left = 72
+    Top = 168
+    Width = 377
+    Height = 23
+    TabOrder = 3
+  end
+  object memObservacao: TMemo
+    Left = 72
+    Top = 213
+    Width = 377
+    Height = 89
+    Lines.Strings = (
+      '')
+    TabOrder = 4
+  end
+  object Panel1: TPanel
+    Left = 0
+    Top = 316
+    Width = 480
+    Height = 41
+    Align = alBottom
+    TabOrder = 5
+    object btnSalvar: TButton
+      Left = 24
+      Top = 8
+      Width = 75
+      Height = 25
+      Caption = 'Salvar'
+      TabOrder = 0
+      OnClick = btnSalvarClick
+    end
+    object btnEditar: TButton
+      Left = 120
+      Top = 8
+      Width = 75
+      Height = 25
+      Caption = 'Editar'
+      TabOrder = 1
+      OnClick = btnEditarClick
+    end
+    object btnFechar: TButton
+      Left = 384
+      Top = 8
+      Width = 75
+      Height = 25
+      Caption = 'Fechar'
+      TabOrder = 2
+      OnClick = btnFecharClick
+    end
+  end
+  object cbCliente: TDBLookupComboBox
+    Left = 72
+    Top = 24
+    Width = 377
+    Height = 23
+    DataField = 'ID_CLIENTE'
+    DataSource = DM.DScontatos
+    KeyField = 'ID_CLIENTE'
+    ListField = 'NOME_RAZAO'
+    ListSource = DM.DSCliente
+    TabOrder = 6
+  end
+end

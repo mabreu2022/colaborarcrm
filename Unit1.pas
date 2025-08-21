@@ -82,6 +82,7 @@ type
     procedure ListagemdeClientes1Click(Sender: TObject);
     procedure Agendamendo1Click(Sender: TObject);
     procedure sair1Click(Sender: TObject);
+    procedure Contratos2Click(Sender: TObject);
   private
     JaCarregouPermissoes: Boolean;
 
@@ -110,7 +111,7 @@ Uses
   uView.Clientes,
   uDM,
   uView.ControleDeUsuarios, Unit_Login, uView.Ativos, uView.Relatorios,
-  uView.Agendamento;
+  uView.Agendamento, uView.Contratos;
 
 Function Form1: TForm1;
 begin
@@ -175,6 +176,14 @@ begin
   FrmClientes.ShowModal;
 end;
 
+procedure TForm1.Contratos2Click(Sender: TObject);
+begin
+  if FrmContratos = nil then
+    TFrmContratos.CreateInstance;
+
+  FrmContratos.ShowModal;
+end;
+
 procedure TForm1.ExportarListaDeTelas;
 var
   i, j: Integer;
@@ -201,7 +210,7 @@ begin
 
       QryCheck.SQL.Text := 'SELECT COUNT(*) FROM PERMISSOES ' +
         'WHERE ID_PERFIL = :ID AND TRIM(NOME_TELA) = :TELA AND PODE_ACESSAR = TRUE';
-      QryCheck.ParamByName('ID').AsInteger := PerfilID;
+      QryCheck.ParamByName('ID').AsInteger  := PerfilID;
       QryCheck.ParamByName('TELA').AsString := NomePadronizado;
       QryCheck.Open;
 

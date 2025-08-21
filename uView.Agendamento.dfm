@@ -21,7 +21,6 @@ object FrmAgendamento: TFrmAgendamento
     ActivePage = Listagem
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 911
     object TabSheet1: TTabSheet
       Caption = 'Agendamento'
       object Panel1: TPanel
@@ -31,7 +30,6 @@ object FrmAgendamento: TFrmAgendamento
         Height = 41
         Align = alBottom
         TabOrder = 0
-        ExplicitWidth = 903
         object btnNovoAgendamento: TButton
           Left = 6
           Top = 9
@@ -90,7 +88,6 @@ object FrmAgendamento: TFrmAgendamento
         Height = 209
         Align = alTop
         TabOrder = 1
-        ExplicitWidth = 903
         object lblCliente: TLabel
           Left = 16
           Top = 8
@@ -252,7 +249,6 @@ object FrmAgendamento: TFrmAgendamento
           Lines.Strings = (
             '')
           TabOrder = 8
-          ExplicitWidth = 901
         end
       end
       object Panel3: TPanel
@@ -262,7 +258,6 @@ object FrmAgendamento: TFrmAgendamento
         Height = 187
         Align = alClient
         TabOrder = 2
-        ExplicitWidth = 903
         object dbgListaEquipamentosLocados: TDBGrid
           Left = 1
           Top = 42
@@ -326,7 +321,6 @@ object FrmAgendamento: TFrmAgendamento
           Height = 41
           Align = alTop
           TabOrder = 1
-          ExplicitWidth = 901
           object lblListaDeEquipamentos: TLabel
             Left = 1
             Top = 1
@@ -429,7 +423,6 @@ object FrmAgendamento: TFrmAgendamento
         Height = 41
         Align = alTop
         TabOrder = 1
-        ExplicitWidth = 903
         object lblPessuisarNumeroDeSerie: TLabel
           Left = 24
           Top = 16
@@ -445,8 +438,8 @@ object FrmAgendamento: TFrmAgendamento
           TabOrder = 0
         end
         object btnPesquisarNumeroDeSerie: TButton
-          Left = 352
-          Top = 8
+          Left = 335
+          Top = 9
           Width = 75
           Height = 25
           Caption = 'Pesquisar'

@@ -133,7 +133,7 @@ object FrmAtivos: TFrmAtivos
           OnClick = btnExcluirAtivoClick
         end
         object btnCancelarAtivo: TButton
-          Left = 365
+          Left = 373
           Top = 10
           Width = 75
           Height = 25

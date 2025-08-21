@@ -138,8 +138,8 @@ begin
   inherited;
   DM.qryAtivos.Append;
 
-  edtAtivo.text       := '';
-  edtNumeroDeSerie.Text:='';
+  edtAtivo.text         := '';
+  edtNumeroDeSerie.Text :='';
   edtAtivo.SetFocus;
 
 end;

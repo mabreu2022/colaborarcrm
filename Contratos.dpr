@@ -16,18 +16,18 @@ uses
   Unit_Login in 'Unit_Login.pas' {Form_Login},
   Unit_D2Bridge_Server in 'Unit_D2Bridge_Server.pas' {Form_D2Bridge_Server},
   Unit1 in 'Unit1.pas' {Form1},
-  uView.Clientes in 'uView.Clientes.pas' {FrmClientes},
-  uDM in 'uDM.pas' {DM: TDataModule},
-  uView.ContatosCad in 'uView.ContatosCad.pas' {FrmContatosCad},
+  uView.Clientes in 'View\uView.Clientes.pas' {FrmClientes},
+  uDM in 'DAO\uDM.pas' {DM: TDataModule},
+  uView.ContatosCad in 'View\uView.ContatosCad.pas' {FrmContatosCad},
   Vcl.Themes,
   Vcl.Styles,
-  uView.ControleDeUsuarios in 'uView.ControleDeUsuarios.pas' {FrmControleDeUsuarios},
-  uView.Ativos in 'uView.Ativos.pas' {FrmAtivos},
-  uView.Contratos in 'uView.Contratos.pas' {FrmContratos},
-  uView.Relatorios in 'uView.Relatorios.pas' {FrmRelatorios},
-  uView.Relatorio.ListagemDeClientes in 'uView.Relatorio.ListagemDeClientes.pas' {FrmRelatorioListagemDeClientes},
-  uView.Relatorio.ClientesPorCNPJ in 'uView.Relatorio.ClientesPorCNPJ.pas' {FrmRelatorioClientesPorCNPJ},
-  uView.Agendamento in 'uView.Agendamento.pas' {FrmAgendamento};
+  uView.ControleDeUsuarios in 'View\uView.ControleDeUsuarios.pas' {FrmControleDeUsuarios},
+  uView.Ativos in 'View\uView.Ativos.pas' {FrmAtivos},
+  uView.Contratos in 'View\uView.Contratos.pas' {FrmContratos},
+  uView.Relatorios in 'View\uView.Relatorios.pas' {FrmRelatorios},
+  uView.Relatorio.ListagemDeClientes in 'View\uView.Relatorio.ListagemDeClientes.pas' {FrmRelatorioListagemDeClientes},
+  uView.Relatorio.ClientesPorCNPJ in 'View\uView.Relatorio.ClientesPorCNPJ.pas' {FrmRelatorioClientesPorCNPJ},
+  uView.Agendamento in 'View\uView.Agendamento.pas' {FrmAgendamento};
 
 {$R *.res}
 

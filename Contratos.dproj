@@ -131,44 +131,44 @@
         <DCCReference Include="Unit1.pas">
             <Form>Form1</Form>
         </DCCReference>
-        <DCCReference Include="uView.Clientes.pas">
+        <DCCReference Include="View\uView.Clientes.pas">
             <Form>FrmClientes</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="uDM.pas">
+        <DCCReference Include="DAO\uDM.pas">
             <Form>DM</Form>
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="uView.ContatosCad.pas">
+        <DCCReference Include="View\uView.ContatosCad.pas">
             <Form>FrmContatosCad</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="uView.ControleDeUsuarios.pas">
+        <DCCReference Include="View\uView.ControleDeUsuarios.pas">
             <Form>FrmControleDeUsuarios</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="uView.Ativos.pas">
+        <DCCReference Include="View\uView.Ativos.pas">
             <Form>FrmAtivos</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="uView.Contratos.pas">
+        <DCCReference Include="View\uView.Contratos.pas">
             <Form>FrmContratos</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="uView.Relatorios.pas">
+        <DCCReference Include="View\uView.Relatorios.pas">
             <Form>FrmRelatorios</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="uView.Relatorio.ListagemDeClientes.pas">
+        <DCCReference Include="View\uView.Relatorio.ListagemDeClientes.pas">
             <Form>FrmRelatorioListagemDeClientes</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="uView.Relatorio.ClientesPorCNPJ.pas">
+        <DCCReference Include="View\uView.Relatorio.ClientesPorCNPJ.pas">
             <Form>FrmRelatorioClientesPorCNPJ</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="uView.Agendamento.pas">
+        <DCCReference Include="View\uView.Agendamento.pas">
             <Form>FrmAgendamento</Form>
             <FormType>dfm</FormType>
         </DCCReference>

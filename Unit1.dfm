@@ -38,6 +38,7 @@ object Form1: TForm1
         Caption = 'Contratos'
         object Contratos2: TMenuItem
           Caption = 'Contratos'
+          OnClick = Contratos2Click
         end
         object AtivosdoContrato1: TMenuItem
           Caption = 'Ativos do Contrato'

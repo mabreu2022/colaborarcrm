@@ -47,7 +47,6 @@ type
     Panel1: TPanel;
     Button1: TButton;
     procedure FormCreate(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -70,18 +69,6 @@ Uses
 function FrmRelatorioListagemDeClientes:TFrmRelatorioListagemDeClientes;
 begin
   result:= TFrmRelatorioListagemDeClientes(TFrmRelatorioListagemDeClientes.GetInstance);
-end;
-
-procedure TFrmRelatorioListagemDeClientes.Button1Click(Sender: TObject);
-begin
-  inherited;
-
-//  // ESSENCIAL: prepara o relatório antes de exportar
-//  if frxReport1.PrepareReport(True) then
-//  begin
-//    frxReport1.Export(frxPDFExport1);
-//    D2Bridge.PrismSession.SendFile('pdf\ListagemdeClientes.pdf', True);
-//  end;
 end;
 
 procedure TFrmRelatorioListagemDeClientes.ExportD2Bridge;
@@ -125,13 +112,8 @@ begin
       frxReport1.Export(frxPDFExport1);
 
       if FileExists(FullPDFPath) then
-      begin
-        //PDF criado e abrindo no navegador
         ShellExecute(0, 'open', PChar(FullPDFPath), nil, nil, SW_SHOW);
 
-        //Fechar o form após abrir o PDF (opcional)
-        //Self.Close;
-      end;
     end;
 
   except
